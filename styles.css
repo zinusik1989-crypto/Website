@@ -2074,19 +2074,19 @@ body.theme-dark #testimonials .sectionHead .h2{
   .hero{min-height: auto; padding-top: clamp(40px, 10vw, 72px); padding-bottom: clamp(48px, 11vw, 80px)}
   .hero__grid{gap: 22px}
   .portrait{width: min(360px, 100%); margin-inline: auto}
-  /* Сияние по кадру: на тач-экранах заметнее (без hover) */
+  /* Лёгкий блик по кадру: без «молочной» плёнки поверх лица */
   .portrait__shine{
-    opacity: 1;
+    opacity: 0.48;
     inset: -48% -36% auto -58%;
     width: 200%;
     height: 100%;
     background: linear-gradient(
       100deg,
       transparent 6%,
-      rgba(255, 255, 255, 0.22) 38%,
-      rgba(var(--polar-cyan-rgb), 0.2) 48%,
-      rgba(var(--polar-mint-rgb), 0.14) 54%,
-      rgba(var(--glass-opal), 0.28) 62%,
+      rgba(255, 255, 255, 0.12) 38%,
+      rgba(var(--polar-cyan-rgb), 0.12) 48%,
+      rgba(var(--polar-mint-rgb), 0.08) 54%,
+      rgba(var(--glass-opal), 0.14) 62%,
       transparent 82%
     );
     mix-blend-mode: screen;
@@ -2738,17 +2738,17 @@ body.force-mobile .h3{font-size: clamp(18px, 4.2vw, 21px)}
 body.force-mobile .quote__text{font-size: 16px; line-height: 1.78}
 body.force-mobile .portrait{width: min(360px, 100%); margin-inline: auto}
 body.force-mobile .portrait__shine{
-  opacity: 1;
+  opacity: 0.48;
   inset: -48% -36% auto -58%;
   width: 200%;
   height: 100%;
   background: linear-gradient(
     100deg,
     transparent 6%,
-    rgba(255, 255, 255, 0.22) 38%,
-    rgba(var(--polar-cyan-rgb), 0.2) 48%,
-    rgba(var(--polar-mint-rgb), 0.14) 54%,
-    rgba(var(--glass-opal), 0.28) 62%,
+    rgba(255, 255, 255, 0.12) 38%,
+    rgba(var(--polar-cyan-rgb), 0.12) 48%,
+    rgba(var(--polar-mint-rgb), 0.08) 54%,
+    rgba(var(--glass-opal), 0.14) 62%,
     transparent 82%
   );
   mix-blend-mode: screen;
