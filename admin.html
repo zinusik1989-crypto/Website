@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Админка — контент сайта Зинаида</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./admin.css" />
+    <link rel="icon" href="data:," />
+  </head>
+  <body>
+    <div class="admin">
+      <!-- Вход -->
+      <div id="adminLogin" class="admin-login">
+        <h1>Вход в панель</h1>
+        <p>
+          Редактирование текстов и ссылок. Данные хранятся только в браузере (localStorage).
+          На хостинг без доп. шагов посетители увидят исходные HTML-тексты — см. памятку ниже.
+        </p>
+        <form id="loginForm">
+          <label for="adminPin">PIN</label>
+          <input id="adminPin" type="password" name="pin" autocomplete="current-password" required />
+          <button class="btn btn--gold btn--full" type="submit">Войти</button>
+          <div id="loginStatus" class="admin-status" aria-live="polite" style="margin-top:12px"></div>
+        </form>
+        <p class="admin-muted">
+          PIN по умолчанию задан в <code>cms.js</code> → <code>SiteCMS.ADMIN_PIN</code>. Смените его перед
+          публикацией страницы <code>admin.html</code>.
+        </p>
+      </div>
+
+      <!-- Панель -->
+      <div id="adminPanel" hidden>
+        <header class="admin__hero">
+          <h1 class="admin__title">Контент лендинга</h1>
+          <p class="admin__lead">
+            Секции совпадают со страницей: от SEO и Open Graph до блока «боль», услуг с текстом под карточками,
+            аудитории, процесса, <strong>FAQ</strong>, прайса, отзывов, контактов и подвала. После сохранения откройте
+            <a href="./index.html">главную</a>. Экспортируйте JSON как резервную копию — её можно импортировать на
+            другом устройстве.
+          </p>
+          <div class="admin__actions">
+            <button type="submit" form="cmsForm" class="btn btn--gold">Сохранить изменения</button>
+            <button type="button" id="exportBtn" class="btn btn--ghost">Скачать JSON</button>
+            <label class="btn btn--ghost" style="cursor: pointer">
+              Импорт JSON
+              <input id="importInput" type="file" accept=".json,application/json" hidden />
+            </label>
+            <button type="button" id="resetBtn" class="btn btn--ghost">Сброс к исходнику</button>
+            <button type="button" id="logoutBtn" class="btn btn--ghost">Выйти</button>
+            <a class="btn btn--ghost" href="./index.html">На сайт</a>
+          </div>
+          <div id="cmsStatus" class="admin-status" aria-live="polite"></div>
+        </header>
+
+        <form id="cmsForm"></form>
+
+        <p class="admin-muted">
+          Чтобы текст на боевом хостинге совпадал с правками без localStorage: скопируйте значения в
+          разметку <code>index.html</code> вручную, либо подключите небольшой JSON и скрипт на сервере.
+          Отдельным шагом можно заменить пин-код или убрать <code>admin.html</code> из продакшена.
+        </p>
+      </div>
+    </div>
+
+    <script src="./cms.js"></script>
+    <script src="./admin.js"></script>
+  </body>
+</html>
