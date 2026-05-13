@@ -410,7 +410,8 @@ img{max-width:100%; display:block}
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding: 14px 0;
+  /* Вырез / статус-бар при viewport-fit=cover */
+  padding: max(14px, env(safe-area-inset-top, 0px)) max(0px, env(safe-area-inset-right, 0px)) 14px max(0px, env(safe-area-inset-left, 0px));
   gap:18px;
 }
 
@@ -1482,7 +1483,7 @@ html.modal-open,body.modal-open{overflow:hidden}
 .lightbox__dialog{
   position:relative;
   width: min(1080px, calc(100% - 32px));
-  margin: 18px auto;
+  margin: max(18px, env(safe-area-inset-top, 0px)) auto max(18px, env(safe-area-inset-bottom, 0px));
   border-radius: 26px;
   border: 1px solid rgba(var(--glass-opal),.12);
   background:
@@ -1493,8 +1494,8 @@ html.modal-open,body.modal-open{overflow:hidden}
 }
 .lightbox__close{
   position:absolute;
-  top: 12px;
-  right: 12px;
+  top: max(12px, env(safe-area-inset-top, 0px));
+  right: max(12px, env(safe-area-inset-right, 0px));
   width: 44px;
   height: 44px;
   border-radius: 16px;
@@ -1527,8 +1528,8 @@ html.modal-open,body.modal-open{overflow:hidden}
   backdrop-filter: blur(12px);
 }
 .lightbox__nav:hover{background: rgba(var(--glass-opal),.12)}
-.lightbox__nav--prev{left: 12px}
-.lightbox__nav--next{right: 12px}
+.lightbox__nav--prev{left: max(12px, env(safe-area-inset-left, 0px))}
+.lightbox__nav--next{right: max(12px, env(safe-area-inset-right, 0px))}
 .lightbox__stage{
   aspect-ratio: 16 / 10;
   background: rgba(0,0,0,.18);
@@ -2053,7 +2054,7 @@ body.theme-dark #testimonials .sectionHead .h2{
 
   .header__cta{display:none}
   .header .nav.nav--site{display: none !important;}
-  .header__inner{padding: 10px 0; gap: 10px}
+  .header__inner{padding: max(10px, env(safe-area-inset-top, 0px)) max(0px, env(safe-area-inset-right, 0px)) 10px max(0px, env(safe-area-inset-left, 0px)); gap: 10px}
   .brand{min-width: 0; gap: 8px}
   .brand__mark{width: 34px; height: 34px; border-radius: 11px; font-size: 15px}
   .brand__text{font-size: 15px}
@@ -2069,6 +2070,20 @@ body.theme-dark #testimonials .sectionHead .h2{
   .sectionHead{flex-direction:column; align-items:flex-start}
   .grid--cards{grid-template-columns: 1fr}
   .masonry{grid-template-columns: 1fr}
+
+  /* Подписи альбома: длинные строки из CMS не вылезают за кнопку */
+  .work__cap{
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .work__cap > div:first-child{
+    min-width: 0;
+    flex: 1 1 10rem;
+  }
+  .work__title,
+  .work__tag{
+    overflow-wrap: anywhere;
+  }
 
   .section{padding: clamp(48px, 12vw, 80px) 0}
   .hero{min-height: auto; padding-top: clamp(40px, 10vw, 72px); padding-bottom: clamp(48px, 11vw, 80px)}
@@ -2166,6 +2181,10 @@ body.theme-dark #testimonials .sectionHead .h2{
     border: 1px solid rgba(var(--polar-cyan-rgb), 0.14);
     box-shadow: 0 8px 32px rgba(0, 6, 20, 0.35);
   }
+  .heroScreenNav__list{
+    padding-left: max(2px, env(safe-area-inset-left, 0px));
+    padding-right: max(2px, env(safe-area-inset-right, 0px));
+  }
 
   .brand__text{
     min-height: 44px;
@@ -2174,11 +2193,11 @@ body.theme-dark #testimonials .sectionHead .h2{
     box-sizing: border-box;
   }
 
-  .lightbox__dialog{margin: 8px auto; width: calc(100% - 16px); border-radius: 20px}
+  .lightbox__dialog{margin: max(8px, env(safe-area-inset-top, 0px)) auto max(8px, env(safe-area-inset-bottom, 0px)); width: calc(100% - 16px); border-radius: 20px}
   .lightbox__nav{width: 38px; height: 38px; font-size: 22px}
-  .lightbox__nav--prev{left: 8px}
-  .lightbox__nav--next{right: 8px}
-  .lightbox__close{top: 8px; right: 8px; width: 38px; height: 38px; font-size: 20px}
+  .lightbox__nav--prev{left: max(8px, env(safe-area-inset-left, 0px))}
+  .lightbox__nav--next{right: max(8px, env(safe-area-inset-right, 0px))}
+  .lightbox__close{top: max(8px, env(safe-area-inset-top, 0px)); right: max(8px, env(safe-area-inset-right, 0px)); width: 38px; height: 38px; font-size: 20px}
   .lightbox__img{max-height: 58vh}
   .lightbox__title{font-size: 17px}
   .lightbox__thumb{width: 60px; height: 44px; border-radius: 11px}
@@ -2204,7 +2223,7 @@ body.theme-dark #testimonials .sectionHead .h2{
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .header__inner{gap: 6px}
+  .header__inner{gap: 6px; padding-top: max(10px, env(safe-area-inset-top, 0px)); padding-inline: max(0px, env(safe-area-inset-left, 0px)) max(0px, env(safe-area-inset-right, 0px))}
   .hero .h1{font-size: clamp(24px, 7.4vw, 32px)}
   .hero .lead{font-size: 14.5px; line-height: 1.74}
   .richP{font-size: 15px; line-height: 1.72}
@@ -2657,8 +2676,8 @@ main{
 
 .mobileToggle{
   position: fixed;
-  left: 18px;
-  bottom: 18px;
+  left: max(18px, env(safe-area-inset-left, 0px));
+  bottom: max(18px, env(safe-area-inset-bottom, 0px));
   z-index: 2500;
 
   width: 52px;
@@ -2698,7 +2717,7 @@ main{
 /* Force "mobile" layout on any screen */
 body.force-mobile{ --container: min(1120px, calc(100% - 32px)); }
 body.force-mobile .header__cta{display: none}
-body.force-mobile .header__inner{padding: 10px 0; gap: 10px}
+body.force-mobile .header__inner{padding: max(10px, env(safe-area-inset-top, 0px)) max(0px, env(safe-area-inset-right, 0px)) 10px max(0px, env(safe-area-inset-left, 0px)); gap: 10px}
 body.force-mobile .brand{min-width: 0; gap: 8px}
 body.force-mobile .brand__mark{width: 34px; height: 34px; border-radius: 11px; font-size: 15px}
 body.force-mobile .brand__text{
@@ -2714,6 +2733,18 @@ body.force-mobile .brand__text{
 body.force-mobile .sectionHead{flex-direction:column; align-items:flex-start}
 body.force-mobile .grid--cards{grid-template-columns: 1fr}
 body.force-mobile .masonry{grid-template-columns: 1fr}
+body.force-mobile .work__cap{
+  flex-wrap: wrap;
+  gap: 10px;
+}
+body.force-mobile .work__cap > div:first-child{
+  min-width: 0;
+  flex: 1 1 10rem;
+}
+body.force-mobile .work__title,
+body.force-mobile .work__tag{
+  overflow-wrap: anywhere;
+}
 body.force-mobile .pricing{grid-template-columns: 1fr; gap: 12px}
 body.force-mobile .priceList{grid-template-columns: 1fr; gap: 14px}
 body.force-mobile .priceGroup{padding: 16px 16px 12px}
@@ -2798,6 +2829,10 @@ body.force-mobile .hero .heroScreenNav{
   background: rgba(5, 12, 30, 0.42);
   border: 1px solid rgba(var(--polar-cyan-rgb), 0.14);
   box-shadow: 0 8px 32px rgba(0, 6, 20, 0.35);
+}
+body.force-mobile .heroScreenNav__list{
+  padding-left: max(2px, env(safe-area-inset-left, 0px));
+  padding-right: max(2px, env(safe-area-inset-right, 0px));
 }
 
 .card__icon{
