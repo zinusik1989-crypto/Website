@@ -316,19 +316,26 @@
 
             <div class="arctic-story-game__screen" data-step="upload">
               <h2 class="arctic-story-game__title">Покажи своё лицо северному свету</h2>
-              <label class="arctic-story-game__upload-zone" id="asgUploadZone">
+              <div
+                class="arctic-story-game__upload-zone"
+                id="asgUploadZone"
+                role="button"
+                tabindex="0"
+                aria-label="Загрузить фото для северного портала"
+              >
                 <input
                   type="file"
                   id="asgPhotoInput"
                   class="arctic-story-game__upload-input"
-                  accept="image/jpeg,image/png,image/webp,image/heic"
-                  aria-label="Загрузить фото"
+                  accept="image/jpeg,image/png,image/webp,image/heic,image/*"
+                  aria-hidden="true"
+                  tabindex="-1"
                 />
                 <div class="arctic-story-game__upload-placeholder">
                   <p class="arctic-story-game__upload-hint">Нажмите или перетащите фото</p>
                 </div>
                 <img class="arctic-story-game__preview" id="asgPreview" alt="" width="220" height="293" />
-              </label>
+              </div>
               <p class="arctic-story-game__privacy">Фото остаётся только в вашем браузере.</p>
               <button type="button" class="arctic-story-game__btn arctic-story-game__btn--primary" id="asgActivatePortal" disabled>
                 ❄️ Активировать портал

@@ -154,6 +154,10 @@
   let picks = { q1: null, q2: null, q3: null };
   let scores = {};
   let finalStyle = null;
+  let gameStarted = false;
+  let scanTimers = [];
+  let ritualTimer = null;
+  let scanSession = 0;
 
   const $ = (sel, ctx = root) => ctx?.querySelector(sel) ?? null;
 
@@ -164,6 +168,15 @@
     });
   }
 
+  function clearTimers() {
+    scanTimers.forEach((id) => clearTimeout(id));
+    scanTimers = [];
+    if (ritualTimer) {
+      clearTimeout(ritualTimer);
+      ritualTimer = null;
+    }
+  }
+
   function addScores(map) {
     Object.entries(map || {}).forEach(([id, pts]) => {
       scores[id] = (scores[id] || 0) + pts;
@@ -172,24 +185,12 @@
 
   function applyCombos() {
     const { q1, q2, q3 } = picks;
-    if (q1 === "strength" && q2 === "ice" && q3 === "palace") {
-      scores["ice-queen"] += 8;
-    }
-    if (q1 === "freedom" && q2 === "aurora") {
-      scores["aurora-soul"] += 8;
-    }
-    if (q1 === "self" && q3 === "cyber") {
-      scores["cyber-ice"] += 8;
-    }
-    if (q2 === "storm" && q3 === "wasteland") {
-      scores["dark-blizzard"] += 8;
-    }
-    if (q1 === "magic" && q2 === "mist" && q3 === "temple") {
-      scores["ice-oracle"] += 8;
-    }
-    if (q1 === "strength" && q3 === "palace" && q2 !== "ice") {
-      scores["snow-empress"] += 8;
-    }
+    if (q1 === "strength" && q2 === "ice" && q3 === "palace") scores["ice-queen"] += 8;
+    if (q1 === "freedom" && q2 === "aurora") scores["aurora-soul"] += 8;
+    if (q1 === "self" && q3 === "cyber") scores["cyber-ice"] += 8;
+    if (q2 === "storm" && q3 === "wasteland") scores["dark-blizzard"] += 8;
+    if (q1 === "magic" && q2 === "mist" && q3 === "temple") scores["ice-oracle"] += 8;
+    if (q1 === "strength" && q3 === "palace" && q2 !== "ice") scores["snow-empress"] += 8;
   }
 
   function resolveWinner() {
@@ -202,7 +203,7 @@
         max = v;
         leaders.length = 0;
         leaders.push(s.id);
-      } else if (v === max && v >= 0) {
+      } else if (v === max) {
         leaders.push(s.id);
       }
     });
@@ -215,18 +216,16 @@
     if (!root) return;
     const header = document.querySelector(".header");
     const headerH = header ? header.getBoundingClientRect().height : 64;
-    const top = root.getBoundingClientRect().top + window.scrollY - headerH - 8;
+    const top = root.getBoundingClientRect().top + window.scrollY - headerH - 12;
     window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
   }
-
-  let gameStarted = false;
 
   function showStep(name, opts = {}) {
     if (!root) return;
     root.querySelectorAll(".arctic-story-game__screen").forEach((el) => {
       el.classList.toggle("is-active", el.dataset.step === name);
     });
-    if (opts.scroll && gameStarted) {
+    if (opts.scroll !== false && gameStarted) {
       requestAnimationFrame(scrollIntoGameView);
     }
   }
@@ -263,6 +262,10 @@
     }
   }
 
+  function openFilePicker() {
+    $("#asgPhotoInput")?.click();
+  }
+
   function setPhoto(file) {
     if (!file) return;
     const isImage =
@@ -286,25 +289,34 @@
   }
 
   function runScan() {
+    clearTimers();
+    const session = ++scanSession;
     showStep("scan", { scroll: true });
     const textEl = $("#asgScanText");
     const line = $(".arctic-story-game__scan-line");
     line?.classList.add("is-active");
     const perLine = SCAN_MS / SCAN_LINES.length;
     SCAN_LINES.forEach((lineText, i) => {
-      setTimeout(() => {
-        if (textEl) textEl.textContent = lineText;
-      }, i * perLine);
+      scanTimers.push(
+        setTimeout(() => {
+          if (session !== scanSession) return;
+          if (textEl) textEl.textContent = lineText;
+        }, i * perLine)
+      );
     });
-    setTimeout(() => {
-      line?.classList.remove("is-active");
-      renderHeroScreen(0);
-      showStep("hero1", { scroll: true });
-    }, SCAN_MS);
+    scanTimers.push(
+      setTimeout(() => {
+        if (session !== scanSession) return;
+        line?.classList.remove("is-active");
+        renderHeroScreen(0);
+        showStep("hero1", { scroll: true });
+      }, SCAN_MS)
+    );
   }
 
   function renderHeroScreen(index) {
     const data = HERO_SCREENS[index];
+    if (!data || !root) return;
     const screen = root.querySelector(`[data-step="${data.step}"]`);
     if (!screen) return;
     const badge = screen.querySelector(".arctic-story-game__hero-badge");
@@ -339,10 +351,13 @@
   }
 
   function runRitual() {
+    clearTimers();
+    const session = scanSession;
     showStep("ritual", { scroll: true });
     const ring = $(".arctic-story-game__ritual .arctic-story-game__scan-ring");
     ring?.classList.add("is-pulse");
-    setTimeout(() => {
+    ritualTimer = setTimeout(() => {
+      if (session !== scanSession) return;
       ring?.classList.remove("is-pulse");
       finalStyle = resolveWinner();
       renderResult(finalStyle);
@@ -418,6 +433,9 @@
   }
 
   function restart() {
+    clearTimers();
+    scanSession += 1;
+    gameStarted = false;
     revokePhoto();
     picks = { q1: null, q2: null, q3: null };
     finalStyle = null;
@@ -430,12 +448,12 @@
     if (input) input.value = "";
     const btn = $("#asgActivatePortal");
     if (btn) btn.disabled = true;
+    HERO_SCREENS.forEach((_, i) => renderHeroScreen(i));
     showStep("portal", { scroll: false });
   }
 
   function bindEvents() {
-    root.querySelector(".arctic-story-game__btn-portal")?.addEventListener("click", (e) => {
-      e.preventDefault();
+    root.querySelector(".arctic-story-game__btn-portal")?.addEventListener("click", () => {
       gameStarted = true;
       showStep("upload", { scroll: true });
     });
@@ -443,10 +461,12 @@
     const zone = $("#asgUploadZone");
     const input = $("#asgPhotoInput");
 
-    zone?.addEventListener("click", (e) => {
-      if (e.target.closest("button")) return;
-      e.preventDefault();
-      input?.click();
+    zone?.addEventListener("click", () => openFilePicker());
+    zone?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openFilePicker();
+      }
     });
     zone?.addEventListener("dragover", (e) => {
       e.preventDefault();
@@ -464,9 +484,7 @@
       if (file) setPhoto(file);
     });
 
-    $("#asgActivatePortal")?.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+    $("#asgActivatePortal")?.addEventListener("click", () => {
       if (!photoObjectUrl) {
         showToast("Сначала загрузите фото");
         return;
@@ -478,21 +496,37 @@
     $("#asgCreateAi")?.addEventListener("click", () => {
       alert("Следующий шаг — генерация AI-образа через Make/OpenAI.");
     });
-    $(".arctic-story-game__btn-share")?.addEventListener("click", shareResult);
-    $(".arctic-story-game__btn-restart")?.addEventListener("click", restart);
+    root.querySelector(".arctic-story-game__btn-share")?.addEventListener("click", shareResult);
+    root.querySelector(".arctic-story-game__btn-restart")?.addEventListener("click", restart);
+  }
+
+  function ensureVisible() {
+    const app = root?.querySelector(".arctic-story-game__app");
+    if (app) {
+      app.classList.add("is-visible");
+      app.classList.remove("reveal");
+    }
+  }
+
+  function handleHash() {
+    if (!root) return;
+    if (location.hash === "#arctic-story-game") {
+      ensureVisible();
+      requestAnimationFrame(scrollIntoGameView);
+    }
   }
 
   function init() {
     root = document.querySelector(".arctic-story-game");
     if (!root) return;
-    const app = root.querySelector(".arctic-story-game__app");
-    app?.classList.add("is-visible");
-    app?.classList.remove("reveal");
+    ensureVisible();
     initScores();
     spawnSnow($("#asgSnow"));
     HERO_SCREENS.forEach((_, i) => renderHeroScreen(i));
     bindEvents();
     showStep("portal", { scroll: false });
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
   }
 
   if (document.readyState === "loading") {

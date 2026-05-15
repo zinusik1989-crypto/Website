@@ -493,14 +493,22 @@
       });
     });
 
-    const onEnd = (e) => {
-      if (e.propertyName !== "transform") return;
+    let finished = false;
+    const finishSpin = () => {
+      if (finished) return;
+      finished = true;
       wheel.removeEventListener("transitionend", onEnd);
+      clearTimeout(fallbackTimer);
       wheel.classList.remove("is-spinning");
       spinning = false;
       if (btn) btn.disabled = false;
       runScanThenResult();
     };
+    const onEnd = (e) => {
+      if (e.propertyName !== "transform") return;
+      finishSpin();
+    };
+    const fallbackTimer = setTimeout(finishSpin, duration + 400);
     wheel.addEventListener("transitionend", onEnd);
   }
 
@@ -585,12 +593,26 @@
     $(".arctic-wheel-section__btn-restart")?.addEventListener("click", restart);
   }
 
+  function ensureVisible() {
+    const app = root?.querySelector(".arctic-wheel-section__app");
+    if (app) {
+      app.classList.add("is-visible");
+      app.classList.remove("reveal");
+    }
+  }
+
+  function handleHash() {
+    if (!root) return;
+    if (location.hash === "#arctic-wheel") {
+      ensureVisible();
+      requestAnimationFrame(scrollIntoGameView);
+    }
+  }
+
   function init() {
     root = document.querySelector(".arctic-wheel-section");
     if (!root) return;
-    const app = root.querySelector(".arctic-wheel-section__app");
-    app?.classList.add("is-visible");
-    app?.classList.remove("reveal");
+    ensureVisible();
     wheel = $("#arcticWheelDisk");
     if (wheel) wheel.style.background = buildWheelGradient();
     setGender("f");
@@ -598,6 +620,8 @@
     resetQuizScores();
     bindEvents();
     showStep("hero", { scroll: false });
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
 
     let resizeTid;
     window.addEventListener("resize", () => {

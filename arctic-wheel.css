@@ -89,6 +89,11 @@
 .arctic-wheel-section__app {
   position: relative;
   z-index: 1;
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+  display: flex;
+  flex-direction: column;
   margin-inline: auto;
   border-radius: calc(var(--aw-radius) + 6px);
   border: 1px solid var(--aw-border);
@@ -162,6 +167,8 @@
 
 .arctic-wheel-section__screen.is-active {
   display: flex;
+  flex: 1;
+  min-height: 0;
 }
 
 @keyframes awFadeIn {
