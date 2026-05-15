@@ -2376,13 +2376,13 @@ body:is(.theme-dark, .theme-day) #testimonials .sectionHead .h2{
     overflow-wrap: anywhere;
   }
 
-  /* Полярный день: подпись альбома на светлой подложке — текст читается на фото */
+  /* Полярный день: подпись альбома на плотной светлой подложке */
   body.theme-day .work::after{
     background: linear-gradient(
       180deg,
-      transparent 48%,
-      rgba(18, 42, 68, 0.08) 72%,
-      rgba(18, 42, 68, 0.16) 100%
+      transparent 40%,
+      rgba(15, 40, 64, 0.14) 65%,
+      rgba(15, 40, 64, 0.28) 100%
     );
   }
   body.theme-day .work__cap{
@@ -2391,29 +2391,34 @@ body:is(.theme-dark, .theme-day) #testimonials .sectionHead .h2{
     bottom: 10px;
     padding: 12px 14px;
     border-radius: 14px;
-    background: rgba(255, 252, 254, 0.94);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(244, 168, 198, 0.32);
+    background: #ffffff;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(2, 132, 199, 0.28);
     box-shadow:
-      0 14px 40px rgba(30, 80, 130, 0.16),
-      inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      0 12px 36px rgba(15, 40, 64, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 1);
+    align-items: center;
   }
   body.theme-day .work__title{
-    color: rgba(18, 42, 68, 0.96);
+    color: #0f2840;
+    font-weight: 600;
+    text-shadow: none;
   }
   body.theme-day .work__tag{
-    color: rgba(18, 42, 68, 0.65);
+    color: rgba(15, 40, 64, 0.82);
+    text-shadow: none;
   }
   body.theme-day .work__btn{
-    border-color: rgba(13, 148, 136, 0.38);
+    flex-shrink: 0;
+    border-color: rgba(13, 148, 136, 0.5);
     background: linear-gradient(
       135deg,
-      rgba(13, 148, 136, 0.94) 0%,
-      rgba(2, 132, 199, 0.9) 100%
+      #0d9488 0%,
+      #0284c7 100%
     );
-    color: rgba(255, 255, 255, 0.98);
-    box-shadow: 0 8px 22px rgba(13, 148, 136, 0.28);
+    color: #ffffff;
+    box-shadow: 0 8px 22px rgba(13, 148, 136, 0.32);
   }
 
   .section{padding: clamp(48px, 12vw, 80px) 0}
@@ -3251,6 +3256,33 @@ body:is(.theme-dark, .theme-day) .card:hover{
 .work__tag{
   color: rgba(var(--polar-ice-rgb), 0.7);
 }
+
+/* Полярный день + мобильная: подписи альбома поверх общих .work__* (ледяные карточки) */
+@media (max-width: 720px) {
+  body.theme-day .work__title{
+    color: #0f2840;
+    font-weight: 600;
+  }
+  body.theme-day .work__tag{
+    color: rgba(15, 40, 64, 0.82);
+  }
+  body.theme-day .work__btn{
+    color: #ffffff;
+    background: linear-gradient(135deg, #0d9488 0%, #0284c7 100%);
+  }
+}
+body.force-mobile.theme-day .work__title{
+  color: #0f2840;
+  font-weight: 600;
+}
+body.force-mobile.theme-day .work__tag{
+  color: rgba(15, 40, 64, 0.82);
+}
+body.force-mobile.theme-day .work__btn{
+  color: #ffffff;
+  background: linear-gradient(135deg, #0d9488 0%, #0284c7 100%);
+}
+
 .chip{
   color: rgba(var(--polar-ice-rgb), 0.9);
   border-color: rgba(var(--polar-cyan-rgb), 0.15);
@@ -3584,9 +3616,9 @@ body.force-mobile .work__btn{min-height: 40px}
 body.force-mobile.theme-day .work::after{
   background: linear-gradient(
     180deg,
-    transparent 48%,
-    rgba(18, 42, 68, 0.08) 72%,
-    rgba(18, 42, 68, 0.16) 100%
+    transparent 40%,
+    rgba(15, 40, 64, 0.14) 65%,
+    rgba(15, 40, 64, 0.28) 100%
   );
 }
 body.force-mobile.theme-day .work__cap{
@@ -3595,29 +3627,30 @@ body.force-mobile.theme-day .work__cap{
   bottom: 10px;
   padding: 12px 14px;
   border-radius: 14px;
-  background: rgba(255, 252, 254, 0.94);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(244, 168, 198, 0.32);
+  background: #ffffff;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(2, 132, 199, 0.28);
   box-shadow:
-    0 14px 40px rgba(30, 80, 130, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    0 12px 36px rgba(15, 40, 64, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  align-items: center;
 }
 body.force-mobile.theme-day .work__title{
-  color: rgba(18, 42, 68, 0.96);
+  color: #0f2840;
+  font-weight: 600;
+  text-shadow: none;
 }
 body.force-mobile.theme-day .work__tag{
-  color: rgba(18, 42, 68, 0.65);
+  color: rgba(15, 40, 64, 0.82);
+  text-shadow: none;
 }
 body.force-mobile.theme-day .work__btn{
-  border-color: rgba(13, 148, 136, 0.38);
-  background: linear-gradient(
-    135deg,
-    rgba(13, 148, 136, 0.94) 0%,
-    rgba(2, 132, 199, 0.9) 100%
-  );
-  color: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 8px 22px rgba(13, 148, 136, 0.28);
+  flex-shrink: 0;
+  border-color: rgba(13, 148, 136, 0.5);
+  background: linear-gradient(135deg, #0d9488 0%, #0284c7 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 22px rgba(13, 148, 136, 0.32);
 }
 body.force-mobile .chip{min-height: 44px}
 body.force-mobile .step{padding: 14px}
