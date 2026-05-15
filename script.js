@@ -225,7 +225,8 @@ function setupAlbumLightbox() {
       b.type = "button";
       b.className = "lightbox__thumb";
       b.setAttribute("aria-label", `Открыть фото ${i + 1}`);
-      b.innerHTML = `<img src="${it.src}" alt="" loading="lazy" decoding="async" />`;
+      const altLabel = `${currentAlbumTitle} — миниатюра ${i + 1}`.replace(/"/g, "'");
+      b.innerHTML = `<img src="${it.src}" alt="${altLabel}" loading="lazy" decoding="async" />`;
       b.addEventListener("click", () => setIndex(i));
       thumbsEl.appendChild(b);
     });

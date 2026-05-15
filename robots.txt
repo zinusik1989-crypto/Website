@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Укажите полный URL после публикации (или задайте «Базовый URL сайта» в CMS → SEO).
+Sitemap: https://79992.github.io/Website/sitemap.xml

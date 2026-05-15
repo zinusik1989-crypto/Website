@@ -10,15 +10,17 @@
   const LEGACY_HERO_PORTRAIT = "./hero-portrait.jpg";
 
   const defaults = {
-    page_title: "Зинаида | Фото мечты без камеры",
+    site_url: "",
+    page_title: "Нейрофотосессии в Заполярном | Зинаида — AI-фото без камеры",
     meta_description:
-      "Зинаида — нейрофотосессии из Заполярного, Мурманская область. AI-визуал в северной эстетике: полярная ночь, сияние, глянец.",
-    canonical_href: "./index.html",
-    og_title: "Зинаида | Фото мечты без камеры",
+      "Зинаида — нейрофотосессии из Заполярного, Мурманская область. AI-визуал в северной эстетике: полярная ночь, сияние, глянец. Женский, детский и семейный портрет.",
+    canonical_href: "./",
+    og_title: "Нейрофотосессии в Заполярном | Зинаида",
     og_description:
       "Нейрофотосессии из Заполярного — AI-визуал в северной эстетике для экспертов, брендов и бизнеса.",
+    og_url: "./",
     og_image: "./arctic-aurora.png",
-    twitter_title: "Зинаида | Фото мечты без камеры",
+    twitter_title: "Нейрофотосессии в Заполярном | Зинаида",
     twitter_description:
       "Нейрофотосессии из Заполярного — AI-визуал в северной эстетике для экспертов, брендов и бизнеса.",
     twitter_image: "./arctic-aurora.png",
@@ -34,7 +36,7 @@
     header_consult_btn: "Консультация",
 
     kicker: "Заполярный • нейрофотосессии • AI-visual",
-    hero_h1: "Зинаида | Фото мечты без камеры",
+    hero_h1: "Фото мечты без камеры",
     hero_lead:
       "Создаю нейрофотосессии и AI-визуал из Заполярного — за Полярным кругом, где ночь длинная, а свет в кадре особенный",
     hero_btn_primary: "Записаться на фотосессию",
@@ -115,10 +117,11 @@
 
     portfolio_h2: "Примеры работ",
     portfolio_intro:
-      "Северная нейрофотосессия из Заполярного и другие направления — альбомы скоро появятся на сайте.",
+      "Северная нейрофотосессия из Заполярного, женский и семейный портрет, детские образы — откройте альбом целиком.",
     work_btn: "Скоро",
 
     work_arctic_img: "./arctic-glass.png",
+    work_arctic_alt: "Северная нейрофотосессия у панорамного окна, северное сияние, Заполярный",
     work_arctic_title: "Север / Арктика",
     work_arctic_tag: "Заполярный • альбом • 3 фото",
     work_arctic_btn: "Смотреть альбом",
@@ -126,6 +129,7 @@
 
     work_women_img:
       "./Фото/__N5af5iDWD4U3AowFNzss_-HpvxMB37l3V39rlOlHKrUrYkYzooxnkDO5zFDgr4rx2HENq95vEHH-gzW48VxEH8.jpg",
+    work_women_alt: "Женский нейропортрет с букетом тюльпанов, редакционная съёмка",
     work_women_title: "Женский портрет",
     work_women_tag: "альбом • 23 фото",
     work_women_btn: "Смотреть альбом",
@@ -137,6 +141,7 @@
 
     work_kids_img:
       "./Фото/kGGtl1PM7Oehm48cT_5n8ilkOtJlMwBHakeW2Sn0wonW3ZSQFozu51vjX8OAljVT1ccHAeKr8WjeRl67BWKGa6JB.jpg",
+    work_kids_alt: "Детский нейропортрет в нежных тонах, фотосессия для ребёнка",
     work_kids_title: "Дети",
     work_kids_tag: "альбом • 5 фото",
     work_kids_btn: "Смотреть альбом",
@@ -144,6 +149,7 @@
 
     work_family_img:
       "./Фото/P0vCw76IjUNjwRdrx-6ihROi7crNXqCFzcgjxEywlpGKLOLzisFGX6pPi4G6GnUTiJX5dUp9-AgIojlyS9qCVBGK.jpg",
+    work_family_alt: "Семейная нейрофотосессия на природе, золотой час",
     work_family_title: "Семейная",
     work_family_tag: "альбом • 4 фото",
     work_family_btn: "Смотреть альбом",
@@ -259,7 +265,7 @@
     cta_note:
       "Замените контакты на ваши: email / Telegram / WhatsApp. Кнопки можно связать с формой или мессенджером.",
 
-    cta_mail_href: "mailto:zinaida@example.com",
+    cta_mail_href: "https://t.me/zinaida_ai",
     contact_tg_label: "Telegram",
     contact_tg_href: "https://t.me/zinaida_ai",
     contact_tg_text: "@zinaida_ai",
@@ -279,16 +285,18 @@
 
     lb_dialog_aria: "Альбом",
     lb_title: "Альбом",
-    lb_img_alt: "",
+    lb_img_alt: "Фото из альбома портфолио Зинаида",
   };
 
   const schema = [
     { section: "SEO, соцсети и вкладка", fields: [
+      { key: "site_url", label: "Базовый URL сайта (https://… без слэша в конце; пусто = авто)", type: "text", wide: true },
       { key: "page_title", label: "Заголовок вкладки (title)", type: "text" },
       { key: "meta_description", label: "Meta description (name=description)", type: "textarea", rows: 3, wide: true },
-      { key: "canonical_href", label: "Canonical (href, относительный или полный URL)", type: "text", wide: true },
+      { key: "canonical_href", label: "Canonical (./ или полный URL)", type: "text", wide: true },
       { key: "og_title", label: "Open Graph — og:title", type: "text" },
       { key: "og_description", label: "Open Graph — og:description", type: "textarea", rows: 3 },
+      { key: "og_url", label: "Open Graph — og:url (./ = главная)", type: "text", wide: true },
       { key: "og_image", label: "Open Graph — og:image (URL/путь)", type: "text", wide: true },
       { key: "twitter_title", label: "Twitter — title", type: "text" },
       { key: "twitter_description", label: "Twitter — description", type: "textarea", rows: 3 },
@@ -369,12 +377,14 @@
       { key: "work_btn", label: "Текст на кнопке карточки", type: "text" },
 
       { key: "work_arctic_img", label: "Север — превью (путь)", type: "text" },
+      { key: "work_arctic_alt", label: "Север — alt превью", type: "text", wide: true },
       { key: "work_arctic_title", label: "Север — название", type: "text" },
       { key: "work_arctic_tag", label: "Север — подпись", type: "text" },
       { key: "work_arctic_btn", label: "Север — текст кнопки", type: "text" },
       { key: "work_arctic_aria", label: "Север — aria-label кнопки", type: "text" },
 
       { key: "work_women_img", label: "Женский портрет — превью (путь)", type: "text" },
+      { key: "work_women_alt", label: "Женский портрет — alt превью", type: "text", wide: true },
       { key: "work_women_title", label: "Женский портрет — название", type: "text" },
       { key: "work_women_tag", label: "Женский портрет — подпись (альбом • N фото)", type: "text" },
       { key: "work_women_btn", label: "Женский портрет — текст кнопки", type: "text" },
@@ -386,12 +396,14 @@
       { key: "work_men_aria", label: "Мужской портрет — aria-label кнопки", type: "text" },
 
       { key: "work_kids_img", label: "Дети — превью (путь)", type: "text" },
+      { key: "work_kids_alt", label: "Дети — alt превью", type: "text", wide: true },
       { key: "work_kids_title", label: "Дети — название", type: "text" },
       { key: "work_kids_tag", label: "Дети — подпись", type: "text" },
       { key: "work_kids_btn", label: "Дети — текст кнопки", type: "text" },
       { key: "work_kids_aria", label: "Дети — aria-label кнопки", type: "text" },
 
       { key: "work_family_img", label: "Семейная — превью (путь)", type: "text" },
+      { key: "work_family_alt", label: "Семейная — alt превью", type: "text", wide: true },
       { key: "work_family_title", label: "Семейная — название", type: "text" },
       { key: "work_family_tag", label: "Семейная — подпись", type: "text" },
       { key: "work_family_btn", label: "Семейная — текст кнопки", type: "text" },
@@ -548,6 +560,76 @@
     return v;
   }
 
+  function getSiteBase(data) {
+    const custom = String(data.site_url || "").trim().replace(/\/$/, "");
+    if (/^https?:\/\//i.test(custom)) return custom;
+    if (typeof window !== "undefined" && window.SiteSEO) return window.SiteSEO.siteBase();
+    return "";
+  }
+
+  function applySchema(data, base) {
+    const el = document.getElementById("schemaOrg");
+    if (!el || !base) return;
+    const name = String(data.brand_name || defaults.brand_name);
+    const desc = String(data.meta_description || defaults.meta_description);
+    const img = window.SiteSEO
+      ? window.SiteSEO.abs(String(data.og_image || defaults.og_image), base)
+      : String(data.og_image || defaults.og_image);
+    const graph = [
+      {
+        "@type": "ProfessionalService",
+        "@id": `${base}/#business`,
+        name: `${name} — нейрофотосессии`,
+        description: desc,
+        url: base + "/",
+        image: img,
+        telephone: "+7-921-668-02-15",
+        areaServed: {
+          "@type": "City",
+          name: "Заполярный",
+          containedInPlace: {
+            "@type": "AdministrativeArea",
+            name: "Мурманская область",
+          },
+        },
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Заполярный",
+          addressRegion: "Мурманская область",
+          addressCountry: "RU",
+        },
+        sameAs: [
+          String(data.contact_tg_href || defaults.contact_tg_href),
+          String(data.contact_vk_href || defaults.contact_vk_href),
+        ].filter((u) => /^https?:\/\//i.test(u)),
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${base}/#website`,
+        name: String(data.page_title || defaults.page_title),
+        url: base + "/",
+        inLanguage: "ru-RU",
+        publisher: { "@id": `${base}/#business` },
+      },
+    ];
+    el.textContent = JSON.stringify({ "@context": "https://schema.org", "@graph": graph });
+  }
+
+  function applySeoHead(data) {
+    const base = getSiteBase(data);
+    if (base) document.documentElement.setAttribute("data-site-base", base);
+
+    if (window.SiteSEO) {
+      window.SiteSEO.patchHead({
+        base,
+        canonical: data.canonical_href,
+        ogUrl: data.og_url || data.canonical_href,
+      });
+    }
+
+    applySchema(data, base);
+  }
+
   function apply(data) {
     document.querySelectorAll("[data-cms]").forEach((el) => {
       const key = el.getAttribute("data-cms");
@@ -584,6 +666,8 @@
     if (meta && data.meta_description) meta.setAttribute("content", String(data.meta_description));
 
     if (data.page_title) document.title = String(data.page_title);
+
+    applySeoHead(data);
   }
 
   function save(data) {
