@@ -165,13 +165,20 @@ function setupAlbumLightbox() {
     "Фото/xPN6XipEXbrFxejWa1B5i0jTtXYT9L4SNbcIZrqbENt0DKN9SXf2vmiiwQ4BVQfRa6jSsp7NNylvgF_KRKua3uf1.jpg",
   ];
 
+  const FAMILY_FILES = [
+    "Фото/F3pKiqX_oZI9Wis632FSdcIUcV924uXqUYomiehmQf6OlqlpFjx7TZ-8Qvk5uephfHGp_CJeXHKHhmXA6dJ4j26d.jpg",
+    "Фото/IX51jJQkcGq1TXKJw3PxvTmY94ReALJAVpY6jkHT23-yseMBPqIdsXxC2sr4q2-b48FROp9Ono87wv8gZnt7k0Lc.jpg",
+    "Фото/P0vCw76IjUNjwRdrx-6ihROi7crNXqCFzcgjxEywlpGKLOLzisFGX6pPi4G6GnUTiJX5dUp9-AgIojlyS9qCVBGK.jpg",
+    "Фото/xN0hZRt7R4BhlQ_RSyBtpB9e5B9BwpVeIKJwhfmLZJDppkjuibEh_g72pUV05p0_G40FF5IQjXw1BmZRg1EKJg8s.jpg",
+  ];
+
   /** Альбомы: пустые — лайтбокс не открывается */
   const ALBUM_FILES = {
     arctic: [],
     women: [],
     men: [],
     kids: KIDS_FILES,
-    family: [],
+    family: FAMILY_FILES,
   };
 
   let images = [];

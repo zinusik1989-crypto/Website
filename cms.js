@@ -137,8 +137,11 @@
     work_kids_btn: "Смотреть альбом",
     work_kids_aria: "Открыть альбом: Дети",
 
+    work_family_img:
+      "./Фото/P0vCw76IjUNjwRdrx-6ihROi7crNXqCFzcgjxEywlpGKLOLzisFGX6pPi4G6GnUTiJX5dUp9-AgIojlyS9qCVBGK.jpg",
     work_family_title: "Семейная",
-    work_family_tag: "альбом",
+    work_family_tag: "альбом • 4 фото",
+    work_family_btn: "Смотреть альбом",
     work_family_aria: "Открыть альбом: Семейная съёмка",
 
     audience_h2: "Для кого",
@@ -384,6 +387,7 @@
       { key: "work_family_img", label: "Семейная — превью (путь)", type: "text" },
       { key: "work_family_title", label: "Семейная — название", type: "text" },
       { key: "work_family_tag", label: "Семейная — подпись", type: "text" },
+      { key: "work_family_btn", label: "Семейная — текст кнопки", type: "text" },
       { key: "work_family_aria", label: "Семейная — aria-label кнопки", type: "text" },
 
       { key: "lb_dialog_aria", label: "Лайтбокс — запасной aria-label диалога", type: "text" },
