@@ -244,9 +244,9 @@
   function httpErrorMessage(status, detail) {
     if (status === 401) {
       return (
-        "Make webhook: 401 (доступ запрещён). Скопируйте новый URL из модуля Webhook в Make " +
-        "и вставьте в data-webhook-url. Если в Webhook включён API Key — укажите data-webhook-key " +
-        "или отключите защиту в настройках webhook."
+        "Webhook Make не принимает запросы (401). Откройте Make → модуль Webhook → " +
+        "создайте НОВЫЙ webhook, скопируйте URL в data-webhook-url на сайте. " +
+        "Если включён API Key — впишите его в data-webhook-key или отключите защиту."
       );
     }
     if (status === 410) {
@@ -260,32 +260,40 @@
 
   async function parseMakeResponse(response) {
     const rawText = await response.text();
-    let data = {};
-    if (rawText) {
-      try {
-        data = JSON.parse(rawText);
-      } catch {
-        const err = new Error(
-          `Make вернул не JSON (HTTP ${response.status}). Проверьте модуль «Webhook response».`
-        );
-        err.retryable = false;
-        throw err;
-      }
-    }
 
     if (!response.ok) {
-      const unwrapped = unwrapMakeData(data);
-      const detail =
-        unwrapped?.error ||
-        unwrapped?.message ||
-        unwrapped?.description ||
-        rawText.slice(0, 160);
+      let detail = rawText.trim().slice(0, 160);
+      if (rawText.trim()) {
+        try {
+          const parsed = unwrapMakeData(JSON.parse(rawText));
+          detail = parsed?.error || parsed?.message || parsed?.description || detail;
+        } catch {
+          /* не JSON — оставляем detail как текст */
+        }
+      }
       const err = new Error(httpErrorMessage(response.status, detail));
       err.retryable =
         response.status !== 401 &&
         response.status !== 404 &&
         response.status !== 410 &&
         (response.status === 408 || response.status === 429 || response.status >= 500);
+      throw err;
+    }
+
+    if (!rawText.trim()) {
+      const err = new Error("Make вернул пустой ответ. Добавьте модуль Webhook response с JSON.");
+      err.retryable = false;
+      throw err;
+    }
+
+    let data;
+    try {
+      data = JSON.parse(rawText);
+    } catch {
+      const err = new Error(
+        "Make вернул не JSON. В конце сценария нужен модуль Webhook response: {\"image\":\"...\"}"
+      );
+      err.retryable = false;
       throw err;
     }
 
@@ -305,7 +313,7 @@
     const response = await fetch(url, {
       method: "POST",
       headers: getWebhookHeaders(),
-      body: JSON.stringify({ prompt }),
+      body: JSON.stringify({ prompt, text: prompt }),
       signal,
     });
     return parseMakeResponse(response);

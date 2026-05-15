@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Проверка Make webhook</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 640px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+      textarea,
+      input {
+        width: 100%;
+        box-sizing: border-box;
+        margin: 0.5rem 0 1rem;
+      }
+      button {
+        padding: 0.6rem 1.2rem;
+        cursor: pointer;
+      }
+      pre {
+        background: #111;
+        color: #eee;
+        padding: 1rem;
+        overflow: auto;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Проверка Make webhook</h1>
+    <p>Откройте этот файл локально или на GitHub Pages. Если видите <strong>401</strong> — webhook в Make нужно пересоздать.</p>
+    <label>URL webhook</label>
+    <input id="url" type="url" value="https://hook.eu1.make.com/umyhmpvq9z22p2o8o8r2xvki7w4othfs" />
+    <label>API Key (если есть в Make)</label>
+    <input id="key" type="text" placeholder="оставьте пустым, если защита выключена" />
+    <label>Prompt</label>
+    <textarea id="prompt" rows="3">Luxury arctic portrait test</textarea>
+    <button type="button" id="run">Отправить тест</button>
+    <pre id="out">Нажмите «Отправить тест»</pre>
+    <script>
+      document.getElementById("run").onclick = async () => {
+        const out = document.getElementById("out");
+        const url = document.getElementById("url").value.trim();
+        const key = document.getElementById("key").value.trim();
+        const prompt = document.getElementById("prompt").value.trim();
+        const headers = { "Content-Type": "application/json" };
+        if (key) headers["x-make-apikey"] = key;
+        out.textContent = "Отправка…";
+        try {
+          const res = await fetch(url, {
+            method: "POST",
+            headers,
+            body: JSON.stringify({ prompt, text: prompt }),
+          });
+          const text = await res.text();
+          out.textContent = `HTTP ${res.status}\n\n${text || "(пустое тело)"}`;
+        } catch (e) {
+          out.textContent = "Ошибка сети / CORS:\n" + e.message;
+        }
+      };
+    </script>
+  </body>
+</html>
