@@ -239,6 +239,12 @@ body.theme-day{
     animation: none;
     opacity: 0.38;
   }
+  body.theme-day .polar-backdrop__aurora--1,
+  body.theme-day .polar-backdrop__aurora--2,
+  body.theme-day .polar-backdrop__aurora--3{
+    animation: none;
+    opacity: 0.44;
+  }
 }
 
 body.theme-day .polar-backdrop__stars{
@@ -3224,25 +3230,26 @@ body.theme-day .footer{
 }
 body.theme-day .section--soft{
   background:
-    radial-gradient(900px 480px at 20% 0%, rgba(147, 197, 253, 0.2), transparent 58%),
-    radial-gradient(820px 520px at 85% 100%, rgba(254, 215, 170, 0.12), transparent 62%),
-    rgba(232, 244, 255, 0.72);
-  border-top-color: rgba(2, 132, 199, 0.12);
-  border-bottom-color: rgba(2, 132, 199, 0.12);
+    radial-gradient(900px 480px at 20% 0%, rgba(147, 197, 253, 0.18), transparent 58%),
+    radial-gradient(820px 420px at 50% 100%, rgba(251, 182, 206, 0.16), transparent 62%),
+    rgba(240, 248, 255, 0.68);
+  border-top-color: rgba(2, 132, 199, 0.1);
+  border-bottom-color: rgba(244, 168, 198, 0.14);
 }
 body.theme-day .hero__bg::after{
   background:
     linear-gradient(
       180deg,
-      rgba(232, 244, 255, 0.55) 0%,
-      rgba(210, 230, 250, 0.08) 42%,
-      rgba(200, 220, 245, 0.35) 100%
+      rgba(230, 242, 255, 0.5) 0%,
+      rgba(220, 235, 250, 0.06) 38%,
+      rgba(255, 218, 228, 0.22) 78%,
+      rgba(251, 182, 206, 0.28) 100%
     ),
     linear-gradient(
       90deg,
-      rgba(220, 235, 250, 0.35) 0%,
-      rgba(240, 248, 255, 0.05) 50%,
-      rgba(255, 248, 240, 0.08) 100%
+      rgba(255, 228, 235, 0.2) 0%,
+      rgba(240, 248, 255, 0.04) 50%,
+      rgba(253, 186, 216, 0.18) 100%
     );
 }
 body.theme-day .hero__softAuroraMount canvas{
@@ -3253,9 +3260,9 @@ body.theme-day .hero__softAuroraMount--fallback{
   opacity: 0.85;
   filter: saturate(0.95) brightness(1.08);
   background:
-    radial-gradient(ellipse 125% 92% at 50% 98%, rgba(253, 186, 116, 0.28), transparent 56%),
-    radial-gradient(ellipse 100% 78% at 8% 18%, rgba(125, 211, 252, 0.38), transparent 52%),
-    radial-gradient(ellipse 88% 64% at 92% 22%, rgba(191, 219, 254, 0.32), transparent 50%);
+    radial-gradient(ellipse 125% 92% at 50% 98%, rgba(251, 146, 180, 0.38), transparent 54%),
+    radial-gradient(ellipse 100% 78% at 8% 18%, rgba(186, 230, 253, 0.32), transparent 52%),
+    radial-gradient(ellipse 88% 64% at 92% 22%, rgba(253, 186, 216, 0.28), transparent 50%);
 }
 body.theme-day .hero .heroScreenNav{
   background: rgba(255, 255, 255, 0.55);

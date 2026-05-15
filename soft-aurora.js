@@ -388,8 +388,8 @@ export function initSoftAurora(container, opts = {}) {
   const setTheme = (theme) => {
     if (!program) return;
     const day = theme === "day";
-    program.uniforms.uColor1.value = hexToVec3(day ? "#fff7ed" : cfg.color1);
-    program.uniforms.uColor2.value = hexToVec3(day ? "#7dd3fc" : cfg.color2);
+    program.uniforms.uColor1.value = hexToVec3(day ? "#fff0f5" : cfg.color1);
+    program.uniforms.uColor2.value = hexToVec3(day ? "#f9a8d4" : cfg.color2);
     program.uniforms.uBrightness.value = day
       ? Math.min(1.25, cfg.brightness * 0.88)
       : cfg.brightness;
