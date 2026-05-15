@@ -159,6 +159,7 @@
   function runScan() {
     showStep("scan");
     const bar = $(".ai-id__progress-bar");
+    const progress = $(".ai-id__progress");
     const stageEl = $(".ai-id__stage");
     const start = performance.now();
 
@@ -166,6 +167,7 @@
       const t = Math.min(1, (now - start) / SCAN_DURATION_MS);
       const pct = Math.round(t * 100);
       if (bar) bar.style.width = `${pct}%`;
+      if (progress) progress.setAttribute("aria-valuenow", String(pct));
       const stageIdx = Math.min(SCAN_STAGES.length - 1, Math.floor(t * SCAN_STAGES.length));
       if (stageEl) stageEl.textContent = SCAN_STAGES[stageIdx];
       if (t < 1) {
@@ -275,7 +277,9 @@
       img.alt = "";
     });
     const bar = $(".ai-id__progress-bar");
+    const progress = $(".ai-id__progress");
     if (bar) bar.style.width = "0%";
+    if (progress) progress.setAttribute("aria-valuenow", "0");
     showStep("upload");
   }
 

@@ -117,6 +117,7 @@
               <li><a class="nav__link" href="#about" data-cms="nav_about">Обо мне</a></li>
               <li><a class="nav__link" href="#services" data-cms="nav_services">Услуги</a></li>
               <li><a class="nav__link" href="#portfolio" data-cms="nav_portfolio">Портфолио</a></li>
+              <li><a class="nav__link" href="#arctic-identity">Arctic AI</a></li>
               <li><a class="nav__link" href="#pricing" data-cms="nav_pricing">Тарифы</a></li>
               <li><a class="nav__link" href="#contacts" data-cms="nav_contacts">Контакты</a></li>
               <li class="heroScreenNav__cta">
@@ -489,6 +490,78 @@
                 <span class="work__btn" aria-hidden="true" data-cms="work_family_btn">Смотреть альбом</span>
               </div>
             </button>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ARCTIC AI IDENTITY -->
+      <section class="section section--soft" id="arctic-identity" aria-label="Arctic AI Identity — подбор образа">
+        <div class="container">
+          <div class="sectionHead reveal">
+            <h2 class="h2">Arctic AI Identity</h2>
+            <p class="muted">
+              Загрузите фото, пройдите северное сканирование и выберите cinematic-образ нейрофотосессии.
+            </p>
+          </div>
+          <div class="ai-id reveal" id="arcticIdentity">
+            <div class="ai-id__wrap">
+              <div class="ai-id__aurora" aria-hidden="true"></div>
+              <div class="ai-id__snow" aria-hidden="true"></div>
+              <div class="ai-id__panel">
+                <header class="ai-id__head">
+                  <p class="ai-id__kicker">Luxury Arctic AI</p>
+                  <h3 class="ai-id__title">Ваш северный образ</h3>
+                  <p class="ai-id__sub">Интерактивный подбор стиля нейрофотосессии</p>
+                </header>
+                <div class="ai-id__body">
+                  <div class="ai-id__step ai-id__step--upload is-active" data-step="upload">
+                    <label class="ai-id__drop" id="aiIdDrop">
+                      <span class="ai-id__drop-icon" aria-hidden="true">❄</span>
+                      <p class="ai-id__drop-text">Перетащите фото сюда<br />или нажмите для выбора</p>
+                    </label>
+                    <input class="ai-id__file" id="aiIdFile" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Загрузить фото" />
+                    <button type="button" class="ai-id__btn ai-id__btn--primary ai-id__btn-pick">Загрузить фото</button>
+                  </div>
+                  <div class="ai-id__step ai-id__step--scan" data-step="scan">
+                    <div class="ai-id__preview-wrap">
+                      <img class="ai-id__preview" alt="" decoding="async" />
+                      <div class="ai-id__scan-overlay" aria-hidden="true"></div>
+                      <div class="ai-id__scan-line" aria-hidden="true"></div>
+                    </div>
+                    <p class="ai-id__stage">AI сканирует ваш образ…</p>
+                    <div class="ai-id__progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                      <div class="ai-id__progress-bar"></div>
+                    </div>
+                  </div>
+                  <div class="ai-id__step" data-step="styles">
+                    <p class="ai-id__sub" style="text-align: center; margin: 0">Выберите стиль образа</p>
+                    <div class="ai-id__styles" role="listbox" aria-label="Стили нейрофотосессии"></div>
+                  </div>
+                  <div class="ai-id__step" data-step="result">
+                    <div class="ai-id__result-card" id="aiIdResultCard">
+                      <div class="ai-id__result-photo">
+                        <img alt="" decoding="async" />
+                      </div>
+                      <div class="ai-id__result-meta">
+                        <p class="ai-id__result-style">Arctic AI Identity</p>
+                        <h4 class="ai-id__result-name"></h4>
+                        <p class="ai-id__result-desc"></p>
+                        <p class="ai-id__result-tagline"></p>
+                      </div>
+                    </div>
+                    <div class="ai-id__actions">
+                      <button type="button" class="ai-id__btn ai-id__btn--primary ai-id__btn-download">Скачать карточку</button>
+                      <button type="button" class="ai-id__btn ai-id__btn-share">Поделиться</button>
+                      <button type="button" class="ai-id__btn ai-id__btn-retry">Попробовать другой стиль</button>
+                      <a class="ai-id__btn ai-id__btn--gold" href="#contacts">Заказать нейрофотосессию</a>
+                    </div>
+                  </div>
+                </div>
+                <p class="ai-id__privacy">Фото не загружается на сервер и остаётся только в вашем браузере.</p>
+              </div>
+              <div class="ai-id__toast" role="status" aria-live="polite"></div>
+            </div>
           </div>
         </div>
       </section>
@@ -978,6 +1051,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
     <script src="./cms.js" defer></script>
     <script src="./script.js" defer></script>
+    <script src="./arctic-identity.js" defer></script>
     <script src="./splash-cursor.js" defer></script>
     <script type="module" src="./soft-aurora.js"></script>
   </body>
