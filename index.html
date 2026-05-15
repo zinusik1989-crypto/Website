@@ -501,15 +501,12 @@
           <div class="sectionHead reveal">
             <h2 class="h2">Arctic AI Identity</h2>
             <p class="muted">
-              Загрузите фото, пройдите северное сканирование и выберите cinematic-образ нейрофотосессии.
+              Загрузите фото, выберите северный стиль — и за пару секунд получите cinematic-карточку для соцсетей.
             </p>
           </div>
           <div
             class="ai-id reveal"
             id="arcticIdentity"
-            data-webhook-url="https://hook.eu1.make.com/53w90r7hodo8c46hfswv949nbkoxog8n"
-            data-webhook-key=""
-            data-cors-mode="auto"
           >
             <div class="ai-id__wrap">
               <div class="ai-id__aurora" aria-hidden="true"></div>
@@ -556,47 +553,20 @@
                         <p class="ai-id__result-tagline"></p>
                       </div>
                     </div>
+                    <p class="ai-id__result-note ai-id__sub">Карточка на вашем фото — готова к скачиванию и публикации.</p>
                     <div class="ai-id__actions ai-id__actions--preview">
-                      <button type="button" class="ai-id__btn ai-id__btn--primary ai-id__btn-generate">
-                        Сгенерировать AI-фотосессию
-                      </button>
-                      <button type="button" class="ai-id__btn ai-id__btn-download">Скачать карточку</button>
+                      <button type="button" class="ai-id__btn ai-id__btn--primary ai-id__btn-download">Скачать карточку</button>
                       <button type="button" class="ai-id__btn ai-id__btn-share">Поделиться</button>
-                      <button type="button" class="ai-id__btn ai-id__btn-retry">Попробовать другой стиль</button>
-                      <a class="ai-id__btn ai-id__btn--gold" href="#contacts">Заказать нейрофотосессию</a>
-                    </div>
-                  </div>
-                  <div class="ai-id__step ai-id__step--generating" data-step="generating" aria-busy="true">
-                    <div class="ai-id__gen-loader">
-                      <div class="ai-id__gen-aurora" aria-hidden="true"></div>
-                      <div class="ai-id__gen-ring" aria-hidden="true"></div>
-                      <p class="ai-id__gen-text">Создаём ваш арктический образ…</p>
-                      <p class="ai-id__gen-hint">Luxury Arctic AI · Make.com</p>
-                    </div>
-                  </div>
-                  <div class="ai-id__step" data-step="generated">
-                    <div class="ai-id__generated-wrap">
-                      <div class="ai-id__generated-photo">
-                        <img class="ai-id__generated-img" alt="Сгенерированная AI-фотосессия" decoding="async" />
-                      </div>
-                      <div class="ai-id__generated-meta">
-                        <p class="ai-id__result-style">Arctic AI Photoshoot</p>
-                        <h4 class="ai-id__generated-name"></h4>
-                      </div>
-                    </div>
-                    <div class="ai-id__actions ai-id__actions--generated">
-                      <button type="button" class="ai-id__btn ai-id__btn--primary ai-id__btn-download-ai">Скачать</button>
-                      <button type="button" class="ai-id__btn ai-id__btn-regenerate">Сгенерировать ещё</button>
-                      <button type="button" class="ai-id__btn ai-id__btn-share-ai">Поделиться</button>
                       <button type="button" class="ai-id__btn ai-id__btn-back-style">Другой стиль</button>
+                      <button type="button" class="ai-id__btn ai-id__btn-retry">Новое фото</button>
+                      <a class="ai-id__btn ai-id__btn--gold" href="#contacts">Заказать нейрофотосессию</a>
                     </div>
                   </div>
                 </div>
                 <p class="ai-id__privacy">
-                  Исходное фото остаётся в браузере. При генерации AI-образа на Make.com отправляется только текстовый prompt.
+                  Фото обрабатывается только в вашем браузере и никуда не отправляется.
                 </p>
               </div>
-              <div class="ai-id__error" role="alert" hidden></div>
               <div class="ai-id__toast" role="status" aria-live="polite"></div>
             </div>
           </div>

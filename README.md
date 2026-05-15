@@ -70,65 +70,15 @@ git push -u origin main
 - Секреты в репозитории для этого workflow не нужны: используется встроенный `GITHUB_TOKEN` и разрешения `pages: write` + `id-token: write`.
 - В **опубликованную** папку попадают только HTML/CSS/JS, `cms.js`, `.nojekyll` и изображения в корне (`*.png`, `*.jpg` и т.д.) — не весь репозиторий, чтобы на Pages не оказывались служебные каталоги вроде `.git`.
 
-## Arctic AI Identity + Make.com
+## Arctic AI Identity
 
-Мини-игра генерирует **AI-фотосессию** через webhook [Make.com](https://www.make.com/): на сайт (GitHub Pages) уходит только **текстовый prompt**, ключ OpenAI хранится в сценарии Make.
+Интерактивный блок на главной: **фото → скан → выбор стиля → cinematic-карточка**.
 
-В `index.html` у `#arcticIdentity` задан `data-webhook-url` (можно заменить на свой):
+- Всё работает **в браузере**, без серверов и внешних API.
+- Фото никуда не отправляется.
+- Скачивание карточки — через `html2canvas` (подгружается по кнопке).
 
-```html
-data-webhook-url="https://hook.eu1.make.com/53w90r7hodo8c46hfswv949nbkoxog8n"
-```
-
-### Формат сценария Make
-
-1. **Webhook** — приём `POST` JSON: `{ "prompt": "..." }`.
-2. Модули OpenAI / Images — генерация по prompt (ключ только в Make).
-3. **Webhook response** — JSON: `{ "image": "<base64 без префикса data:>" }`.
-
-Логика на сайте: `arctic-identity.js` → `generateArcticImage(prompt)` → показ `data:image/png;base64,…` в блоке результата.
-
-### GitHub Pages — Vercel не нужен
-
-На `github.io` сайт **сам** обходит CORS через встроенный прокси (`corsproxy.io` → Make).  
-Атрибут `data-cors-mode="auto"` уже стоит на `#arcticIdentity`.
-
-Если не хотите сторонний прокси — задеплойте сайт на **[Netlify](https://netlify.com)** из того же GitHub (бесплатно, без Vercel):
-
-1. Netlify → **Add new site** → Import from GitHub.
-2. Build command: пусто, Publish directory: `.` (корень).
-3. Функция `netlify/functions/make-webhook.mjs` подключится автоматически.
-
-Опционально свой прокси (Netlify/Vercel URL):
-
-```html
-data-proxy-url="https://ваш-сайт.netlify.app"
-```
-
-### Как исправить «Ошибка сценария Make»
-
-| Симптом | Что сделать |
-|--------|-------------|
-| CORS / `data-proxy-url` | Задеплойте Vercel, заполните `data-proxy-url` |
-| HTTP 404 / 410 | В Make включите сценарий (переключатель **ON**) |
-| HTTP 500 | Make → **History** → красный запуск → исправьте модуль OpenAI (ключ, лимит) |
-| «не вернул поле image» | Последний модуль — **Webhook response**, тело: `{"image":"{{base64}}"} ` |
-| Долго грузится | В сценарии увеличьте таймаут; на Vercel уже 120 с |
-
-**Проверка webhook в Make:** модуль Webhook → **Run once** → в браузере или Postman:
-
-```http
-POST https://hook.eu1.make.com/53w90r7hodo8c46hfswv949nbkoxog8n
-Content-Type: application/json
-
-{"prompt":"test arctic portrait"}
-```
-
-Ответ должен быть JSON с полем `image` (строка base64).
-
-### Опционально: прямой OpenAI
-
-`api/generate-image.js` — альтернатива без Make (нужен `OPENAI_API_KEY` на Vercel).
+Файлы: `arctic-identity.js`, `arctic-identity.css`, секция `#arctic-identity` в `index.html`.
 
 ## Запуск
 
