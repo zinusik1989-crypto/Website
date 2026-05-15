@@ -2271,7 +2271,14 @@ body:is(.theme-dark, .theme-day) #testimonials .sectionHead .h2{
 
   .header__cta{display:none}
   .header .nav.nav--site{display: none !important;}
-  .header__inner{padding: max(10px, env(safe-area-inset-top, 0px)) max(0px, env(safe-area-inset-right, 0px)) 10px max(0px, env(safe-area-inset-left, 0px)); gap: 10px}
+  .header__inner{
+    padding:
+      max(10px, env(safe-area-inset-top, 0px))
+      max(54px, calc(env(safe-area-inset-right, 0px) + 46px))
+      10px
+      max(0px, env(safe-area-inset-left, 0px));
+    gap: 10px;
+  }
   .brand{min-width: 0; gap: 8px}
   .brand__mark{width: 34px; height: 34px; border-radius: 11px; font-size: 15px}
   .brand__text{font-size: 15px}
@@ -2513,13 +2520,11 @@ body:is(.theme-dark, .theme-day) #testimonials .sectionHead .h2{
 
   .polarThemeToggle{
     top: max(10px, env(safe-area-inset-top, 0px));
-    left: max(10px, env(safe-area-inset-left, 0px));
+    left: auto;
+    right: max(10px, env(safe-area-inset-right, 0px));
     width: 42px;
     height: 42px;
     border-radius: 13px;
-  }
-  .header__inner{
-    padding-left: max(54px, calc(env(safe-area-inset-left, 0px) + 46px));
   }
 
   body:is(.theme-dark, .theme-day) .metaCard,
@@ -2563,7 +2568,12 @@ body:is(.theme-dark, .theme-day) #testimonials .sectionHead .h2{
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .header__inner{gap: 6px; padding-top: max(10px, env(safe-area-inset-top, 0px)); padding-inline: max(0px, env(safe-area-inset-left, 0px)) max(0px, env(safe-area-inset-right, 0px))}
+  .header__inner{
+    gap: 6px;
+    padding-top: max(10px, env(safe-area-inset-top, 0px));
+    padding-left: max(0px, env(safe-area-inset-left, 0px));
+    padding-right: max(54px, calc(env(safe-area-inset-right, 0px) + 46px));
+  }
   .hero .h1{font-size: clamp(24px, 7.4vw, 32px)}
   .hero .lead{font-size: 14.5px; line-height: 1.74}
   .richP{font-size: 15px; line-height: 1.72}
@@ -3365,7 +3375,14 @@ body.theme-day .btn--gold{
 /* Force "mobile" layout on any screen */
 body.force-mobile{ --container: min(1120px, calc(100% - 32px)); }
 body.force-mobile .header__cta{display: none}
-body.force-mobile .header__inner{padding: max(10px, env(safe-area-inset-top, 0px)) max(0px, env(safe-area-inset-right, 0px)) 10px max(0px, env(safe-area-inset-left, 0px)); gap: 10px}
+body.force-mobile .header__inner{
+  padding:
+    max(10px, env(safe-area-inset-top, 0px))
+    max(54px, calc(env(safe-area-inset-right, 0px) + 46px))
+    10px
+    max(0px, env(safe-area-inset-left, 0px));
+  gap: 10px;
+}
 body.force-mobile .brand{min-width: 0; gap: 8px}
 body.force-mobile .brand__mark{width: 34px; height: 34px; border-radius: 11px; font-size: 15px}
 body.force-mobile .brand__text{
@@ -3534,8 +3551,17 @@ body.force-mobile.theme-day .work__btn{
 }
 body.force-mobile .chip{min-height: 44px}
 body.force-mobile .step{padding: 14px}
+body.force-mobile .polarThemeToggle{
+  top: max(10px, env(safe-area-inset-top, 0px));
+  left: auto;
+  right: max(10px, env(safe-area-inset-right, 0px));
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+}
 body.force-mobile .header__inner{
-  padding-left: max(54px, calc(env(safe-area-inset-left, 0px) + 46px));
+  padding-left: max(0px, env(safe-area-inset-left, 0px));
+  padding-right: max(54px, calc(env(safe-area-inset-right, 0px) + 46px));
 }
 
 .card__icon{
