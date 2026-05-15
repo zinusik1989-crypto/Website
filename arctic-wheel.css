@@ -1,3 +1,75 @@
+/* Кнопка в Hero → колесо */
+.hero__wheel-cta-wrap {
+  margin-top: 22px;
+  width: 100%;
+}
+
+.btn--wheel-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 100%;
+  padding: 15px 22px;
+  border: 1px solid rgba(52, 211, 153, 0.55);
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: #030a1a;
+  cursor: pointer;
+  background: linear-gradient(135deg, #22d3ee 0%, #34d399 50%, #67e8f9 100%);
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.35),
+    0 10px 36px rgba(34, 211, 238, 0.35),
+    0 0 48px rgba(52, 211, 153, 0.2);
+  animation: awCtaPulse 2.8s ease-in-out infinite;
+  transition: transform 0.2s cubic-bezier(0.22, 0.8, 0.2, 1), box-shadow 0.2s;
+}
+
+.btn--wheel-cta:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow:
+    0 0 0 1px rgba(52, 211, 153, 0.65),
+    0 14px 44px rgba(34, 211, 238, 0.45),
+    0 0 56px rgba(52, 211, 153, 0.35);
+}
+
+.btn--wheel-cta:focus-visible {
+  outline: 2px solid #34d399;
+  outline-offset: 3px;
+}
+
+@keyframes awCtaPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(34, 211, 238, 0.35),
+      0 10px 36px rgba(34, 211, 238, 0.35),
+      0 0 48px rgba(52, 211, 153, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(52, 211, 153, 0.55),
+      0 12px 40px rgba(52, 211, 153, 0.4),
+      0 0 64px rgba(34, 211, 238, 0.35);
+  }
+}
+
+body.theme-day .btn--wheel-cta {
+  color: #042f2e;
+  border-color: rgba(14, 165, 233, 0.45);
+}
+
+@media (min-width: 720px) {
+  .hero__wheel-cta-wrap {
+    max-width: 320px;
+  }
+}
+
 /* Колесо северного образа — изоляция через .arctic-wheel-section */
 
 .arctic-wheel-section {

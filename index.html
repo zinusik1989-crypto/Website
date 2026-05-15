@@ -50,7 +50,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
-    <link rel="stylesheet" href="./arctic-identity.css" />
     <link rel="stylesheet" href="./arctic-wheel.css" />
   </head>
   <body class="theme-dark">
@@ -92,7 +91,6 @@
             <li><a class="nav__link" href="#about" data-cms="nav_about">Обо мне</a></li>
             <li><a class="nav__link" href="#services" data-cms="nav_services">Услуги</a></li>
             <li><a class="nav__link" href="#portfolio" data-cms="nav_portfolio">Портфолио</a></li>
-            <li><a class="nav__link" href="#arctic-identity">Arctic AI</a></li>
             <li><a class="nav__link" href="#arctic-wheel">Колесо</a></li>
             <li><a class="nav__link" href="#pricing" data-cms="nav_pricing">Тарифы</a></li>
             <li><a class="nav__link" href="#contacts" data-cms="nav_contacts">Контакты</a></li>
@@ -118,9 +116,7 @@
               <li><a class="nav__link" href="#home" data-cms="nav_home">Главная</a></li>
               <li><a class="nav__link" href="#about" data-cms="nav_about">Обо мне</a></li>
               <li><a class="nav__link" href="#services" data-cms="nav_services">Услуги</a></li>
-              <li><a class="nav__link" href="#portfolio" data-cms="nav_portfolio">Портфолио</a></li>
-              <li><a class="nav__link" href="#arctic-identity">Arctic AI</a></li>
-              <li><a class="nav__link" href="#arctic-wheel">Колесо</a></li>
+              <li><a class="nav__link" href="#portfolio" data-cms="nav_portfolio">Портфолио</a></li>              <li><a class="nav__link" href="#arctic-wheel">Колесо</a></li>
               <li><a class="nav__link" href="#pricing" data-cms="nav_pricing">Тарифы</a></li>
               <li><a class="nav__link" href="#contacts" data-cms="nav_contacts">Контакты</a></li>
               <li class="heroScreenNav__cta">
@@ -135,6 +131,10 @@
             <p class="lead" data-cms="hero_lead">
               Создаю нейрофотосессии и AI-визуал из Заполярного — за Полярным кругом, где ночь длинная, а свет в кадре особенный
             </p>
+
+            <div class="hero__wheel-cta-wrap">
+              <a class="btn btn--wheel-cta" href="#arctic-wheel">❄️ Крутить колесо</a>
+            </div>
 
             <div class="hero__actions">
               <a class="btn btn--gold" href="#contacts" data-cms="hero_btn_primary">Записаться на фотосессию</a>
@@ -174,6 +174,52 @@
               <div class="portrait__caption">
                 <span class="portrait__captionTitle" data-cms="caption_title">Северное сияние</span>
                 <span class="portrait__captionText" data-cms="caption_text">Заполярный • полярная ночь • глянец</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ARCTIC WHEEL -->
+      <section
+        class="section section--soft arctic-wheel-section"
+        id="arctic-wheel"
+        aria-label="Колесо северного образа"
+      >
+        <div class="container">
+          <div class="sectionHead reveal">
+            <h2 class="h2">Колесо северного образа</h2>
+            <p class="muted">
+              Прокрути колесо и узнай, кем ты станешь в ледяной вселенной будущего
+            </p>
+          </div>
+          <div class="arctic-wheel-section__stage reveal">
+            <div class="arctic-wheel-section__aurora" aria-hidden="true"></div>
+            <div class="arctic-wheel-section__snow" id="arcticWheelSnow" aria-hidden="true"></div>
+            <div class="arctic-wheel-section__inner">
+              <div class="arctic-wheel-section__wheel-wrap">
+                <div class="arctic-wheel-section__pointer" aria-hidden="true"></div>
+                <div class="arctic-wheel-section__wheel" id="arcticWheelDisk" aria-hidden="true">
+                  <div class="arctic-wheel-section__labels" id="arcticWheelLabels" aria-hidden="true"></div>
+                </div>
+                <div class="arctic-wheel-section__wheel-hub" aria-hidden="true"></div>
+              </div>
+              <button type="button" class="arctic-wheel-section__spin-btn" id="arcticWheelSpin">
+                ❄️ Крутить колесо
+              </button>
+              <div class="arctic-wheel-section__result" id="arcticWheelResult" hidden>
+                <div class="arctic-wheel-section__result-card">
+                  <div class="arctic-wheel-section__result-hero">
+                    <p class="arctic-wheel-section__result-kicker">Ваш северный стиль</p>
+                    <h3 class="arctic-wheel-section__result-title">Arctic Queen</h3>
+                  </div>
+                  <p class="arctic-wheel-section__result-desc"></p>
+                  <div class="arctic-wheel-section__stats"></div>
+                  <button type="button" class="arctic-wheel-section__create-btn" id="arcticWheelCreate">
+                    ✨ Создать AI-образ
+                  </button>
+                  <p class="arctic-wheel-section__hint">Демо-режим · генерация скоро подключится</p>
+                </div>
               </div>
             </div>
           </div>
@@ -497,137 +543,6 @@
         </div>
       </section>
 
-
-      <!-- ARCTIC AI IDENTITY -->
-      <section class="section section--soft" id="arctic-identity" aria-label="Arctic AI Identity — подбор образа">
-        <div class="container">
-          <div class="sectionHead reveal">
-            <h2 class="h2">Arctic AI Identity</h2>
-            <p class="muted">
-              5 провокационных вопросов — и Север назовёт ваш archetype. Без фото, без ожидания, за минуту.
-            </p>
-          </div>
-          <div
-            class="ai-id reveal"
-            id="arcticIdentity"
-          >
-            <div class="ai-id__wrap">
-              <div class="ai-id__aurora" aria-hidden="true"></div>
-              <div class="ai-id__snow" aria-hidden="true"></div>
-              <div class="ai-id__panel">
-                <header class="ai-id__head">
-                  <p class="ai-id__kicker">Luxury Arctic AI</p>
-                  <h3 class="ai-id__title">Ваш северный образ</h3>
-                  <p class="ai-id__sub">Кто вы на Севере? Узнайте за 60 секунд</p>
-                </header>
-                <div class="ai-id__body">
-                  <div class="ai-id__step ai-id__step--intro is-active" data-step="intro">
-                    <p class="ai-id__intro-hook">Север не спрашивает дважды.<br />Он <em>называет</em> ваш archetype.</p>
-                    <ul class="ai-id__intro-list">
-                      <li>5 вопросов — без фото и регистрации</li>
-                      <li>Честные формулировки, не «психотест из журнала»</li>
-                      <li>Результат, которым хочется поделиться</li>
-                    </ul>
-                    <button type="button" class="ai-id__btn ai-id__btn--primary ai-id__btn-intro-start">Раскрыть мой archetype</button>
-                    <p class="ai-id__intro-note">~1 мин · только в браузере</p>
-                  </div>
-                  <div class="ai-id__step ai-id__step--quiz" data-step="quiz">
-                    <div class="ai-id__quiz-bar" aria-hidden="true">
-                      <div class="ai-id__quiz-bar-fill"></div>
-                    </div>
-                    <p class="ai-id__quiz-bar-label ai-id__quiz-progress">Старт</p>
-                    <p class="ai-id__quiz-tag">Интрига</p>
-                    <h4 class="ai-id__quiz-question"></h4>
-                    <div class="ai-id__quiz-options"></div>
-                    <button type="button" class="ai-id__btn ai-id__btn-quiz-back" hidden>← Назад</button>
-                  </div>
-                  <div class="ai-id__step ai-id__step--decode" data-step="decode" aria-busy="true">
-                    <p class="ai-id__decode-kicker">Раскрываем код</p>
-                    <p class="ai-id__decode-line is-pulse">Считываем ваш полярный код…</p>
-                    <div class="ai-id__decode-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                      <div class="ai-id__decode-bar-fill"></div>
-                    </div>
-                    <p class="ai-id__decode-hint">Не закрывайте — archetype почти готов</p>
-                  </div>
-                  <div class="ai-id__step ai-id__step--reveal" data-step="reveal">
-                    <div class="ai-id__reveal-card">
-                      <div class="ai-id__reveal-hero">
-                        <span class="ai-id__reveal-emoji" aria-hidden="true">👑</span>
-                        <p class="ai-id__reveal-match-wrap">Совпадение <strong class="ai-id__reveal-match">94%</strong></p>
-                      </div>
-                      <div class="ai-id__reveal-body">
-                        <p class="ai-id__reveal-kicker">Ваш северный archetype</p>
-                        <h4 class="ai-id__reveal-archetype">Ледяная королева</h4>
-                        <p class="ai-id__reveal-name">Arctic Queen</p>
-                        <p class="ai-id__reveal-code">ARCTIC · QUEEN</p>
-                        <p class="ai-id__reveal-hook"></p>
-                        <p class="ai-id__reveal-desc"></p>
-                        <p class="ai-id__reveal-tagline"></p>
-                      </div>
-                    </div>
-                    <p class="ai-id__reveal-cta-line">Хотите увидеть этот образ на <strong>себе</strong> — не в описании?</p>
-                    <div class="ai-id__actions ai-id__actions--preview">
-                      <a class="ai-id__btn ai-id__btn--gold" href="#contacts">Заказать нейрофотосессию</a>
-                      <button type="button" class="ai-id__btn ai-id__btn--primary ai-id__btn-share">Поделиться результатом</button>
-                      <button type="button" class="ai-id__btn ai-id__btn-retry">Пройти квиз снова</button>
-                    </div>
-                  </div>
-                </div>
-                <p class="ai-id__privacy">
-                  Квиз работает в браузере. Ответы никуда не отправляются.
-                </p>
-              </div>
-              <div class="ai-id__toast" role="status" aria-live="polite"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ARCTIC WHEEL -->
-      <section
-        class="section section--soft arctic-wheel-section"
-        id="arctic-wheel"
-        aria-label="Колесо северного образа"
-      >
-        <div class="container">
-          <div class="sectionHead reveal">
-            <h2 class="h2">Колесо северного образа</h2>
-            <p class="muted">
-              Прокрути колесо и узнай, кем ты станешь в ледяной вселенной будущего
-            </p>
-          </div>
-          <div class="arctic-wheel-section__stage reveal">
-            <div class="arctic-wheel-section__aurora" aria-hidden="true"></div>
-            <div class="arctic-wheel-section__snow" id="arcticWheelSnow" aria-hidden="true"></div>
-            <div class="arctic-wheel-section__inner">
-              <div class="arctic-wheel-section__wheel-wrap">
-                <div class="arctic-wheel-section__pointer" aria-hidden="true"></div>
-                <div class="arctic-wheel-section__wheel" id="arcticWheelDisk" aria-hidden="true">
-                  <div class="arctic-wheel-section__labels" id="arcticWheelLabels" aria-hidden="true"></div>
-                </div>
-                <div class="arctic-wheel-section__wheel-hub" aria-hidden="true"></div>
-              </div>
-              <button type="button" class="arctic-wheel-section__spin-btn" id="arcticWheelSpin">
-                ❄️ Крутить колесо
-              </button>
-              <div class="arctic-wheel-section__result" id="arcticWheelResult" hidden>
-                <div class="arctic-wheel-section__result-card">
-                  <div class="arctic-wheel-section__result-hero">
-                    <p class="arctic-wheel-section__result-kicker">Ваш северный стиль</p>
-                    <h3 class="arctic-wheel-section__result-title">Arctic Queen</h3>
-                  </div>
-                  <p class="arctic-wheel-section__result-desc"></p>
-                  <div class="arctic-wheel-section__stats"></div>
-                  <button type="button" class="arctic-wheel-section__create-btn" id="arcticWheelCreate">
-                    ✨ Создать AI-образ
-                  </button>
-                  <p class="arctic-wheel-section__hint">Демо-режим · генерация скоро подключится</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <!-- AUDIENCE -->
       <section class="section" id="audience" aria-label="Для кого">
@@ -1114,7 +1029,6 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
     <script src="./cms.js" defer></script>
     <script src="./script.js" defer></script>
-    <script src="./arctic-identity.js" defer></script>
     <script src="./arctic-wheel.js" defer></script>
     <script src="./splash-cursor.js" defer></script>
     <script type="module" src="./soft-aurora.js"></script>
