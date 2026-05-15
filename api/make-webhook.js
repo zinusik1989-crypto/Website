@@ -3,7 +3,7 @@
  * OPENAI_API_KEY не нужен: ключ только в сценарии Make.
  */
 const DEFAULT_MAKE_WEBHOOK =
-  "https://hook.eu1.make.com/umyhmpvq9z22p2o8o8r2xvki7w4othfs";
+  "https://hook.eu1.make.com/53w90r7hodo8c46hfswv949nbkoxog8n";
 
 function getAllowedOrigins() {
   const raw = process.env.ARCTIC_ALLOWED_ORIGINS || "";

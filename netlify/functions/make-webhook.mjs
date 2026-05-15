@@ -1,6 +1,6 @@
 /** Прокси Make.com для Netlify (альтернатива Vercel, деплой из GitHub). */
 const DEFAULT_WEBHOOK =
-  "https://hook.eu1.make.com/umyhmpvq9z22p2o8o8r2xvki7w4othfs";
+  "https://hook.eu1.make.com/53w90r7hodo8c46hfswv949nbkoxog8n";
 
 function corsHeaders(origin) {
   return {

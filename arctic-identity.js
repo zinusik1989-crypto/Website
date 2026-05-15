@@ -88,7 +88,7 @@
 
   /** Webhook Make.com (можно переопределить через data-webhook-url на #arcticIdentity) */
   const DEFAULT_WEBHOOK_URL =
-    "https://hook.eu1.make.com/umyhmpvq9z22p2o8o8r2xvki7w4othfs";
+    "https://hook.eu1.make.com/53w90r7hodo8c46hfswv949nbkoxog8n";
 
   let root = null;
   let photoUrl = null;
@@ -290,9 +290,11 @@
     try {
       data = JSON.parse(rawText);
     } catch {
-      const err = new Error(
-        "Make вернул не JSON. В конце сценария нужен модуль Webhook response: {\"image\":\"...\"}"
-      );
+      const hint =
+        rawText.trim() === "Accepted"
+          ? "Make принял запрос, но не вернул картинку. Добавьте в сценарий модули OpenAI → Webhook response с JSON {\"image\":\"...\"}."
+          : "Make вернул не JSON. В конце сценария нужен модуль Webhook response: {\"image\":\"...\"}";
+      const err = new Error(hint);
       err.retryable = false;
       throw err;
     }

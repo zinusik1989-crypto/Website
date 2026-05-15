@@ -77,7 +77,7 @@ git push -u origin main
 В `index.html` у `#arcticIdentity` задан `data-webhook-url` (можно заменить на свой):
 
 ```html
-data-webhook-url="https://hook.eu1.make.com/umyhmpvq9z22p2o8o8r2xvki7w4othfs"
+data-webhook-url="https://hook.eu1.make.com/53w90r7hodo8c46hfswv949nbkoxog8n"
 ```
 
 ### Формат сценария Make
@@ -118,7 +118,7 @@ data-proxy-url="https://ваш-сайт.netlify.app"
 **Проверка webhook в Make:** модуль Webhook → **Run once** → в браузере или Postman:
 
 ```http
-POST https://hook.eu1.make.com/umyhmpvq9z22p2o8o8r2xvki7w4othfs
+POST https://hook.eu1.make.com/53w90r7hodo8c46hfswv949nbkoxog8n
 Content-Type: application/json
 
 {"prompt":"test arctic portrait"}
