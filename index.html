@@ -51,6 +51,7 @@
     />
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./arctic-identity.css" />
+    <link rel="stylesheet" href="./arctic-wheel.css" />
   </head>
   <body class="theme-dark">
     <!-- Полярная ночь: звёзды + сияние (фон страницы) -->
@@ -92,6 +93,7 @@
             <li><a class="nav__link" href="#services" data-cms="nav_services">Услуги</a></li>
             <li><a class="nav__link" href="#portfolio" data-cms="nav_portfolio">Портфолио</a></li>
             <li><a class="nav__link" href="#arctic-identity">Arctic AI</a></li>
+            <li><a class="nav__link" href="#arctic-wheel">Колесо</a></li>
             <li><a class="nav__link" href="#pricing" data-cms="nav_pricing">Тарифы</a></li>
             <li><a class="nav__link" href="#contacts" data-cms="nav_contacts">Контакты</a></li>
           </ul>
@@ -118,6 +120,7 @@
               <li><a class="nav__link" href="#services" data-cms="nav_services">Услуги</a></li>
               <li><a class="nav__link" href="#portfolio" data-cms="nav_portfolio">Портфолио</a></li>
               <li><a class="nav__link" href="#arctic-identity">Arctic AI</a></li>
+              <li><a class="nav__link" href="#arctic-wheel">Колесо</a></li>
               <li><a class="nav__link" href="#pricing" data-cms="nav_pricing">Тарифы</a></li>
               <li><a class="nav__link" href="#contacts" data-cms="nav_contacts">Контакты</a></li>
               <li class="heroScreenNav__cta">
@@ -575,6 +578,52 @@
                 </p>
               </div>
               <div class="ai-id__toast" role="status" aria-live="polite"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ARCTIC WHEEL -->
+      <section
+        class="section section--soft arctic-wheel-section"
+        id="arctic-wheel"
+        aria-label="Колесо северного образа"
+      >
+        <div class="container">
+          <div class="sectionHead reveal">
+            <h2 class="h2">Колесо северного образа</h2>
+            <p class="muted">
+              Прокрути колесо и узнай, кем ты станешь в ледяной вселенной будущего
+            </p>
+          </div>
+          <div class="arctic-wheel-section__stage reveal">
+            <div class="arctic-wheel-section__aurora" aria-hidden="true"></div>
+            <div class="arctic-wheel-section__snow" id="arcticWheelSnow" aria-hidden="true"></div>
+            <div class="arctic-wheel-section__inner">
+              <div class="arctic-wheel-section__wheel-wrap">
+                <div class="arctic-wheel-section__pointer" aria-hidden="true"></div>
+                <div class="arctic-wheel-section__wheel" id="arcticWheelDisk" aria-hidden="true">
+                  <div class="arctic-wheel-section__labels" id="arcticWheelLabels" aria-hidden="true"></div>
+                </div>
+                <div class="arctic-wheel-section__wheel-hub" aria-hidden="true"></div>
+              </div>
+              <button type="button" class="arctic-wheel-section__spin-btn" id="arcticWheelSpin">
+                ❄️ Крутить колесо
+              </button>
+              <div class="arctic-wheel-section__result" id="arcticWheelResult" hidden>
+                <div class="arctic-wheel-section__result-card">
+                  <div class="arctic-wheel-section__result-hero">
+                    <p class="arctic-wheel-section__result-kicker">Ваш северный стиль</p>
+                    <h3 class="arctic-wheel-section__result-title">Arctic Queen</h3>
+                  </div>
+                  <p class="arctic-wheel-section__result-desc"></p>
+                  <div class="arctic-wheel-section__stats"></div>
+                  <button type="button" class="arctic-wheel-section__create-btn" id="arcticWheelCreate">
+                    ✨ Создать AI-образ
+                  </button>
+                  <p class="arctic-wheel-section__hint">Демо-режим · генерация скоро подключится</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1066,6 +1115,7 @@
     <script src="./cms.js" defer></script>
     <script src="./script.js" defer></script>
     <script src="./arctic-identity.js" defer></script>
+    <script src="./arctic-wheel.js" defer></script>
     <script src="./splash-cursor.js" defer></script>
     <script type="module" src="./soft-aurora.js"></script>
   </body>

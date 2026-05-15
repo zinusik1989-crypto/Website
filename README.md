@@ -83,6 +83,12 @@ git push -u origin main
 
 Файлы: `arctic-identity.js`, `arctic-identity.css`, секция `#arctic-identity` в `index.html`.
 
+### Колесо северного образа
+
+Секция `#arctic-wheel`: случайный стиль из 6 archetype, вращение 4–6 с, glassmorphism-карточка с показателями.
+
+Файлы: `arctic-wheel.js`, `arctic-wheel.css` (префикс `.arctic-wheel-section`).
+
 ## Запуск
 
 - **Самый простой способ**: откройте `index.html` в браузере двойным кликом.
