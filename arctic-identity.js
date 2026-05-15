@@ -1,5 +1,5 @@
 /**
- * Arctic AI Identity — мини-игра (только клиент, без сервера).
+ * Arctic AI Identity — мини-игра + генерация через Make.com webhook.
  */
 (function () {
   const STYLES = [
@@ -12,6 +12,8 @@
       palette: "linear-gradient(90deg, #0ea5e9, #67e8f9, #e0f2fe)",
       filter:
         "linear-gradient(180deg, rgba(14,165,233,.25), transparent 50%), radial-gradient(circle at 50% 0%, rgba(103,232,249,.35), transparent 55%)",
+      imagePrompt:
+        "Ice queen portrait, cold cyan aurora light, frost details, regal editorial arctic fashion in Zapolyarye.",
     },
     {
       id: "nordic-goddess",
@@ -22,6 +24,8 @@
       palette: "linear-gradient(90deg, #f5e6c8, #c4b5fd, #38bdf8)",
       filter:
         "linear-gradient(180deg, rgba(245,230,200,.2), transparent 45%), radial-gradient(circle at 70% 20%, rgba(196,181,253,.25), transparent 50%)",
+      imagePrompt:
+        "Nordic goddess portrait, soft golden hour, warm fur, divine calm, Scandinavian luxury editorial.",
     },
     {
       id: "cyber-ice",
@@ -32,6 +36,8 @@
       palette: "linear-gradient(90deg, #06b6d4, #a855f7, #22d3ee)",
       filter:
         "linear-gradient(135deg, rgba(6,182,212,.3), rgba(168,85,247,.2)), linear-gradient(0deg, rgba(34,211,238,.15), transparent)",
+      imagePrompt:
+        "Cyber-arctic portrait, neon cyan and violet, futuristic Zapolyarye, cinematic sci-fi editorial.",
     },
     {
       id: "dark-blizzard",
@@ -42,6 +48,8 @@
       palette: "linear-gradient(90deg, #1e293b, #475569, #94a3b8)",
       filter:
         "linear-gradient(180deg, rgba(15,23,42,.55), transparent 40%), radial-gradient(circle at 50% 100%, rgba(148,163,184,.2), transparent 60%)",
+      imagePrompt:
+        "Dark blizzard portrait, dramatic shadows, snow storm, moody cinematic noir arctic editorial.",
     },
     {
       id: "frozen-royalty",
@@ -52,6 +60,8 @@
       palette: "linear-gradient(90deg, #fce7f3, #e2e8f0, #bae6fd)",
       filter:
         "linear-gradient(180deg, rgba(252,231,243,.22), transparent 50%), radial-gradient(circle at 30% 30%, rgba(186,230,253,.3), transparent 55%)",
+      imagePrompt:
+        "Frozen royalty portrait, pearls, velvet, ice crystal couture, soft pink and silver winter queen.",
     },
     {
       id: "aurora-soul",
@@ -62,6 +72,8 @@
       palette: "linear-gradient(90deg, #34d399, #22d3ee, #818cf8)",
       filter:
         "radial-gradient(ellipse at 50% 20%, rgba(52,211,153,.35), transparent 55%), radial-gradient(ellipse at 80% 80%, rgba(34,211,238,.25), transparent 50%)",
+      imagePrompt:
+        "Aurora soul portrait, northern lights, mint and turquoise glow, ethereal spiritual arctic atmosphere.",
     },
   ];
 
@@ -72,13 +84,75 @@
   ];
 
   const SCAN_DURATION_MS = 4200;
+  const SHARE_URL = "https://zinusik1989-crypto.github.io/Website/#arctic-identity";
+
+  /** Webhook Make.com (можно переопределить через data-webhook-url на #arcticIdentity) */
+  const DEFAULT_WEBHOOK_URL =
+    "https://hook.eu1.make.com/umyhmpvq9z22p2o8o8r2xvki7w4othfs";
 
   let root = null;
   let photoUrl = null;
   let photoFile = null;
   let selectedStyle = null;
+  let generatedImageDataUrl = null;
+  let generateAbort = null;
 
   const $ = (sel, ctx = root) => ctx && ctx.querySelector(sel);
+
+  function getWebhookUrl() {
+    const custom = root?.dataset.webhookUrl?.trim();
+    return (custom || DEFAULT_WEBHOOK_URL).replace(/\s+/g, "");
+  }
+
+  function buildGenerationPrompt(style) {
+    return [
+      "Luxury arctic neuro-photoshoot portrait in Russian Arctic / Zapolyarye.",
+      "Cinematic editorial fashion photography, preserve person identity, 8K detail.",
+      `Style: ${style.name}.`,
+      style.imagePrompt,
+      style.desc,
+      style.tagline ? `Mood: ${style.tagline}` : "",
+    ]
+      .filter(Boolean)
+      .join(" ");
+  }
+
+  function normalizeImagePayload(raw) {
+    if (!raw || typeof raw !== "string") return null;
+    const trimmed = raw.trim();
+    if (trimmed.startsWith("data:image")) return trimmed;
+    const b64 = trimmed.replace(/^data:image\/\w+;base64,/, "");
+    return `data:image/png;base64,${b64}`;
+  }
+
+  /**
+   * Запрос к Make.com: JSON { prompt } → { image: base64 }.
+   */
+  async function generateArcticImage(prompt, signal) {
+    const webhookUrl = getWebhookUrl();
+    const response = await fetch(webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt }),
+      signal,
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw new Error(
+        data.error || data.message || `Ошибка сценария Make (${response.status})`
+      );
+    }
+
+    const image = normalizeImagePayload(
+      data.image ?? data.imageBase64 ?? data.b64_json
+    );
+    if (!image) {
+      throw new Error("Сценарий Make не вернул изображение (поле image)");
+    }
+    return image;
+  }
 
   function revokePhoto() {
     if (photoUrl) {
@@ -88,10 +162,20 @@
     photoFile = null;
   }
 
+  function clearGeneratedImage() {
+    generatedImageDataUrl = null;
+    const img = $(".ai-id__generated-img");
+    if (img) {
+      img.removeAttribute("src");
+      img.alt = "";
+    }
+  }
+
   function showStep(name) {
     root.querySelectorAll(".ai-id__step").forEach((el) => {
       el.classList.toggle("is-active", el.dataset.step === name);
     });
+    root.classList.toggle("ai-id--generating", name === "generating");
   }
 
   function showToast(msg, ms = 3200) {
@@ -101,6 +185,17 @@
     t.classList.add("is-visible");
     clearTimeout(showToast._tid);
     showToast._tid = setTimeout(() => t.classList.remove("is-visible"), ms);
+  }
+
+  function mapApiError(message) {
+    const m = String(message || "");
+    if (/Failed to fetch|NetworkError|Load failed/i.test(m)) {
+      return "Нет связи с Make.com. Проверьте интернет и сценарий.";
+    }
+    if (/JSON|Unexpected token/i.test(m)) {
+      return "Некорректный ответ от Make. Проверьте модуль «Webhook response».";
+    }
+    return m || "Не удалось создать образ. Попробуйте ещё раз.";
   }
 
   function loadHtml2Canvas() {
@@ -144,6 +239,7 @@
       return;
     }
     revokePhoto();
+    clearGeneratedImage();
     photoFile = file;
     photoUrl = URL.createObjectURL(file);
 
@@ -177,6 +273,7 @@
       }
     }
     if (bar) bar.style.width = "0%";
+    if (progress) progress.setAttribute("aria-valuenow", "0");
     requestAnimationFrame(tick);
   }
 
@@ -207,6 +304,7 @@
 
   function selectStyle(style) {
     selectedStyle = style;
+    clearGeneratedImage();
     root.querySelectorAll(".ai-id__style").forEach((el) => {
       el.classList.toggle("is-selected", el.dataset.styleId === style.id);
     });
@@ -224,6 +322,50 @@
     if (label) label.textContent = "Arctic AI Identity";
 
     showStep("result");
+  }
+
+  function showGeneratedResult(imageDataUrl) {
+    generatedImageDataUrl = imageDataUrl;
+    const img = $(".ai-id__generated-img");
+    const name = $(".ai-id__generated-name");
+    if (img) {
+      img.src = imageDataUrl;
+      img.alt = `AI-фотосессия: ${selectedStyle?.name || "Arctic"}`;
+    }
+    if (name) name.textContent = selectedStyle?.name || "";
+    showStep("generated");
+  }
+
+  async function requestGeneration() {
+    if (!photoFile || !selectedStyle) {
+      showToast("Загрузите фото и выберите стиль");
+      return;
+    }
+
+    if (generateAbort) generateAbort.abort();
+    generateAbort = new AbortController();
+
+    showStep("generating");
+    root.querySelectorAll(".ai-id__btn").forEach((b) => {
+      b.disabled = true;
+    });
+
+    const prompt = buildGenerationPrompt(selectedStyle);
+
+    try {
+      const image = await generateArcticImage(prompt, generateAbort.signal);
+      showGeneratedResult(image);
+      showToast("Ваш арктический образ готов");
+    } catch (err) {
+      if (err.name === "AbortError") return;
+      showStep("result");
+      showToast(mapApiError(err.message));
+    } finally {
+      generateAbort = null;
+      root.querySelectorAll(".ai-id__btn").forEach((b) => {
+        b.disabled = false;
+      });
+    }
   }
 
   async function downloadCard() {
@@ -247,12 +389,30 @@
     }
   }
 
+  function downloadGenerated() {
+    if (!generatedImageDataUrl) {
+      showToast("Сначала сгенерируйте образ");
+      return;
+    }
+    const link = document.createElement("a");
+    link.download = `arctic-ai-photoshoot-${selectedStyle?.id || "result"}.png`;
+    link.href = generatedImageDataUrl;
+    link.click();
+    showToast("Изображение сохранено");
+  }
+
+  async function dataUrlToFile(dataUrl, filename) {
+    const res = await fetch(dataUrl);
+    const blob = await res.blob();
+    return new File([blob], filename, { type: blob.type || "image/png" });
+  }
+
   async function shareCard() {
     if (!navigator.share) {
       showToast("Поделиться недоступно в этом браузере");
       return;
     }
-    const text = `Мой Arctic AI Identity: ${selectedStyle?.name || "стиль"} — ${selectedStyle?.tagline || ""}\nhttps://zinusik1989-crypto.github.io/Website/#arctic-identity`;
+    const text = `Мой Arctic AI Identity: ${selectedStyle?.name || "стиль"} — ${selectedStyle?.tagline || ""}\n${SHARE_URL}`;
     try {
       if (photoFile && navigator.canShare?.({ files: [photoFile] })) {
         await navigator.share({
@@ -261,7 +421,28 @@
           files: [photoFile],
         });
       } else {
-        await navigator.share({ title: "Arctic AI Identity", text, url: window.location.href });
+        await navigator.share({ title: "Arctic AI Identity", text, url: SHARE_URL });
+      }
+    } catch (err) {
+      if (err.name !== "AbortError") showToast("Не удалось поделиться");
+    }
+  }
+
+  async function shareGenerated() {
+    if (!navigator.share) {
+      showToast("Поделиться недоступно в этом браузере");
+      return;
+    }
+    const text = `Моя AI-фотосессия Arctic: ${selectedStyle?.name || ""}\n${SHARE_URL}`;
+    try {
+      const file = await dataUrlToFile(
+        generatedImageDataUrl,
+        `arctic-ai-${selectedStyle?.id || "photo"}.png`
+      );
+      if (navigator.canShare?.({ files: [file] })) {
+        await navigator.share({ title: "Arctic AI Photoshoot", text, files: [file] });
+      } else {
+        await navigator.share({ title: "Arctic AI Photoshoot", text, url: SHARE_URL });
       }
     } catch (err) {
       if (err.name !== "AbortError") showToast("Не удалось поделиться");
@@ -269,8 +450,10 @@
   }
 
   function resetToUpload() {
+    if (generateAbort) generateAbort.abort();
     selectedStyle = null;
     revokePhoto();
+    clearGeneratedImage();
     const previews = root.querySelectorAll(".ai-id__preview, .ai-id__result-photo img");
     previews.forEach((img) => {
       img.removeAttribute("src");
@@ -281,6 +464,11 @@
     if (bar) bar.style.width = "0%";
     if (progress) progress.setAttribute("aria-valuenow", "0");
     showStep("upload");
+  }
+
+  function backToStyles() {
+    clearGeneratedImage();
+    showStyles();
   }
 
   function bindUpload() {
@@ -317,9 +505,14 @@
   }
 
   function bindActions() {
+    $(".ai-id__btn-generate")?.addEventListener("click", requestGeneration);
+    $(".ai-id__btn-regenerate")?.addEventListener("click", requestGeneration);
     $(".ai-id__btn-download")?.addEventListener("click", downloadCard);
+    $(".ai-id__btn-download-ai")?.addEventListener("click", downloadGenerated);
     $(".ai-id__btn-share")?.addEventListener("click", shareCard);
+    $(".ai-id__btn-share-ai")?.addEventListener("click", shareGenerated);
     $(".ai-id__btn-retry")?.addEventListener("click", resetToUpload);
+    $(".ai-id__btn-back-style")?.addEventListener("click", backToStyles);
   }
 
   function init() {
@@ -331,7 +524,10 @@
     bindActions();
     showStep("upload");
 
-    window.addEventListener("beforeunload", revokePhoto);
+    window.addEventListener("beforeunload", () => {
+      if (generateAbort) generateAbort.abort();
+      revokePhoto();
+    });
   }
 
   if (document.readyState === "loading") {

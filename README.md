@@ -70,6 +70,28 @@ git push -u origin main
 - Секреты в репозитории для этого workflow не нужны: используется встроенный `GITHUB_TOKEN` и разрешения `pages: write` + `id-token: write`.
 - В **опубликованную** папку попадают только HTML/CSS/JS, `cms.js`, `.nojekyll` и изображения в корне (`*.png`, `*.jpg` и т.д.) — не весь репозиторий, чтобы на Pages не оказывались служебные каталоги вроде `.git`.
 
+## Arctic AI Identity + Make.com
+
+Мини-игра генерирует **AI-фотосессию** через webhook [Make.com](https://www.make.com/): на сайт (GitHub Pages) уходит только **текстовый prompt**, ключ OpenAI хранится в сценарии Make.
+
+В `index.html` у `#arcticIdentity` задан `data-webhook-url` (можно заменить на свой):
+
+```html
+data-webhook-url="https://hook.eu1.make.com/umyhmpvq9z22p2o8o8r2xvki7w4othfs"
+```
+
+### Формат сценария Make
+
+1. **Webhook** — приём `POST` JSON: `{ "prompt": "..." }`.
+2. Модули OpenAI / Images — генерация по prompt (ключ только в Make).
+3. **Webhook response** — JSON: `{ "image": "<base64 без префикса data:>" }`.
+
+Логика на сайте: `arctic-identity.js` → `generateArcticImage(prompt)` → показ `data:image/png;base64,…` в блоке результата.
+
+### Опционально: Vercel API
+
+В репозитории остаётся `api/generate-image.js` (альтернатива без Make). Сейчас фронтенд использует **только Make webhook**.
+
 ## Запуск
 
 - **Самый простой способ**: откройте `index.html` в браузере двойным кликом.
