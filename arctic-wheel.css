@@ -71,6 +71,9 @@
   --aw-radius: 18px;
   --aw-ease: cubic-bezier(0.22, 0.8, 0.2, 1);
   --aw-wheel-size: min(300px, 78vw);
+  --aw-label-radius: -118%;
+  scroll-margin-top: max(72px, env(safe-area-inset-top, 0px));
+  overflow-x: clip;
   position: relative;
 }
 
@@ -695,4 +698,181 @@ body.theme-day .arctic-wheel-section__result-title {
 body.theme-day .arctic-wheel-section__app {
   background: linear-gradient(165deg, rgba(255, 255, 255, 0.94), rgba(240, 249, 255, 0.98));
   border-color: rgba(14, 165, 233, 0.25);
+}
+
+/* ——— Mobile & force-mobile ——— */
+@media (max-width: 720px) {
+  .arctic-wheel-section .container {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .arctic-wheel-section__app {
+    min-height: min(72dvh, 520px);
+    border-radius: 16px;
+  }
+
+  .arctic-wheel-section__screen {
+    min-height: min(68dvh, 480px);
+    gap: 12px;
+    padding: 16px 14px 20px;
+    padding-bottom: max(20px, env(safe-area-inset-bottom, 0px));
+  }
+
+  .arctic-wheel-section__screen[data-step="result"] {
+    min-height: min(78dvh, 560px);
+  }
+
+  .arctic-wheel-section__result-scroll {
+    max-height: min(46dvh, 340px);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .arctic-wheel-section__btn,
+  .arctic-wheel-section__quiz-opt,
+  .arctic-wheel-section__gender-opt {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .arctic-wheel-section__gender {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .arctic-wheel-section__gender-opt {
+    max-width: none;
+  }
+
+  .arctic-wheel-section__toast {
+    bottom: max(12px, env(safe-area-inset-bottom, 0px));
+    white-space: normal;
+    text-align: center;
+    max-width: calc(100% - 24px);
+  }
+
+  .hero__wheel-cta-wrap {
+    max-width: none;
+    margin-top: 16px;
+  }
+
+  .btn--wheel-cta {
+    font-size: 14px;
+    padding: 13px 18px;
+  }
+}
+
+@media (max-width: 430px) {
+  .arctic-wheel-section {
+    --aw-wheel-size: min(268px, 76vw);
+    --aw-label-radius: -108%;
+  }
+
+  .arctic-wheel-section__hero-title {
+    font-size: clamp(20px, 5.6vw, 26px);
+  }
+
+  .arctic-wheel-section__label {
+    font-size: clamp(6px, 1.9vw, 8px);
+    width: 46%;
+    margin-left: -23%;
+  }
+
+  .arctic-wheel-section__wheel-lead {
+    font-size: 12px;
+    line-height: 1.45;
+  }
+}
+
+@media (max-width: 390px) {
+  .arctic-wheel-section {
+    --aw-wheel-size: min(252px, 74vw);
+    --aw-label-radius: -105%;
+  }
+
+  .arctic-wheel-section__screen {
+    padding-inline: 12px;
+  }
+
+  .arctic-wheel-section__quiz-question {
+    font-size: 16px;
+  }
+
+  .arctic-wheel-section__quiz-opt {
+    font-size: 13px;
+    padding: 11px 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  .arctic-wheel-section {
+    --aw-wheel-size: min(236px, 72vw);
+    --aw-label-radius: -102%;
+  }
+
+  .arctic-wheel-section__hero-desc {
+    font-size: 13px;
+  }
+
+  .arctic-wheel-section__result-title {
+    font-size: 20px;
+  }
+
+  .arctic-wheel-section__btn {
+    font-size: 14px;
+    padding: 12px 16px;
+  }
+}
+
+body.force-mobile .arctic-wheel-section {
+  --aw-wheel-size: min(268px, 76vw);
+  --aw-label-radius: -108%;
+}
+
+body.force-mobile .arctic-wheel-section .container {
+  max-width: 100%;
+}
+
+body.force-mobile .arctic-wheel-section__app {
+  min-height: min(72dvh, 520px);
+}
+
+body.force-mobile .arctic-wheel-section__screen {
+  min-height: min(68dvh, 480px);
+  padding: 16px 14px max(20px, env(safe-area-inset-bottom, 0px));
+}
+
+body.force-mobile .arctic-wheel-section__screen[data-step="result"] {
+  min-height: min(78dvh, 560px);
+}
+
+body.force-mobile .arctic-wheel-section__result-scroll {
+  max-height: min(46dvh, 340px);
+}
+
+body.force-mobile .arctic-wheel-section__gender {
+  flex-direction: column;
+}
+
+body.force-mobile .arctic-wheel-section__gender-opt {
+  max-width: none;
+}
+
+body.force-mobile .hero__wheel-cta-wrap {
+  max-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arctic-wheel-section__aurora,
+  .arctic-wheel-section__snow span,
+  .arctic-wheel-section__scan-title,
+  .arctic-wheel-section__scan-ring,
+  .btn--wheel-cta {
+    animation: none !important;
+  }
+
+  .arctic-wheel-section__screen {
+    animation: none;
+  }
 }

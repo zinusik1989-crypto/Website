@@ -250,10 +250,19 @@
     return style.stats[gender] || style.stats.f;
   }
 
+  function scrollIntoGameView() {
+    if (!root) return;
+    const header = document.querySelector(".header");
+    const headerH = header ? header.getBoundingClientRect().height : 64;
+    const top = root.getBoundingClientRect().top + window.scrollY - headerH - 8;
+    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  }
+
   function showStep(name) {
     root.querySelectorAll(".arctic-wheel-section__screen").forEach((el) => {
       el.classList.toggle("is-active", el.dataset.step === name);
     });
+    requestAnimationFrame(scrollIntoGameView);
   }
 
   function showToast(msg, ms = 3200) {
@@ -334,8 +343,10 @@
         label = parts.length > 1 ? `${parts[0]}\n${parts.slice(1).join(" ")}` : label;
       }
       el.textContent = label;
+      const radius =
+        getComputedStyle(root).getPropertyValue("--aw-label-radius").trim() || "-118%";
       const angle = -90 + i * seg + seg / 2;
-      el.style.transform = `rotate(${angle}deg) translateY(-118%) rotate(${-angle}deg)`;
+      el.style.transform = `rotate(${angle}deg) translateY(${radius}) rotate(${-angle}deg)`;
       ring.appendChild(el);
     });
   }
@@ -575,6 +586,12 @@
     resetQuizScores();
     bindEvents();
     showStep("hero");
+
+    let resizeTid;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTid);
+      resizeTid = setTimeout(buildLabels, 180);
+    });
   }
 
   if (document.readyState === "loading") {

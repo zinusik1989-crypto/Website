@@ -211,10 +211,19 @@
     return STYLES.find((s) => s.id === id) || STYLES[0];
   }
 
+  function scrollIntoGameView() {
+    if (!root) return;
+    const header = document.querySelector(".header");
+    const headerH = header ? header.getBoundingClientRect().height : 64;
+    const top = root.getBoundingClientRect().top + window.scrollY - headerH - 8;
+    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  }
+
   function showStep(name) {
     root.querySelectorAll(".arctic-story-game__screen").forEach((el) => {
       el.classList.toggle("is-active", el.dataset.step === name);
     });
+    requestAnimationFrame(scrollIntoGameView);
   }
 
   function showToast(msg, ms = 3200) {
