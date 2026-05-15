@@ -10,7 +10,7 @@
   const LEGACY_HERO_PORTRAIT = "./hero-portrait.jpg";
 
   const defaults = {
-    site_url: "",
+    site_url: "https://zinusik1989-crypto.github.io/Website",
     page_title: "Нейрофотосессии в Заполярном | Зинаида — AI-фото без камеры",
     meta_description:
       "Зинаида — нейрофотосессии из Заполярного, Мурманская область. AI-визуал в северной эстетике: полярная ночь, сияние, глянец. Женский, детский и семейный портрет.",
