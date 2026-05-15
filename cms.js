@@ -7,20 +7,21 @@
 
   /** Старый дефолт главного фото; из localStorage подставлялся и перекрывал index.html. */
   const LEGACY_PORTRAIT_IMG = "./ChatGPT Image 30 апр. 2026 г., 15_11_42.png";
+  const LEGACY_HERO_PORTRAIT = "./hero-portrait.jpg";
 
   const defaults = {
     page_title: "Зинаида | Фото мечты без камеры",
     meta_description:
-      "Зинаида — нейрофотосессии, AI-видео и визуальный контент для экспертов, брендов и бизнеса. Luxury editorial, премиальная упаковка.",
+      "Зинаида — нейрофотосессии из Заполярного, Мурманская область. AI-визуал в северной эстетике: полярная ночь, сияние, глянец.",
     canonical_href: "./index.html",
     og_title: "Зинаида | Фото мечты без камеры",
     og_description:
-      "Нейрофотосессии, AI-видео и визуальный контент для экспертов, брендов и бизнеса.",
-    og_image: "./hero-portrait.jpg",
+      "Нейрофотосессии из Заполярного — AI-визуал в северной эстетике для экспертов, брендов и бизнеса.",
+    og_image: "./arctic-aurora.png",
     twitter_title: "Зинаида | Фото мечты без камеры",
     twitter_description:
-      "Нейрофотосессии, AI-видео и визуальный контент для экспертов, брендов и бизнеса.",
-    twitter_image: "./hero-portrait.jpg",
+      "Нейрофотосессии из Заполярного — AI-визуал в северной эстетике для экспертов, брендов и бизнеса.",
+    twitter_image: "./arctic-aurora.png",
 
     brand_name: "Зинаида",
     nav_home: "Главная",
@@ -32,29 +33,34 @@
     header_portfolio_btn: "Портфолио",
     header_consult_btn: "Консультация",
 
-    kicker: "luxury editorial • AI-visual",
+    kicker: "Заполярный • нейрофотосессии • AI-visual",
     hero_h1: "Зинаида | Фото мечты без камеры",
     hero_lead:
-      "Создаю нейрофотосессии, видео и визуальный контент для экспертов, брендов и бизнеса",
+      "Создаю нейрофотосессии и AI-визуал из Заполярного — за Полярным кругом, где ночь длинная, а свет в кадре особенный",
     hero_btn_primary: "Записаться на фотосессию",
     hero_btn_secondary: "Смотреть портфолио",
 
-    meta1_title: "Глянец",
-    meta1_text: "Эстетика Vogue, много воздуха, крупная типографика",
-    meta2_title: "Быстро",
-    meta2_text: "Визуал за дни, а не недели — без студий и камер",
-    meta3_title: "Продающе",
-    meta3_text: "Упаковка, которая подчёркивает ценность и повышает чек",
+    meta1_title: "Север",
+    meta1_text: "Полярная ночь, сияние и ледяной свет — атмосфера Заполярного в кадре",
+    meta2_title: "Глянец",
+    meta2_text: "Редакционная эстетика, много воздуха, премиальный тон",
+    meta3_title: "Без студии",
+    meta3_text: "Нейросъёмка за дни — без холода, команд и поездок к фотографу",
 
-    portrait_alt: "Зинаида — студийный портрет в спокойном премиальном тоне",
-    portrait_img: "./hero-portrait.jpg",
-    caption_title: "AI-glow",
-    caption_text: "мягкий свет • глянец • премиальный тон",
+    portrait_alt: "Нейропортрет Зинаиды на фоне северного сияния, Заполярный",
+    portrait_img: "./arctic-aurora.png",
+    caption_title: "Северное сияние",
+    caption_text: "Заполярный • полярная ночь • глянец",
 
     about_h2: "Обо мне",
     about_p1: "Меня зовут Зинаида.",
     about_p2:
-      "Я создаю нейрофотосессии и AI-визуал для людей, которые хотят видеть себя красивыми, уверенными и «своими» в кадре — без стресса, студий и сложных съёмок.",
+      "Я живу в Заполярном, Мурманская область — за Полярным кругом — и создаю нейрофотосессии и AI-визуал для тех, кто хочет видеть себя красивыми, уверенными и «своими» в кадре, без студий и сложных съёмок.",
+    about_badge_city: "Заполярный",
+    about_badge_lat: "67° с. ш.",
+    about_origin_h: "Север в каждом кадре",
+    about_origin_p:
+      "Полярная ночь, снег, сияние и ледяной свет — то, что я вижу каждый день, превращаю в атмосферу ваших нейрофотосессий. Без поездок на съёмку и без мороза — только вы и образ, который хочется сохранить.",
     about_p3:
       "Мне всегда было важно не просто сделать красивую картинку, а показать человека таким, каким он сам хочет себя чувствовать: спокойным, дорогим, живым и настоящим.",
     about_p4: "Поэтому я внимательно отношусь к деталям, настроению и атмосфере кадра.",
@@ -109,8 +115,13 @@
 
     portfolio_h2: "Примеры работ",
     portfolio_intro:
-      "Четыре направления: женский и мужской портрет, дети и семейная съёмка — каждый альбом можно открыть целиком.",
+      "Северная нейрофотосессия из Заполярного и другие направления — каждый альбом можно открыть целиком.",
     work_btn: "Смотреть альбом",
+
+    work_arctic_img: "./arctic-aurora.png",
+    work_arctic_title: "Север / Арктика",
+    work_arctic_tag: "Заполярный • альбом • 4 фото",
+    work_arctic_aria: "Открыть альбом: Север / Арктика",
 
     work_women_img: "./ChatGPT Image 30 апр. 2026 г., 15_22_30.png",
     work_women_title: "Женский портрет",
@@ -256,7 +267,7 @@
       "Ответ в течение 24 часов. Можем начать с мини-аудита профиля и идеи для образа.",
 
     footer_copy:
-      "© 2026 Зинаида | Фото мечты без камеры. Создание визуала, который работает на ваш бренд.",
+      "© 2026 Зинаида | Фото мечты без камеры. Заполярный, Мурманская область.",
     footer_top: "На главную",
     footer_policy: "Политика",
 
@@ -315,6 +326,10 @@
       { key: "about_quote", label: "Цитата (блок)", type: "textarea", rows: 2, wide: true },
       { key: "about_p6", label: "Абзац после цитаты", type: "textarea", rows: 2 },
       { key: "about_p7", label: "Финальный абзац", type: "textarea", rows: 2 },
+      { key: "about_badge_city", label: "Бейдж — город", type: "text" },
+      { key: "about_badge_lat", label: "Бейдж — широта", type: "text" },
+      { key: "about_origin_h", label: "Блок «Север» — заголовок", type: "text" },
+      { key: "about_origin_p", label: "Блок «Север» — текст", type: "textarea", rows: 4, wide: true },
     ]},
     { section: "Блок «боль»", fields: [
       { key: "pain_h2", label: "Заголовок", type: "text" },
@@ -342,10 +357,15 @@
       { key: "svc_detail_p1", label: "Под карточками — левая колонка", type: "textarea", rows: 4, wide: true },
       { key: "svc_detail_p2", label: "Под карточками — правая колонка", type: "textarea", rows: 4, wide: true },
     ]},
-    { section: "Портфолио (4 альбома)", fields: [
+    { section: "Портфолио (5 альбомов)", fields: [
       { key: "portfolio_h2", label: "Заголовок секции", type: "text" },
       { key: "portfolio_intro", label: "Вводный текст", type: "textarea" },
       { key: "work_btn", label: "Текст на кнопке карточки", type: "text" },
+
+      { key: "work_arctic_img", label: "Север — превью (путь)", type: "text" },
+      { key: "work_arctic_title", label: "Север — название", type: "text" },
+      { key: "work_arctic_tag", label: "Север — подпись", type: "text" },
+      { key: "work_arctic_aria", label: "Север — aria-label кнопки", type: "text" },
 
       { key: "work_women_img", label: "Женский портрет — превью (путь)", type: "text" },
       { key: "work_women_title", label: "Женский портрет — название", type: "text" },
@@ -481,7 +501,7 @@
         const v = parsed[k];
         if (v != null && String(v).trim() !== "") out[k] = v;
       });
-      if (out.portrait_img === LEGACY_PORTRAIT_IMG) {
+      if (out.portrait_img === LEGACY_PORTRAIT_IMG || out.portrait_img === LEGACY_HERO_PORTRAIT) {
         out.portrait_img = defaults.portrait_img;
         try {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(out));

@@ -10,7 +10,7 @@ export const SOFT_AURORA_DEFAULTS = {
   scale: 1.5,
   brightness: 0.92,
   color1: "#e8f1ff",
-  color2: "#5eead4",
+  color2: "#34d399",
   noiseFrequency: 2.5,
   noiseAmplitude: 1,
   bandHeight: 0.35,
@@ -172,9 +172,11 @@ void main() {
 `;
 
 /** @param {HTMLElement} container @param {Record<string, unknown>} [opts] */
+const noopAuroraHandle = { destroy() {}, setTheme() {} };
+
 export function initSoftAurora(container, opts = {}) {
   if (!container || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    return () => {};
+    return noopAuroraHandle;
   }
 
   const narrow =
@@ -239,11 +241,11 @@ export function initSoftAurora(container, opts = {}) {
         /* noop */
       }
       container.classList.add("hero__softAuroraMount--fallback");
-      return () => {};
+      return noopAuroraHandle;
     }
   } catch {
     container.classList.add("hero__softAuroraMount--fallback");
-    return () => {};
+    return noopAuroraHandle;
   }
 
   gl.clearColor(0, 0, 0, 0);
@@ -338,7 +340,7 @@ export function initSoftAurora(container, opts = {}) {
     } catch {
       /* noop */
     }
-    return () => {};
+    return noopAuroraHandle;
   }
 
   resize();
@@ -383,7 +385,17 @@ export function initSoftAurora(container, opts = {}) {
   };
   raf = requestAnimationFrame(loop);
 
-  return () => {
+  const setTheme = (theme) => {
+    if (!program) return;
+    const day = theme === "day";
+    program.uniforms.uColor1.value = hexToVec3(day ? "#fff7ed" : cfg.color1);
+    program.uniforms.uColor2.value = hexToVec3(day ? "#7dd3fc" : cfg.color2);
+    program.uniforms.uBrightness.value = day
+      ? Math.min(1.25, cfg.brightness * 0.88)
+      : cfg.brightness;
+  };
+
+  const destroy = () => {
     cancelAnimationFrame(raf);
     ro?.disconnect();
     window.removeEventListener("pageshow", onPageShow);
@@ -401,13 +413,22 @@ export function initSoftAurora(container, opts = {}) {
       /* noop */
     }
   };
+
+  return { destroy, setTheme };
 }
 
 const mount = document.getElementById("heroSoftAuroraMount");
+let auroraHandle = null;
 if (mount) {
   try {
-    initSoftAurora(mount);
+    auroraHandle = initSoftAurora(mount);
+    const initialTheme = document.body.classList.contains("theme-day") ? "day" : "night";
+    auroraHandle?.setTheme?.(initialTheme);
   } catch {
     mount.classList.add("hero__softAuroraMount--fallback");
   }
 }
+
+window.addEventListener("polar-theme-change", (e) => {
+  auroraHandle?.setTheme?.(e.detail?.theme);
+});

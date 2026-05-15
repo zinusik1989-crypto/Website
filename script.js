@@ -171,8 +171,16 @@ function setupAlbumLightbox() {
     "ChatGPT Image 30 апр. 2026 г., 15_25_30.png",
   ];
 
-  /** Женский • Мужской • Дети • Семейная — нарезка одной библиотеки на 4 альбома */
+  const ARCTIC_FILES = [
+    "arctic-aurora.png",
+    "arctic-snow.png",
+    "arctic-glass.png",
+    "arctic-ice.png",
+  ];
+
+  /** Север • Женский • Мужской • Дети • Семейная */
   const ALBUM_FILES = {
+    arctic: ARCTIC_FILES,
     women: ALL_FILES.slice(0, 3),
     men: ALL_FILES.slice(3, 6),
     kids: ALL_FILES.slice(6, 8),
@@ -452,7 +460,38 @@ function setupScrollTriggerRefreshOnResize() {
   }
 }
 
+function setupPolarThemeToggle() {
+  const btn = $("#polarThemeToggle");
+  if (!btn) return;
+
+  const STORAGE_KEY = "polarTheme";
+
+  const apply = (theme) => {
+    const isDay = theme === "day";
+    document.body.classList.toggle("theme-day", isDay);
+    document.body.classList.toggle("theme-dark", !isDay);
+    btn.setAttribute("aria-pressed", String(isDay));
+    btn.setAttribute(
+      "aria-label",
+      isDay ? "Включить полярную ночь" : "Включить полярный день"
+    );
+    btn.title = isDay ? "Полярный день" : "Полярная ночь";
+    btn.dataset.theme = theme;
+    window.dispatchEvent(new CustomEvent("polar-theme-change", { detail: { theme } }));
+  };
+
+  const saved = localStorage.getItem(STORAGE_KEY);
+  apply(saved === "day" ? "day" : "night");
+
+  btn.addEventListener("click", () => {
+    const next = document.body.classList.contains("theme-day") ? "night" : "day";
+    localStorage.setItem(STORAGE_KEY, next);
+    apply(next);
+  });
+}
+
 setupReveal();
+setupPolarThemeToggle();
 setupMobileViewToggle();
 setupScrollSpy();
 setupSmoothHashOffset();
