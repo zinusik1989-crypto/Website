@@ -157,34 +157,13 @@ function setupAlbumLightbox() {
   const prevBtn = $('[data-lb-prev="true"]', lb);
   const nextBtn = $('[data-lb-next="true"]', lb);
 
-  // Локальные файлы (пробелы/кириллица → encodeURI при загрузке).
-  const ALL_FILES = [
-    "ChatGPT Image 30 апр. 2026 г., 15_22_30.png",
-    "ChatGPT Image 30 апр. 2026 г., 15_22_46.png",
-    "ChatGPT Image 30 апр. 2026 г., 15_22_50.png",
-    "ChatGPT Image 30 апр. 2026 г., 15_11_42.png",
-    "ChatGPT Image 30 апр. 2026 г., 15_23_27.png",
-    "ChatGPT Image 30 апр. 2026 г., 15_23_56.png",
-    "ChatGPT Image 30 апр. 2026 г., 15_24_09.png",
-    "ChatGPT Image 30 апр. 2026 г., 15_24_16.png",
-    "ChatGPT Image 30 апр. 2026 г., 15_24_43.png",
-    "ChatGPT Image 30 апр. 2026 г., 15_25_30.png",
-  ];
-
-  const ARCTIC_FILES = [
-    "arctic-aurora.png",
-    "arctic-snow.png",
-    "arctic-glass.png",
-    "arctic-ice.png",
-  ];
-
-  /** Север • Женский • Мужской • Дети • Семейная */
+  /** Альбомы без фото — лайтбокс не открывается */
   const ALBUM_FILES = {
-    arctic: ARCTIC_FILES,
-    women: ALL_FILES.slice(0, 3),
-    men: ALL_FILES.slice(3, 6),
-    kids: ALL_FILES.slice(6, 8),
-    family: ALL_FILES.slice(8, 10),
+    arctic: [],
+    women: [],
+    men: [],
+    kids: [],
+    family: [],
   };
 
   let images = [];
@@ -225,7 +204,8 @@ function setupAlbumLightbox() {
 
   const open = (startIndex, trigger) => {
     const key = trigger?.getAttribute("data-album");
-    const files = key && ALBUM_FILES[key] ? ALBUM_FILES[key] : ALL_FILES;
+    const files = key && ALBUM_FILES[key] ? ALBUM_FILES[key] : [];
+    if (!files.length) return;
     images = files.map((name) => ({ src: encodeURI(`./${name}`) }));
     currentAlbumTitle =
       trigger?.querySelector(".work__title")?.textContent?.trim() || "Альбом";

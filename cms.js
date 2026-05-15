@@ -115,32 +115,27 @@
 
     portfolio_h2: "Примеры работ",
     portfolio_intro:
-      "Северная нейрофотосессия из Заполярного и другие направления — каждый альбом можно открыть целиком.",
-    work_btn: "Смотреть альбом",
+      "Северная нейрофотосессия из Заполярного и другие направления — альбомы скоро появятся на сайте.",
+    work_btn: "Скоро",
 
-    work_arctic_img: "./arctic-aurora.png",
     work_arctic_title: "Север / Арктика",
-    work_arctic_tag: "Заполярный • альбом • 4 фото",
+    work_arctic_tag: "Заполярный • альбом",
     work_arctic_aria: "Открыть альбом: Север / Арктика",
 
-    work_women_img: "./ChatGPT Image 30 апр. 2026 г., 15_22_30.png",
     work_women_title: "Женский портрет",
-    work_women_tag: "альбом • 3 фото",
+    work_women_tag: "альбом",
     work_women_aria: "Открыть альбом: Женский портрет",
 
-    work_men_img: "./ChatGPT Image 30 апр. 2026 г., 15_11_42.png",
     work_men_title: "Мужской портрет",
-    work_men_tag: "альбом • 3 фото",
+    work_men_tag: "альбом",
     work_men_aria: "Открыть альбом: Мужской портрет",
 
-    work_kids_img: "./ChatGPT Image 30 апр. 2026 г., 15_24_09.png",
     work_kids_title: "Дети",
-    work_kids_tag: "альбом • 2 фото",
+    work_kids_tag: "альбом",
     work_kids_aria: "Открыть альбом: Дети",
 
-    work_family_img: "./ChatGPT Image 30 апр. 2026 г., 15_24_43.png",
     work_family_title: "Семейная",
-    work_family_tag: "альбом • 2 фото",
+    work_family_tag: "альбом",
     work_family_aria: "Открыть альбом: Семейная съёмка",
 
     audience_h2: "Для кого",

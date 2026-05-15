@@ -1681,6 +1681,34 @@ img{max-width:100%; display:block}
   transition: transform .7s var(--ease), filter .7s var(--ease);
   filter: saturate(1.08) contrast(1.03);
 }
+.work__img--empty{
+  background:
+    radial-gradient(280px 200px at 25% 28%, rgba(var(--polar-cyan-rgb),.22), transparent 62%),
+    radial-gradient(260px 180px at 72% 68%, rgba(135,35,65,.14), transparent 64%),
+    linear-gradient(145deg, rgba(38,26,34,.94), rgba(22,30,42,.88));
+}
+.work__img--empty::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(
+      -12deg,
+      rgba(var(--glass-opal),.04) 0 2px,
+      transparent 2px 14px
+    );
+  opacity:.55;
+  pointer-events:none;
+}
+.work--album:has(.work__img--empty){
+  cursor: default;
+}
+.work--album:has(.work__img--empty):hover{
+  transform: none;
+}
+.work--album:has(.work__img--empty):hover .work__btn{
+  transform: none;
+}
 .work::after{
   content:"";
   position:absolute;
