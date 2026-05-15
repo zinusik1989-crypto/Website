@@ -193,6 +193,56 @@
   margin: 0;
 }
 
+.arctic-wheel-section__gender-label {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--polar-ice-rgb, 232, 241, 255), 0.55);
+  text-align: center;
+  margin: 8px 0 0;
+}
+
+.arctic-wheel-section__gender {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.arctic-wheel-section__gender-opt {
+  flex: 1;
+  max-width: 160px;
+  min-height: 48px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--aw-border);
+  background: rgba(8, 18, 40, 0.5);
+  color: var(--aw-ice);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 0.2s var(--aw-ease),
+    background 0.2s var(--aw-ease),
+    box-shadow 0.2s var(--aw-ease);
+}
+
+.arctic-wheel-section__gender-opt:hover {
+  border-color: rgba(52, 211, 153, 0.5);
+}
+
+.arctic-wheel-section__gender-opt.is-selected {
+  border-color: rgba(52, 211, 153, 0.75);
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.2), rgba(52, 211, 153, 0.18));
+  box-shadow: 0 0 24px rgba(34, 211, 238, 0.2);
+}
+
+.arctic-wheel-section__gender-opt:focus-visible {
+  outline: 2px solid var(--aw-mint);
+  outline-offset: 2px;
+}
+
 /* Quiz */
 .arctic-wheel-section__quiz-bar {
   height: 4px;

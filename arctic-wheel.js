@@ -1,152 +1,221 @@
 /**
- * Колесо северной судьбы — квиз + колесо + результат (GitHub Pages).
+ * Колесо северной судьбы — квиз + колесо + результат (женский / мужской образ).
  */
 (function () {
   const STYLES = [
     {
       id: "ice-queen",
-      name: "Ледяная Королева",
+      names: { f: "Ледяная Королева", m: "Ледяной Король" },
       color: "#0ea5e9",
-      desc:
-        "Ты несёшь энергию ледяного спокойствия, силы и северной элегантности. Твоя эстетика — cinematic luxury, холодная уверенность и образ героини frozen-вселенной.",
+      desc: {
+        f: "Ты несёшь энергию ледяного спокойствия, силы и северной элегантности. Твоя эстетика — cinematic luxury, холодная уверенность и образ героини frozen-вселенной.",
+        m: "Ты несёшь энергию ледяного спокойствия, силы и северной элегантности. Твоя эстетика — cinematic luxury, холодная уверенность и образ героя frozen-вселенной.",
+      },
       colors: "серебряный хром, ледяной голубой, морозный белый, холодный жемчужный",
-      outfit:
-        "длинное светлое пальто, luxury winter couture, серебристые детали, объёмные шарфы, мягкие текстуры, элегантный минимализм",
+      outfit: {
+        f: "длинное светлое пальто, luxury winter couture, серебристые детали, объёмные шарфы, мягкие текстуры, элегантный минимализм",
+        m: "светлое пальто с чётким кроем, luxury winter menswear, серебристые акценты, объёмный шарф, структурные слои, элегантный минимализм",
+      },
       locations:
         "ледяной дворец, замёрзшее озеро, арктический замок, снежные горы, северное сияние над ледником",
-      stats: [
-        { label: "Северная энергия", value: 96 },
-        { label: "Кинематографичность", value: 98 },
-        { label: "Энергия величия", value: 94 },
-      ],
+      stats: {
+        f: [
+          { label: "Северная энергия", value: 96 },
+          { label: "Кинематографичность", value: 98 },
+          { label: "Энергия величия", value: 94 },
+        ],
+        m: [
+          { label: "Северная энергия", value: 96 },
+          { label: "Кинематографичность", value: 98 },
+          { label: "Энергия величия", value: 94 },
+        ],
+      },
     },
     {
       id: "aurora-soul",
-      name: "Душа Северного Сияния",
+      names: { f: "Душа Северного Сияния", m: "Душа Северного Сияния" },
       color: "#34d399",
-      desc:
-        "Твоя энергия мягкая, сияющая и мистическая, как северное небо. Тебе подходит нежный cinematic-образ с атмосферой света, воздуха и эмоциональной глубины.",
+      desc: {
+        f: "Твоя энергия мягкая, сияющая и мистическая, как северное небо. Тебе подходит нежный cinematic-образ с атмосферой света, воздуха и эмоциональной глубины.",
+        m: "Твоя энергия спокойная, сияющая и мистическая, как северное небо. Тебе подходит cinematic-образ с атмосферой света, воздуха и глубины.",
+      },
       colors: "сияющий голубой, серебристый свет, нежный cyan, холодный лавандовый",
-      outfit:
-        "светлые шерстяные пальто, струящиеся шарфы, воздушные ткани, мягкие layered-образы, светящиеся детали",
+      outfit: {
+        f: "светлые шерстяные пальто, струящиеся шарфы, воздушные ткани, мягкие layered-образы, светящиеся детали",
+        m: "светлое шерстяное пальто, струящийся шарф, воздушные слои, мягкий layered-look, светящиеся акценты",
+      },
       locations:
         "поле северного сияния, ледяное озеро в blue hour, снежная равнина, замёрзший лес, туманная арктика",
-      stats: [
-        { label: "Энергия сияния", value: 97 },
-        { label: "Эмоциональная глубина", value: 94 },
-        { label: "Мягкая сила", value: 91 },
-      ],
+      stats: {
+        f: [
+          { label: "Энергия сияния", value: 97 },
+          { label: "Эмоциональная глубина", value: 94 },
+          { label: "Мягкая сила", value: 91 },
+        ],
+        m: [
+          { label: "Энергия сияния", value: 97 },
+          { label: "Эмоциональная глубина", value: 94 },
+          { label: "Спокойная сила", value: 91 },
+        ],
+      },
     },
     {
       id: "cyber-ice",
-      name: "Кибер Лёд",
+      names: { f: "Кибер Лёд", m: "Кибер Лёд" },
       color: "#22d3ee",
-      desc:
-        "Ты соединяешь эстетику будущего и холодную силу визуала. Твой стиль — futuristic winter fashion, chrome, neon и cinematic sci-fi.",
+      desc: {
+        f: "Ты соединяешь эстетику будущего и холодную силу визуала. Твой стиль — futuristic winter fashion, chrome, neon и cinematic sci-fi.",
+        m: "Ты соединяешь эстетику будущего и холодную силу визуала. Твой стиль — futuristic winter fashion, chrome, neon и cinematic sci-fi.",
+      },
       colors: "chrome silver, neon cyan, тёмно-синий, графитовый",
-      outfit:
-        "futuristic trench coat, reflective детали, кибер-шарфы, glowing seams, metallic textures, futuristic winter layers",
+      outfit: {
+        f: "futuristic trench coat, reflective детали, кибер-шарфы, glowing seams, metallic textures, futuristic winter layers",
+        m: "futuristic trench coat, reflective панели, кибер-шарф, glowing seams, металлические текстуры, futuristic winter layers",
+      },
       locations:
         "ледяной cyber-город, арктическая лаборатория, futuristic observatory, frozen neon world, ледяной мегаполис",
-      stats: [
-        { label: "Энергия будущего", value: 95 },
-        { label: "Неоновая сила", value: 93 },
-        { label: "Визуальный эффект", value: 99 },
-      ],
+      stats: {
+        f: [
+          { label: "Энергия будущего", value: 95 },
+          { label: "Неоновая сила", value: 93 },
+          { label: "Визуальный эффект", value: 99 },
+        ],
+        m: [
+          { label: "Энергия будущего", value: 95 },
+          { label: "Неоновая сила", value: 93 },
+          { label: "Визуальный эффект", value: 99 },
+        ],
+      },
     },
     {
       id: "dark-blizzard",
-      name: "Тёмная Метель",
+      names: { f: "Тёмная Метель", m: "Тёмная Метель" },
       color: "#64748b",
-      desc:
-        "В тебе есть драматичная глубина, тайна и энергия снежной бури. Тебе подходит образ героини cinematic snowstorm — сильной, загадочной и эмоциональной.",
+      desc: {
+        f: "В тебе есть драматичная глубина, тайна и энергия снежной бури. Тебе подходит образ героини cinematic snowstorm — сильной, загадочной и эмоциональной.",
+        m: "В тебе есть драматичная глубина, тайна и энергия снежной бури. Тебе подходит образ героя cinematic snowstorm — сильного, загадочного и эмоционального.",
+      },
       colors: "storm gray, графитовый, ледяной синий, холодный чёрный",
-      outfit:
-        "тёмные шерстяные пальто, oversized scarves, layered winter style, textured fabrics, dramatic silhouettes",
+      outfit: {
+        f: "тёмные шерстяные пальто, oversized scarves, layered winter style, textured fabrics, dramatic silhouettes",
+        m: "тёмное шерстяное пальто, объёмный шарф, layered winter style, фактурные ткани, драматичный силуэт",
+      },
       locations:
         "снежная буря, ледяной каньон, frozen wasteland, снежная пустыня, арктическая ночь",
-      stats: [
-        { label: "Энергия тайны", value: 98 },
-        { label: "Сила бури", value: 96 },
-        { label: "Драматичность", value: 94 },
-      ],
+      stats: {
+        f: [
+          { label: "Энергия тайны", value: 98 },
+          { label: "Сила бури", value: 96 },
+          { label: "Драматичность", value: 94 },
+        ],
+        m: [
+          { label: "Энергия тайны", value: 98 },
+          { label: "Сила бури", value: 96 },
+          { label: "Драматичность", value: 94 },
+        ],
+      },
     },
     {
       id: "ice-oracle",
-      name: "Ледяной Оракул",
+      names: { f: "Ледяной Оракул", m: "Ледяной Оракул" },
       color: "#a78bfa",
-      desc:
-        "Ты похожа на героиню древней северной легенды. В твоём образе много интуиции, магии, тумана и ледяных символов.",
+      desc: {
+        f: "Ты похожа на героиню древней северной легенды. В твоём образе много интуиции, магии, тумана и ледяных символов.",
+        m: "Ты похож на героя древней северной легенды. В твоём образе много интуиции, магии, тумана и ледяных символов.",
+      },
       colors: "ледяной белый, mist blue, серебристый, холодный туман",
-      outfit:
-        "layered winter robes, crystal details, меховые элементы, мистические текстуры, арктическая шаманская эстетика",
+      outfit: {
+        f: "layered winter robes, crystal details, меховые элементы, мистические текстуры, арктическая шаманская эстетика",
+        m: "layered winter coat, crystal details, меховые акценты, мистические текстуры, арктическая шаманская эстетика",
+      },
       locations:
         "ледяной храм, пещера во льдах, frozen ritual cave, северный алтарь, glacier temple",
-      stats: [
-        { label: "Интуиция", value: 97 },
-        { label: "Мистическая энергия", value: 96 },
-        { label: "Магия льда", value: 95 },
-      ],
+      stats: {
+        f: [
+          { label: "Интуиция", value: 97 },
+          { label: "Мистическая энергия", value: 96 },
+          { label: "Магия льда", value: 95 },
+        ],
+        m: [
+          { label: "Интуиция", value: 97 },
+          { label: "Мистическая энергия", value: 96 },
+          { label: "Магия льда", value: 95 },
+        ],
+      },
     },
     {
       id: "snow-empress",
-      name: "Снежная Императрица",
+      names: { f: "Снежная Императрица", m: "Снежный Император" },
       color: "#e8d4f0",
-      desc:
-        "Твой образ — это роскошь, женственность и величие ледяной империи. Тебе подходит royal winter editorial эстетика и cinematic luxury mood.",
+      desc: {
+        f: "Твой образ — это роскошь, женственность и величие ледяной империи. Тебе подходит royal winter editorial эстетика и cinematic luxury mood.",
+        m: "Твой образ — это роскошь, статус и величие ледяной империи. Тебе подходит royal winter editorial эстетика и cinematic luxury mood.",
+      },
       colors: "жемчужный белый, silver glow, pale cyan, снежный бежевый",
-      outfit:
-        "luxury beige coat, мягкие шарфы, premium winter fashion, elegant silhouettes, royal nordic style",
+      outfit: {
+        f: "luxury beige coat, мягкие шарфы, premium winter fashion, elegant silhouettes, royal nordic style",
+        m: "luxury beige coat, шерстяной шарф, premium winter menswear, чёткий силуэт, royal nordic style",
+      },
       locations:
         "ледяной тронный зал, crystal palace, snowy mountains, frozen empire, северный дворец",
-      stats: [
-        { label: "Королевская энергия", value: 98 },
-        { label: "Эстетика роскоши", value: 96 },
-        { label: "Женственная сила", value: 95 },
-      ],
+      stats: {
+        f: [
+          { label: "Королевская энергия", value: 98 },
+          { label: "Эстетика роскоши", value: 96 },
+          { label: "Женственная сила", value: 95 },
+        ],
+        m: [
+          { label: "Королевская энергия", value: 98 },
+          { label: "Эстетика роскоши", value: 96 },
+          { label: "Харизматичная сила", value: 95 },
+        ],
+      },
     },
   ];
 
   const SEGMENT_COLORS = ["#0ea5e9", "#34d399", "#06b6d4", "#475569", "#a78bfa", "#f5e6c8"];
 
-  const QUIZ = [
-    {
-      q: "Какой холод тебе ближе?",
-      options: [
-        { text: "Лёд", scores: { "ice-queen": 2, "snow-empress": 1 } },
-        { text: "Туман", scores: { "ice-oracle": 2, "dark-blizzard": 2 } },
-        { text: "Снег", scores: { "dark-blizzard": 2, "snow-empress": 1 } },
-        { text: "Северное сияние", scores: { "aurora-soul": 3 } },
-      ],
-    },
-    {
-      q: "Что скрывает твоя энергия?",
-      options: [
-        { text: "Тайну", scores: { "dark-blizzard": 2, "ice-oracle": 2 } },
-        { text: "Силу", scores: { "ice-queen": 2, "cyber-ice": 1 } },
-        { text: "Мягкость", scores: { "aurora-soul": 3 } },
-        { text: "Хаос", scores: { "cyber-ice": 3 } },
-      ],
-    },
-    {
-      q: "Где бы ты жила в ледяной вселенной?",
-      options: [
-        { text: "Ледяной дворец", scores: { "ice-queen": 2, "snow-empress": 2 } },
-        { text: "Северный храм", scores: { "ice-oracle": 3 } },
-        { text: "Кибер-ледник", scores: { "cyber-ice": 3 } },
-        { text: "Снежная пустыня", scores: { "dark-blizzard": 3 } },
-      ],
-    },
-    {
-      q: "Что ты хочешь почувствовать в нейрофотосессии?",
-      options: [
-        { text: "Величие", scores: { "ice-queen": 2, "snow-empress": 2 } },
-        { text: "Магию", scores: { "ice-oracle": 3 } },
-        { text: "Свободу", scores: { "aurora-soul": 2, "cyber-ice": 1 } },
-        { text: "Кинематографичность", scores: { "cyber-ice": 2, "dark-blizzard": 2 } },
-      ],
-    },
-  ];
+  function getQuiz(gender) {
+    const live = gender === "m" ? "жил" : "жила";
+    return [
+      {
+        q: "Какой холод тебе ближе?",
+        options: [
+          { text: "Лёд", scores: { "ice-queen": 2, "snow-empress": 1 } },
+          { text: "Туман", scores: { "ice-oracle": 2, "dark-blizzard": 2 } },
+          { text: "Снег", scores: { "dark-blizzard": 2, "snow-empress": 1 } },
+          { text: "Северное сияние", scores: { "aurora-soul": 3 } },
+        ],
+      },
+      {
+        q: "Что скрывает твоя энергия?",
+        options: [
+          { text: "Тайну", scores: { "dark-blizzard": 2, "ice-oracle": 2 } },
+          { text: "Силу", scores: { "ice-queen": 2, "cyber-ice": 1 } },
+          { text: "Мягкость", scores: { "aurora-soul": 3 } },
+          { text: "Хаос", scores: { "cyber-ice": 3 } },
+        ],
+      },
+      {
+        q: `Где бы ты ${live} в ледяной вселенной?`,
+        options: [
+          { text: "Ледяной дворец", scores: { "ice-queen": 2, "snow-empress": 2 } },
+          { text: "Северный храм", scores: { "ice-oracle": 3 } },
+          { text: "Кибер-ледник", scores: { "cyber-ice": 3 } },
+          { text: "Снежная пустыня", scores: { "dark-blizzard": 3 } },
+        ],
+      },
+      {
+        q: "Что ты хочешь почувствовать в нейрофотосессии?",
+        options: [
+          { text: "Величие", scores: { "ice-queen": 2, "snow-empress": 2 } },
+          { text: "Магию", scores: { "ice-oracle": 3 } },
+          { text: "Свободу", scores: { "aurora-soul": 2, "cyber-ice": 1 } },
+          { text: "Кинематографичность", scores: { "cyber-ice": 2, "dark-blizzard": 2 } },
+        ],
+      },
+    ];
+  }
 
   const SPIN_MIN_MS = 4000;
   const SPIN_MAX_MS = 6000;
@@ -157,12 +226,29 @@
 
   let root = null;
   let wheel = null;
+  let gender = "f";
   let quizIndex = 0;
   let quizScores = {};
+  let answerHistory = [];
   let finalStyle = null;
   let spinning = false;
 
   const $ = (sel, ctx = root) => ctx?.querySelector(sel) ?? null;
+
+  function styleField(style, field) {
+    const v = style[field];
+    if (typeof v === "string") return v;
+    if (v && typeof v === "object") return v[gender] || v.f || "";
+    return "";
+  }
+
+  function getStyleName(style) {
+    return style.names[gender] || style.names.f;
+  }
+
+  function getStyleStats(style) {
+    return style.stats[gender] || style.stats.f;
+  }
 
   function showStep(name) {
     root.querySelectorAll(".arctic-wheel-section__screen").forEach((el) => {
@@ -181,6 +267,7 @@
 
   function resetQuizScores() {
     quizScores = {};
+    answerHistory = [];
     STYLES.forEach((s) => {
       quizScores[s.id] = 0;
     });
@@ -189,6 +276,13 @@
   function addScores(scores) {
     Object.entries(scores).forEach(([id, pts]) => {
       quizScores[id] = (quizScores[id] || 0) + pts;
+    });
+  }
+
+  function subtractScores(scores) {
+    if (!scores) return;
+    Object.entries(scores).forEach(([id, pts]) => {
+      quizScores[id] = Math.max(0, (quizScores[id] || 0) - pts);
     });
   }
 
@@ -234,9 +328,12 @@
     STYLES.forEach((style, i) => {
       const el = document.createElement("span");
       el.className = "arctic-wheel-section__label";
-      const short =
-        style.name.length > 14 ? style.name.replace(" ", "\n") : style.name;
-      el.textContent = short;
+      let label = getStyleName(style);
+      if (label.length > 16) {
+        const parts = label.split(" ");
+        label = parts.length > 1 ? `${parts[0]}\n${parts.slice(1).join(" ")}` : label;
+      }
+      el.textContent = label;
       const angle = -90 + i * seg + seg / 2;
       el.style.transform = `rotate(${angle}deg) translateY(-118%) rotate(${-angle}deg)`;
       ring.appendChild(el);
@@ -262,13 +359,15 @@
   function updateQuizBar() {
     const fill = $(".arctic-wheel-section__quiz-bar-fill");
     const label = $(".arctic-wheel-section__quiz-progress");
-    const pct = Math.round((quizIndex / QUIZ.length) * 100);
+    const total = getQuiz(gender).length;
+    const pct = Math.round((quizIndex / total) * 100);
     if (fill) fill.style.width = `${pct}%`;
-    if (label) label.textContent = `Вопрос ${Math.min(quizIndex + 1, QUIZ.length)} из ${QUIZ.length}`;
+    if (label) label.textContent = `Вопрос ${Math.min(quizIndex + 1, total)} из ${total}`;
   }
 
   function renderQuiz() {
-    const q = QUIZ[quizIndex];
+    const quiz = getQuiz(gender);
+    const q = quiz[quizIndex];
     const question = $(".arctic-wheel-section__quiz-question");
     const opts = $(".arctic-wheel-section__quiz-options");
     const back = $(".arctic-wheel-section__btn-quiz-back");
@@ -283,9 +382,11 @@
       btn.className = "arctic-wheel-section__quiz-opt";
       btn.textContent = opt.text;
       btn.addEventListener("click", () => {
+        answerHistory.push({ ...opt.scores });
         addScores(opt.scores);
         quizIndex += 1;
-        if (quizIndex >= QUIZ.length) {
+        if (quizIndex >= quiz.length) {
+          buildLabels();
           showStep("wheel");
         } else {
           renderQuiz();
@@ -314,6 +415,7 @@
   function renderResult(style) {
     if (!style) return;
     const hero = $(".arctic-wheel-section__result-hero");
+    const kicker = $(".arctic-wheel-section__result-kicker");
     const title = $(".arctic-wheel-section__result-title");
     const desc = $(".arctic-wheel-section__result-desc");
     const colors = $(".arctic-wheel-section__result-colors");
@@ -321,16 +423,20 @@
     const locations = $(".arctic-wheel-section__result-locations");
     const statsEl = $(".arctic-wheel-section__result-stats");
 
+    if (kicker) {
+      kicker.textContent =
+        gender === "m" ? "Твой северный мужской стиль" : "Твой северный женский стиль";
+    }
     if (hero) hero.style.background = `linear-gradient(135deg, ${style.color}44, rgba(8,18,40,0.55))`;
-    if (title) title.textContent = style.name;
-    if (desc) desc.textContent = style.desc;
+    if (title) title.textContent = getStyleName(style);
+    if (desc) desc.textContent = styleField(style, "desc");
     if (colors) colors.textContent = style.colors;
-    if (outfit) outfit.textContent = style.outfit;
+    if (outfit) outfit.textContent = styleField(style, "outfit");
     if (locations) locations.textContent = style.locations;
 
     if (statsEl) {
       statsEl.innerHTML = "";
-      style.stats.forEach((stat) => {
+      getStyleStats(style).forEach((stat) => {
         const row = document.createElement("div");
         row.className = "arctic-wheel-section__stat";
         row.innerHTML = `
@@ -371,7 +477,8 @@
       });
     });
 
-    const onEnd = () => {
+    const onEnd = (e) => {
+      if (e.propertyName !== "transform") return;
       wheel.removeEventListener("transitionend", onEnd);
       wheel.classList.remove("is-spinning");
       spinning = false;
@@ -383,7 +490,7 @@
 
   function buildShareText() {
     if (!finalStyle) return "";
-    return `Мой стиль нейрофотосессии — ${finalStyle.name}. ${finalStyle.desc}`;
+    return `Мой стиль нейрофотосессии — ${getStyleName(finalStyle)}. ${styleField(finalStyle, "desc")}`;
   }
 
   async function shareResult() {
@@ -408,6 +515,16 @@
     }
   }
 
+  function setGender(g) {
+    gender = g === "m" ? "m" : "f";
+    root.querySelectorAll(".arctic-wheel-section__gender-opt").forEach((btn) => {
+      const on = btn.dataset.gender === gender;
+      btn.classList.toggle("is-selected", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    buildLabels();
+  }
+
   function restart() {
     if (spinning) return;
     quizIndex = 0;
@@ -417,7 +534,6 @@
       wheel.style.transition = "none";
       wheel.style.transform = "rotate(0deg)";
     }
-    renderQuiz();
     showStep("hero");
   }
 
@@ -429,10 +545,15 @@
   }
 
   function bindEvents() {
+    root.querySelectorAll(".arctic-wheel-section__gender-opt").forEach((btn) => {
+      btn.addEventListener("click", () => setGender(btn.dataset.gender));
+    });
     $(".arctic-wheel-section__btn-start")?.addEventListener("click", startRitual);
     $(".arctic-wheel-section__btn-quiz-back")?.addEventListener("click", () => {
       if (quizIndex > 0) {
         quizIndex -= 1;
+        const last = answerHistory.pop();
+        subtractScores(last);
         renderQuiz();
       }
     });
@@ -449,7 +570,7 @@
     if (!root) return;
     wheel = $("#arcticWheelDisk");
     if (wheel) wheel.style.background = buildWheelGradient();
-    buildLabels();
+    setGender("f");
     spawnSnow($("#arcticWheelSnow"));
     resetQuizScores();
     bindEvents();
