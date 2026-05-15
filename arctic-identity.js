@@ -104,6 +104,13 @@
     return (custom || DEFAULT_WEBHOOK_URL).replace(/\s+/g, "");
   }
 
+  function getWebhookHeaders() {
+    const headers = { "Content-Type": "application/json" };
+    const apiKey = root?.dataset.webhookKey?.trim();
+    if (apiKey) headers["x-make-apikey"] = apiKey;
+    return headers;
+  }
+
   function getProxyBase() {
     const proxy = root?.dataset.proxyUrl?.trim();
     return proxy ? proxy.replace(/\/$/, "") : "";
@@ -140,11 +147,11 @@
       list.push({ url: "/api/make-webhook", kind: "vercel-local" });
     }
 
-    list.push({ url: webhook, kind: "direct" });
-
     if (needsCorsBypass()) {
       list.push({ url: webhook, kind: "corsproxy" });
     }
+
+    list.push({ url: webhook, kind: "direct" });
 
     const seen = new Set();
     return list.filter((s) => {
@@ -234,6 +241,23 @@
     return strategy.url;
   }
 
+  function httpErrorMessage(status, detail) {
+    if (status === 401) {
+      return (
+        "Make webhook: 401 (доступ запрещён). Скопируйте новый URL из модуля Webhook в Make " +
+        "и вставьте в data-webhook-url. Если в Webhook включён API Key — укажите data-webhook-key " +
+        "или отключите защиту в настройках webhook."
+      );
+    }
+    if (status === 410) {
+      return "Сценарий Make выключен или webhook устарел. Включите сценарий (ON) и обновите URL.";
+    }
+    if (status === 404) {
+      return "Webhook Make не найден. Проверьте URL в data-webhook-url.";
+    }
+    return detail || `Ошибка Make (HTTP ${status})`;
+  }
+
   async function parseMakeResponse(response) {
     const rawText = await response.text();
     let data = {};
@@ -256,8 +280,12 @@
         unwrapped?.message ||
         unwrapped?.description ||
         rawText.slice(0, 160);
-      const err = new Error(detail || `Ошибка сценария Make (HTTP ${response.status})`);
-      err.retryable = response.status === 408 || response.status === 429 || response.status >= 500;
+      const err = new Error(httpErrorMessage(response.status, detail));
+      err.retryable =
+        response.status !== 401 &&
+        response.status !== 404 &&
+        response.status !== 410 &&
+        (response.status === 408 || response.status === 429 || response.status >= 500);
       throw err;
     }
 
@@ -276,11 +304,28 @@
     const url = resolveFetchUrl(strategy);
     const response = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getWebhookHeaders(),
       body: JSON.stringify({ prompt }),
       signal,
     });
     return parseMakeResponse(response);
+  }
+
+  function showError(msg) {
+    const box = $(".ai-id__error");
+    if (box) {
+      box.textContent = msg;
+      box.hidden = false;
+    }
+    showToast(msg, 9000);
+  }
+
+  function clearError() {
+    const box = $(".ai-id__error");
+    if (box) {
+      box.textContent = "";
+      box.hidden = true;
+    }
   }
 
   /**
@@ -345,16 +390,15 @@
 
   function mapApiError(message) {
     const m = String(message || "");
+    if (/401|доступ запрещён|webhook-key/i.test(m)) return m;
     if (/Failed to fetch|NetworkError|Load failed|связаться с Make/i.test(m)) {
       return "Нет связи с Make. Проверьте интернет и что сценарий включён (ON).";
     }
-    if (/HTTP 404|410/i.test(m)) {
-      return "Webhook Make не найден или сценарий выключен. Включите сценарий в Make.com.";
-    }
-    if (/HTTP 500|502|503/i.test(m)) {
+    if (/HTTP 404|410|выключен/i.test(m)) return m;
+    if (/HTTP 500|502|503|внутри сценария/i.test(m)) {
       return "Ошибка внутри сценария Make. Откройте History → последний запуск → детали.";
     }
-    if (/не JSON|поле "image"/i.test(m)) return m;
+    if (/не JSON|не вернул/i.test(m)) return m;
     return m || "Не удалось создать образ. Попробуйте ещё раз.";
   }
 
@@ -505,6 +549,7 @@
     if (generateAbort) generateAbort.abort();
     generateAbort = new AbortController();
 
+    clearError();
     showStep("generating");
     root.querySelectorAll(".ai-id__btn").forEach((b) => {
       b.disabled = true;
@@ -514,12 +559,13 @@
 
     try {
       const image = await generateArcticImage(prompt, generateAbort.signal);
+      clearError();
       showGeneratedResult(image);
       showToast("Ваш арктический образ готов");
     } catch (err) {
       if (err.name === "AbortError") return;
       showStep("result");
-      showToast(mapApiError(err.message));
+      showError(mapApiError(err.message));
     } finally {
       generateAbort = null;
       root.querySelectorAll(".ai-id__btn").forEach((b) => {
