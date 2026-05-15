@@ -428,6 +428,21 @@
     }, SCAN_MS);
   }
 
+  function recordGameResult(style) {
+    if (!style || !window.SiteGameResults) return;
+    window.SiteGameResults.submit({
+      game: "arctic-wheel",
+      styleId: style.id,
+      styleName: getStyleName(style),
+      gender,
+      colors: style.colors,
+      outfit: styleField(style, "outfit"),
+      locations: style.locations,
+      desc: styleField(style, "desc"),
+      stats: getStyleStats(style),
+    });
+  }
+
   function renderResult(style) {
     if (!style) return;
     const hero = $(".arctic-wheel-section__result-hero");
@@ -469,6 +484,7 @@
         });
       });
     }
+    recordGameResult(style);
   }
 
   function spinWheel() {

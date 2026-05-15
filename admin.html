@@ -61,6 +61,43 @@
 
         <form id="cmsForm"></form>
 
+        <section id="adminGamesPanel" class="admin-games" aria-labelledby="adminGamesTitle">
+          <header class="admin-games__head">
+            <h2 id="adminGamesTitle" class="admin-games__title">Результаты мини-игр</h2>
+            <p class="admin-games__lead">
+              Только для вас после входа по PIN. Результаты хранятся в <strong>этом браузере</strong>
+              (localStorage): откройте админку в том же браузере, где проходили игру на главной, или импортируйте JSON с другого устройства.
+            </p>
+            <div class="admin-games__actions">
+              <button type="button" id="adminGamesRefresh" class="btn btn--ghost btn--sm">Обновить</button>
+              <button type="button" id="adminGamesExportJson" class="btn btn--ghost btn--sm">Скачать JSON</button>
+              <button type="button" id="adminGamesExportCsv" class="btn btn--ghost btn--sm">Скачать CSV</button>
+              <label class="btn btn--ghost btn--sm" style="cursor:pointer">
+                Импорт JSON
+                <input id="adminGamesImport" type="file" accept=".json,application/json" hidden />
+              </label>
+              <button type="button" id="adminGamesClearAll" class="btn btn--ghost btn--sm">Очистить всё</button>
+            </div>
+            <p id="adminGamesStatus" class="admin-status" aria-live="polite"></p>
+            <p class="admin-games__count">Записей: <span id="adminGamesCount">0</span></p>
+          </header>
+          <div class="admin-games__table-wrap" tabindex="0">
+            <table class="admin-games__table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Дата</th>
+                  <th scope="col">Игра</th>
+                  <th scope="col">Стиль</th>
+                  <th scope="col">Пол</th>
+                  <th scope="col">Кратко</th>
+                </tr>
+              </thead>
+              <tbody id="adminGamesTbody"></tbody>
+            </table>
+          </div>
+        </section>
+
         <p class="admin-muted">
           Чтобы текст на боевом хостинге совпадал с правками без localStorage: скопируйте значения в
           разметку <code>index.html</code> вручную, либо подключите небольшой JSON и скрипт на сервере.
@@ -69,7 +106,9 @@
       </div>
     </div>
 
+    <script src="./game-results-client.js"></script>
     <script src="./cms.js"></script>
     <script src="./admin.js"></script>
+    <script src="./admin-games.js"></script>
   </body>
 </html>

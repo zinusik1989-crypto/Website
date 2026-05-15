@@ -365,6 +365,23 @@
     }, RITUAL_MS);
   }
 
+  function recordGameResult(style) {
+    if (!style || !window.SiteGameResults) return;
+    window.SiteGameResults.submit({
+      game: "arctic-story-game",
+      styleId: style.id,
+      styleName: style.name,
+      picks: { ...picks },
+      hasPhoto: Boolean(photoObjectUrl),
+      colors: style.colors,
+      outfit: style.outfit,
+      locations: style.locations,
+      desc: style.desc,
+      prompt: style.prompt,
+      stats: style.stats,
+    });
+  }
+
   function renderResult(style) {
     if (!style) return;
     const hero = $(".arctic-story-game__result-hero");
@@ -403,6 +420,7 @@
         });
       });
     }
+    recordGameResult(style);
   }
 
   function buildShareText() {

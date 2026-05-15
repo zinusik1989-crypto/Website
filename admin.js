@@ -96,6 +96,7 @@
       fillForm(CMS.mergeData());
       toggleView();
       showToast("Вход выполнен. Не забудьте сохранить изменения.");
+      window.AdminGames?.refresh?.();
     } else {
       if (loginStatusEl) {
         loginStatusEl.textContent = "Неверный PIN.";
@@ -162,5 +163,6 @@
   if (isAuthed()) {
     buildForm();
     fillForm(CMS.mergeData());
+    window.AdminGames?.refresh?.();
   }
 })();

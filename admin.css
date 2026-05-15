@@ -1,5 +1,11 @@
 @import url("./styles.css");
 
+/* Админка: светлая тема, без полярных переопределений лендинга (иначе кнопки «без текста») */
+.admin,
+.admin * {
+  --polar-ice-rgb: 28, 20, 24;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -9,6 +15,47 @@ body {
     var(--milk);
   color: var(--graphite);
   font-family: var(--font-sans);
+}
+
+.admin .btn {
+  color: rgba(28, 20, 24, 0.92);
+  border-color: rgba(28, 20, 24, 0.14);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: var(--shadow-soft);
+}
+.admin .btn--ghost {
+  color: rgba(28, 20, 24, 0.9);
+  background: rgba(255, 255, 255, 0.58);
+}
+.admin .btn--gold {
+  color: rgba(255, 252, 253, 0.98);
+  border-color: rgba(135, 35, 65, 0.55);
+  background:
+    radial-gradient(140px 60px at 30% 30%, rgba(252, 246, 249, 0.75), transparent 62%),
+    linear-gradient(135deg, rgba(135, 35, 65, 1), rgba(217, 168, 181, 0.72));
+}
+.admin a.btn {
+  color: rgba(28, 20, 24, 0.9);
+  text-decoration: none;
+}
+.admin label.btn {
+  color: rgba(28, 20, 24, 0.9);
+}
+.admin .h1,
+.admin .h2,
+.admin .h3,
+.admin__title,
+.admin-games__title,
+.admin-section h2,
+.admin-login h1 {
+  color: var(--graphite);
+}
+.admin .lead,
+.admin__lead,
+.admin-games__lead,
+.admin-muted,
+.admin-login p {
+  color: var(--muted);
 }
 
 .admin {
@@ -163,4 +210,91 @@ body.theme-dark .admin-status {
 body.theme-dark .admin-login p,
 body.theme-dark .admin__lead {
   color: rgba(var(--glass-opal),.68);
+}
+
+/* Результаты мини-игр */
+.admin-games {
+  margin-top: 40px;
+  padding: 20px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(28, 20, 24, 0.1);
+  background: rgba(var(--glass-opal), 0.42);
+  box-shadow: var(--shadow-soft);
+}
+.admin-games__title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  margin: 0 0 8px;
+}
+.admin-games__lead {
+  margin: 0 0 14px;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 70ch;
+}
+.admin-games__api-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 650;
+  margin-bottom: 6px;
+}
+.admin-games__api-input {
+  width: 100%;
+  max-width: 560px;
+  padding: 11px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(28, 20, 24, 0.12);
+  font: inherit;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+}
+.admin-games__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.admin-games__count {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 8px 0 12px;
+}
+.admin-games__table-wrap {
+  overflow: auto;
+  max-height: min(420px, 55vh);
+  border: 1px solid rgba(28, 20, 24, 0.08);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.5);
+}
+.admin-games__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.admin-games__table th,
+.admin-games__table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(28, 20, 24, 0.08);
+  vertical-align: top;
+}
+.admin-games__table th {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(28, 20, 24, 0.55);
+  background: rgba(28, 20, 24, 0.04);
+  position: sticky;
+  top: 0;
+}
+.admin-games__desc {
+  max-width: 28ch;
+  line-height: 1.45;
+  color: rgba(28, 20, 24, 0.78);
+}
+.admin-games__empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 24px !important;
 }
