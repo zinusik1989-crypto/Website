@@ -118,8 +118,10 @@
       "Северная нейрофотосессия из Заполярного и другие направления — альбомы скоро появятся на сайте.",
     work_btn: "Скоро",
 
+    work_arctic_img: "./arctic-glass.png",
     work_arctic_title: "Север / Арктика",
-    work_arctic_tag: "Заполярный • альбом",
+    work_arctic_tag: "Заполярный • альбом • 3 фото",
+    work_arctic_btn: "Смотреть альбом",
     work_arctic_aria: "Открыть альбом: Север / Арктика",
 
     work_women_title: "Женский портрет",
@@ -366,6 +368,7 @@
       { key: "work_arctic_img", label: "Север — превью (путь)", type: "text" },
       { key: "work_arctic_title", label: "Север — название", type: "text" },
       { key: "work_arctic_tag", label: "Север — подпись", type: "text" },
+      { key: "work_arctic_btn", label: "Север — текст кнопки", type: "text" },
       { key: "work_arctic_aria", label: "Север — aria-label кнопки", type: "text" },
 
       { key: "work_women_img", label: "Женский портрет — превью (путь)", type: "text" },

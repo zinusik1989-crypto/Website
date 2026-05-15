@@ -157,6 +157,12 @@ function setupAlbumLightbox() {
   const prevBtn = $('[data-lb-prev="true"]', lb);
   const nextBtn = $('[data-lb-next="true"]', lb);
 
+  const ARCTIC_FILES = [
+    "arctic-glass.png",
+    "arctic-ice.png",
+    "arctic-snow.png",
+  ];
+
   const KIDS_FILES = [
     "Фото/eRuU0-KZePxdH2xtPvM_KYaJmyf9sQvYHnQr6bdXPvRsV-rOs7YX3AALlFIY2MXxwPaJBgGLbwie-W6wgf0xr_uA.jpg",
     "Фото/kGGtl1PM7Oehm48cT_5n8ilkOtJlMwBHakeW2Sn0wonW3ZSQFozu51vjX8OAljVT1ccHAeKr8WjeRl67BWKGa6JB.jpg",
@@ -174,7 +180,7 @@ function setupAlbumLightbox() {
 
   /** Альбомы: пустые — лайтбокс не открывается */
   const ALBUM_FILES = {
-    arctic: [],
+    arctic: ARCTIC_FILES,
     women: [],
     men: [],
     kids: KIDS_FILES,
