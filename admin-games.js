@@ -35,10 +35,29 @@
     }
   }
 
-  function gameLabel(id) {
-    if (id === "arctic-wheel") return "Колесо судьбы";
-    if (id === "arctic-story-game") return "Север выбирает";
+  function gameLabel(row) {
+    if (row?.gameTitle) return String(row.gameTitle);
+    const id = row?.game;
+    if (id === "arctic-wheel") return "Колесо северной судьбы";
+    if (id === "arctic-story-game") return "Покажи лицо Северу";
     return id || "—";
+  }
+
+  function rowBrief(row) {
+    if (row.picksSummary) {
+      return `Выборы: ${row.picksSummary}. ${row.desc || ""}`.trim();
+    }
+    if (Array.isArray(row.stats) && row.stats.length) {
+      return row.stats.map((s) => `${s.label}: ${s.value}%`).join("; ");
+    }
+    return row.desc || "";
+  }
+
+  function rowGender(row) {
+    if (row.gender === "m") return "М";
+    if (row.gender === "f") return "Ж";
+    if (row.photoUploaded || row.hasPhoto) return "фото ✓";
+    return "—";
   }
 
   function escapeHtml(s) {
@@ -63,18 +82,15 @@
     }
     items.forEach((row, i) => {
       const tr = document.createElement("tr");
-      const stats =
-        Array.isArray(row.stats) && row.stats.length
-          ? row.stats.map((s) => `${s.label}: ${s.value}%`).join("; ")
-          : "";
+      const brief = rowBrief(row);
       tr.innerHTML = `
         <td>${i + 1}</td>
         <td>${formatDate(row.submittedAt || row.storedAt)}</td>
-        <td>${gameLabel(row.game)}</td>
+        <td>${escapeHtml(gameLabel(row))}</td>
         <td><strong>${escapeHtml(row.styleName || row.styleId || "—")}</strong></td>
-        <td>${row.gender === "m" ? "М" : row.gender === "f" ? "Ж" : row.hasPhoto ? "фото" : "—"}</td>
-        <td class="admin-games__desc">${escapeHtml((row.desc || stats || "").slice(0, 120))}${
-        (row.desc || stats || "").length > 120 ? "…" : ""
+        <td>${escapeHtml(rowGender(row))}</td>
+        <td class="admin-games__desc">${escapeHtml(brief.slice(0, 160))}${
+        brief.length > 160 ? "…" : ""
       }</td>`;
       tbody.appendChild(tr);
     });
@@ -123,9 +139,12 @@
     const cols = [
       "submittedAt",
       "game",
+      "gameTitle",
       "styleId",
       "styleName",
       "gender",
+      "photoUploaded",
+      "picksSummary",
       "colors",
       "outfit",
       "locations",

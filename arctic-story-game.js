@@ -158,8 +158,22 @@
   let scanTimers = [];
   let ritualTimer = null;
   let scanSession = 0;
+  let resultRecorded = false;
 
   const $ = (sel, ctx = root) => ctx?.querySelector(sel) ?? null;
+
+  function picksSummary() {
+    const keys = ["q1", "q2", "q3"];
+    const parts = [];
+    keys.forEach((key, i) => {
+      const pickKey = picks[key];
+      if (!pickKey) return;
+      const screen = HERO_SCREENS[i];
+      const opt = screen?.options?.find((o) => o.key === pickKey);
+      parts.push(opt?.text || pickKey);
+    });
+    return parts.join(" → ");
+  }
 
   function initScores() {
     scores = {};
@@ -366,13 +380,18 @@
   }
 
   function recordGameResult(style) {
-    if (!style || !window.SiteGameResults) return;
+    if (!style || !window.SiteGameResults || resultRecorded) return;
+    resultRecorded = true;
+    const summary = picksSummary();
     window.SiteGameResults.submit({
       game: "arctic-story-game",
+      gameTitle: "Покажи лицо Северу",
       styleId: style.id,
       styleName: style.name,
       picks: { ...picks },
+      picksSummary: summary,
       hasPhoto: Boolean(photoObjectUrl),
+      photoUploaded: Boolean(photoObjectUrl),
       colors: style.colors,
       outfit: style.outfit,
       locations: style.locations,
@@ -454,6 +473,7 @@
     clearTimers();
     scanSession += 1;
     gameStarted = false;
+    resultRecorded = false;
     revokePhoto();
     picks = { q1: null, q2: null, q3: null };
     finalStyle = null;

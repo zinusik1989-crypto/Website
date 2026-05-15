@@ -7,6 +7,10 @@
   const IMPORT_KEY = "zin_game_results_import_v1";
   const MAX_ITEMS = 500;
 
+  function rowKey(r) {
+    return `${r.game}|${r.gameTitle || ""}|${r.styleId}|${r.submittedAt || r.storedAt}|${r.picksSummary || ""}|${r.styleName}`;
+  }
+
   function saveLocal(entry) {
     try {
       const list = JSON.parse(localStorage.getItem(LOCAL_KEY) || "[]");
@@ -54,7 +58,7 @@
     const seen = new Set();
     const out = [];
     [...readLocal(), ...readImported()].forEach((row) => {
-      const key = `${row.game}|${row.styleId}|${row.submittedAt || row.storedAt}|${row.styleName}`;
+      const key = rowKey(row);
       if (seen.has(key)) return;
       seen.add(key);
       out.push(row);
@@ -83,12 +87,10 @@
   function mergeImport(items) {
     if (!Array.isArray(items) || !items.length) return;
     const current = readImported();
-    const seen = new Set(
-      readAll().map((r) => `${r.game}|${r.styleId}|${r.submittedAt || r.storedAt}|${r.styleName}`)
-    );
+    const seen = new Set(readAll().map(rowKey));
     items.forEach((row) => {
       if (!row || typeof row !== "object") return;
-      const key = `${row.game}|${row.styleId}|${row.submittedAt || row.storedAt}|${row.styleName}`;
+      const key = rowKey(row);
       if (seen.has(key)) return;
       seen.add(key);
       current.unshift(row);

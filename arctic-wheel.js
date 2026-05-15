@@ -232,6 +232,7 @@
   let answerHistory = [];
   let finalStyle = null;
   let spinning = false;
+  let resultRecorded = false;
 
   const $ = (sel, ctx = root) => ctx?.querySelector(sel) ?? null;
 
@@ -429,9 +430,11 @@
   }
 
   function recordGameResult(style) {
-    if (!style || !window.SiteGameResults) return;
+    if (!style || !window.SiteGameResults || resultRecorded) return;
+    resultRecorded = true;
     window.SiteGameResults.submit({
       game: "arctic-wheel",
+      gameTitle: "Колесо северной судьбы",
       styleId: style.id,
       styleName: getStyleName(style),
       gender,
@@ -568,6 +571,7 @@
   function restart() {
     if (spinning) return;
     wheelStarted = false;
+    resultRecorded = false;
     quizIndex = 0;
     finalStyle = null;
     resetQuizScores();
