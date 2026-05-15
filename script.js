@@ -157,12 +157,20 @@ function setupAlbumLightbox() {
   const prevBtn = $('[data-lb-prev="true"]', lb);
   const nextBtn = $('[data-lb-next="true"]', lb);
 
-  /** Альбомы без фото — лайтбокс не открывается */
+  const KIDS_FILES = [
+    "Фото/eRuU0-KZePxdH2xtPvM_KYaJmyf9sQvYHnQr6bdXPvRsV-rOs7YX3AALlFIY2MXxwPaJBgGLbwie-W6wgf0xr_uA.jpg",
+    "Фото/kGGtl1PM7Oehm48cT_5n8ilkOtJlMwBHakeW2Sn0wonW3ZSQFozu51vjX8OAljVT1ccHAeKr8WjeRl67BWKGa6JB.jpg",
+    "Фото/Koi-gHLQ_IlqPwNjL4MLRmtQTVz_Gfvczr5JhovyDsgMcabHCQwWA3IdDwG7Cc4gTLmXyjGYVs259X15JtzFxG_U.jpg",
+    "Фото/tOX80igluWyLMdKEFIQj4ZZ1-j7VcDSDoJRzsw9dj5Qch9pX-zK-7r8KV_CjPAOfQqOCykT0BKdtVerda1ZkXhHQ.jpg",
+    "Фото/xPN6XipEXbrFxejWa1B5i0jTtXYT9L4SNbcIZrqbENt0DKN9SXf2vmiiwQ4BVQfRa6jSsp7NNylvgF_KRKua3uf1.jpg",
+  ];
+
+  /** Альбомы: пустые — лайтбокс не открывается */
   const ALBUM_FILES = {
     arctic: [],
     women: [],
     men: [],
-    kids: [],
+    kids: KIDS_FILES,
     family: [],
   };
 

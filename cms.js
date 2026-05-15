@@ -130,8 +130,11 @@
     work_men_tag: "альбом",
     work_men_aria: "Открыть альбом: Мужской портрет",
 
+    work_kids_img:
+      "./Фото/kGGtl1PM7Oehm48cT_5n8ilkOtJlMwBHakeW2Sn0wonW3ZSQFozu51vjX8OAljVT1ccHAeKr8WjeRl67BWKGa6JB.jpg",
     work_kids_title: "Дети",
-    work_kids_tag: "альбом",
+    work_kids_tag: "альбом • 5 фото",
+    work_kids_btn: "Смотреть альбом",
     work_kids_aria: "Открыть альбом: Дети",
 
     work_family_title: "Семейная",
@@ -375,6 +378,7 @@
       { key: "work_kids_img", label: "Дети — превью (путь)", type: "text" },
       { key: "work_kids_title", label: "Дети — название", type: "text" },
       { key: "work_kids_tag", label: "Дети — подпись", type: "text" },
+      { key: "work_kids_btn", label: "Дети — текст кнопки", type: "text" },
       { key: "work_kids_aria", label: "Дети — aria-label кнопки", type: "text" },
 
       { key: "work_family_img", label: "Семейная — превью (путь)", type: "text" },
