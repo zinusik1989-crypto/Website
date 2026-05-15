@@ -163,6 +163,32 @@ function setupAlbumLightbox() {
     "arctic-snow.png",
   ];
 
+  const WOMEN_FILES = [
+    "Фото/__N5af5iDWD4U3AowFNzss_-HpvxMB37l3V39rlOlHKrUrYkYzooxnkDO5zFDgr4rx2HENq95vEHH-gzW48VxEH8.jpg",
+    "Фото/2DWwcz-SKryAX7OFpViclAd6wKsYmWoIxsrOmcRvdFPStHGtjfy72__V2Jfzt3MrhL7m8dEiuEJ4UwgVX96aw1by.jpg",
+    "Фото/6hQaoBjPjzukBfgFsyx1YM75xFIS9QCSgFF1HjZysVDwBrbWZcHdu2NS56V_NvAqx-55iAMkOzJxW9iFCtdvwKbT.jpg",
+    "Фото/7FHyX-Zt7GSjU6odNdN5vh_A37Vx7Ty4sqzMj6HIZ_2OVCqytzSd8l6szpCKu5SFVtHlwxZ505s1xWW4_7w8uZpU.jpg",
+    "Фото/17xn2paBJyYCYmZtUgDhZsoDfRX5k3dmL3RfQITbG5PaXPvGgx6y6pPRc1uTgfA-scMAYX58Of5FpcIiln5OuTu1.jpg",
+    "Фото/BGdYxJfIX_3nCeqpQGgO4f8BzoWCVN4vVNVpDGNKSJMc2tMTywGmY8WpKaiB2uyyF4CqAMiAPyxEOSiIgVIdyo_Q.jpg",
+    "Фото/bqQi_new2oRguk1OsRP-9eXcIDYTC1DFy5z6hlKDjvtBJi-KVeZTV87Y4DyViBe8h81GPiCAnULjKkJ3L9IoMMox.jpg",
+    "Фото/C_ZKLKQL3WLOPmDZu2x2JQx5H6H-WmCilZbRfRTZGzgKYnJgrL7PsksH833ba-JZMIM8yTd3ohLAZ7BIYFBfCrcY.jpg",
+    "Фото/D2R7FMfkHELpHBFXRVYG6Fh9PBQCgSp2-qD7b7f87gMbtIwO18EgPfoeJ0NMJCIAMd41kcutHLQ1d0uAXXGkQPZ5.jpg",
+    "Фото/ddc2GDqezt_6bo_B5wsjrjDSb5SJucrNTZhaNzWRnE1kNRwP1k9hRrrllmsySJPJg8vU4eLomzmmuY0SwmhxNHMY.jpg",
+    "Фото/E6zGEGbqrPd_2a1LfdFnzSm5Kql0bhR9zJdx5o3ZX5q1Krg4rk0RhlW4Ccp__q6tVvjuH-c3gTmfE0kxiIjwliT3.jpg",
+    "Фото/Ef9gOt8ruBmF3R6nbC2Q4mIbdJh58n4Q5Sa69LZmYudR0Som7fZgDZgDY8NdKlSq2UaulD8SvqMBJ68pDPqGeFHF.jpg",
+    "Фото/g-Bf7Jgw6cVka6zahOwK21NS2tv_xUf6GjDz1dNvR0CwMY-M5Z2ulWLf3JlwJ2xzIO0RDD9mv_MG7Dd4dhsROjaY.jpg",
+    "Фото/HdGB7bGR4YDDIB86CJMSHzmcHbB5SqyBPMX4cHaCdj_g3gz6DddjJdWbJEH6_YX5XQ3UIOznLBiDsNJipEw2GL3U.jpg",
+    "Фото/ISdm5x5jlLLNCIvDVx-lFtpnVyCzEiGNEhVkcn9j6XkMhxhFMyU92qmJcAuxpU9OkMCy3BXhrdDMc6t7M8B5t6Xx.jpg",
+    "Фото/lAoVXfGblmYWQD0ebS1OuhmOs2ur1r8rSFhFVwnB-x0ib9hr_FiU3Q197v6VL6kteNHgmE8UpbqrMS_dq1C6PZWK.jpg",
+    "Фото/mfSiZxnJLN0jcP9dp6bDaxNovkDmo_gctat-UR7yu9aqhtXsi6sG3YgZmbIhjDm8_RwxG6BwNKZiBhc0MXyN76LE.jpg",
+    "Фото/sDg8bY-VJ-24x84nTmo-8zUhf75fyFMLYJ-uCmyW_RD-1rx1kfGZ--cb1xFQ3LYEmdgl8fCqyOdKzOCffHbpOafp.jpg",
+    "Фото/SG1KrAQQCyavTmsr7g6qai0_0T09ARAgcw-2VxFGV81wumLAAews_zv8ZZGf8EhwVGwQIgz55fon_nzyMJuw0HfV.jpg",
+    "Фото/SrSx0pvdAoVIYiYafymklOBRZtBinmmu0ETNBm-mbyCdtPWCX2wEt4AYM89KO3Ub6muTLRE7Csh-qB-I3zhoa4wa.jpg",
+    "Фото/sxs4_rwCtbgh1Pqem7ReBsshuLd3A11o4Fwyxh720v-dJxC95aPFHjC9gAjh0ByNqYmFcOcyJuxFgcySkROwMYNV.jpg",
+    "Фото/U2p4KlgyZPhsFOTpaCFboUk4Sxx4rfj4estWpUnrS4FRw_w4y6qEfWs-7cSDt1WqTu-wi3waHc0NCTvY-nef2xfl.jpg",
+    "Фото/wQpVKzbxSLioXHH2qmhBns1hfZNkx_bxLAY3wb9s1XVJOBDCGrxpZT0GtsgjXL2V_UdTB2OQen3Z8PWTD1RkhdFg.jpg",
+  ];
+
   const KIDS_FILES = [
     "Фото/eRuU0-KZePxdH2xtPvM_KYaJmyf9sQvYHnQr6bdXPvRsV-rOs7YX3AALlFIY2MXxwPaJBgGLbwie-W6wgf0xr_uA.jpg",
     "Фото/kGGtl1PM7Oehm48cT_5n8ilkOtJlMwBHakeW2Sn0wonW3ZSQFozu51vjX8OAljVT1ccHAeKr8WjeRl67BWKGa6JB.jpg",
@@ -181,7 +207,7 @@ function setupAlbumLightbox() {
   /** Альбомы: пустые — лайтбокс не открывается */
   const ALBUM_FILES = {
     arctic: ARCTIC_FILES,
-    women: [],
+    women: WOMEN_FILES,
     men: [],
     kids: KIDS_FILES,
     family: FAMILY_FILES,

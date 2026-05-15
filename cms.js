@@ -124,8 +124,11 @@
     work_arctic_btn: "Смотреть альбом",
     work_arctic_aria: "Открыть альбом: Север / Арктика",
 
+    work_women_img:
+      "./Фото/__N5af5iDWD4U3AowFNzss_-HpvxMB37l3V39rlOlHKrUrYkYzooxnkDO5zFDgr4rx2HENq95vEHH-gzW48VxEH8.jpg",
     work_women_title: "Женский портрет",
-    work_women_tag: "альбом",
+    work_women_tag: "альбом • 23 фото",
+    work_women_btn: "Смотреть альбом",
     work_women_aria: "Открыть альбом: Женский портрет",
 
     work_men_title: "Мужской портрет",
@@ -374,6 +377,7 @@
       { key: "work_women_img", label: "Женский портрет — превью (путь)", type: "text" },
       { key: "work_women_title", label: "Женский портрет — название", type: "text" },
       { key: "work_women_tag", label: "Женский портрет — подпись (альбом • N фото)", type: "text" },
+      { key: "work_women_btn", label: "Женский портрет — текст кнопки", type: "text" },
       { key: "work_women_aria", label: "Женский портрет — aria-label кнопки", type: "text" },
 
       { key: "work_men_img", label: "Мужской портрет — превью (путь)", type: "text" },
