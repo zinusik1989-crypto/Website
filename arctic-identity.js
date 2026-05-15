@@ -104,6 +104,108 @@
     return (custom || DEFAULT_WEBHOOK_URL).replace(/\s+/g, "");
   }
 
+  function getProxyBase() {
+    const proxy = root?.dataset.proxyUrl?.trim();
+    return proxy ? proxy.replace(/\/$/, "") : "";
+  }
+
+  function needsCorsBypass() {
+    const mode = root?.dataset.corsMode?.trim();
+    if (mode === "off") return false;
+    if (mode === "on") return true;
+    return (
+      location.hostname.includes("github.io") ||
+      location.protocol === "file:" ||
+      location.hostname === ""
+    );
+  }
+
+  /** Цепочка способов достучаться до Make (без Vercel). */
+  function buildFetchStrategies() {
+    const webhook = getWebhookUrl();
+    const list = [];
+    const proxy = getProxyBase();
+
+    if (proxy) {
+      list.push({ url: `${proxy}/api/make-webhook`, kind: "own-proxy" });
+      list.push({ url: `${proxy}/.netlify/functions/make-webhook`, kind: "netlify-on-proxy" });
+    }
+
+    if (location.hostname.endsWith("netlify.app")) {
+      list.push({ url: "/.netlify/functions/make-webhook", kind: "netlify" });
+    }
+
+    if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+      list.push({ url: "/.netlify/functions/make-webhook", kind: "netlify-local" });
+      list.push({ url: "/api/make-webhook", kind: "vercel-local" });
+    }
+
+    list.push({ url: webhook, kind: "direct" });
+
+    if (needsCorsBypass()) {
+      list.push({ url: webhook, kind: "corsproxy" });
+    }
+
+    const seen = new Set();
+    return list.filter((s) => {
+      const key = `${s.kind}:${s.url}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
+
+  function unwrapMakeData(data) {
+    if (!data) return data;
+    if (typeof data === "string") {
+      try {
+        return unwrapMakeData(JSON.parse(data));
+      } catch {
+        return data;
+      }
+    }
+    if (data.body != null) {
+      if (typeof data.body === "string") {
+        try {
+          return unwrapMakeData(JSON.parse(data.body));
+        } catch {
+          return data;
+        }
+      }
+      return unwrapMakeData(data.body);
+    }
+    if (Array.isArray(data) && data.length === 1) return unwrapMakeData(data[0]);
+    return data;
+  }
+
+  function extractImage(data) {
+    const unwrapped = unwrapMakeData(data);
+    if (!unwrapped) return null;
+
+    if (typeof unwrapped === "string") {
+      if (unwrapped.startsWith("http")) return unwrapped;
+      return normalizeImagePayload(unwrapped);
+    }
+
+    const urlCandidates = [unwrapped.url, unwrapped.imageUrl, unwrapped.image_url];
+    for (const u of urlCandidates) {
+      if (typeof u === "string" && u.startsWith("http")) return u;
+    }
+
+    const b64Candidates = [
+      unwrapped.image,
+      unwrapped.imageBase64,
+      unwrapped.b64_json,
+      unwrapped.result?.image,
+      unwrapped.data?.image,
+    ];
+    for (const raw of b64Candidates) {
+      const normalized = normalizeImagePayload(raw);
+      if (normalized) return normalized;
+    }
+    return null;
+  }
+
   function buildGenerationPrompt(style) {
     return [
       "Luxury arctic neuro-photoshoot portrait in Russian Arctic / Zapolyarye.",
@@ -125,33 +227,87 @@
     return `data:image/png;base64,${b64}`;
   }
 
-  /**
-   * Запрос к Make.com: JSON { prompt } → { image: base64 }.
-   */
-  async function generateArcticImage(prompt, signal) {
-    const webhookUrl = getWebhookUrl();
-    const response = await fetch(webhookUrl, {
+  function resolveFetchUrl(strategy) {
+    if (strategy.kind === "corsproxy") {
+      return `https://corsproxy.io/?${encodeURIComponent(strategy.url)}`;
+    }
+    return strategy.url;
+  }
+
+  async function parseMakeResponse(response) {
+    const rawText = await response.text();
+    let data = {};
+    if (rawText) {
+      try {
+        data = JSON.parse(rawText);
+      } catch {
+        const err = new Error(
+          `Make вернул не JSON (HTTP ${response.status}). Проверьте модуль «Webhook response».`
+        );
+        err.retryable = false;
+        throw err;
+      }
+    }
+
+    if (!response.ok) {
+      const unwrapped = unwrapMakeData(data);
+      const detail =
+        unwrapped?.error ||
+        unwrapped?.message ||
+        unwrapped?.description ||
+        rawText.slice(0, 160);
+      const err = new Error(detail || `Ошибка сценария Make (HTTP ${response.status})`);
+      err.retryable = response.status === 408 || response.status === 429 || response.status >= 500;
+      throw err;
+    }
+
+    const image = extractImage(data);
+    if (!image) {
+      const err = new Error(
+        'Make не вернул "image" (base64) или url. В Webhook response: {"image":"{{base64}}"}'
+      );
+      err.retryable = false;
+      throw err;
+    }
+    return image;
+  }
+
+  async function tryFetchStrategy(strategy, prompt, signal) {
+    const url = resolveFetchUrl(strategy);
+    const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ prompt }),
       signal,
     });
+    return parseMakeResponse(response);
+  }
 
-    const data = await response.json().catch(() => ({}));
+  /**
+   * Запрос к Make.com: JSON { prompt } → { image }.
+   * На GitHub Pages автоматически используется CORS-прокси (Vercel не нужен).
+   */
+  async function generateArcticImage(prompt, signal) {
+    const strategies = buildFetchStrategies();
+    let lastError = null;
 
-    if (!response.ok) {
+    for (const strategy of strategies) {
+      try {
+        return await tryFetchStrategy(strategy, prompt, signal);
+      } catch (err) {
+        if (err.name === "AbortError") throw err;
+        lastError = err;
+        if (err.retryable === false) throw err;
+        continue;
+      }
+    }
+
+    if (lastError instanceof TypeError) {
       throw new Error(
-        data.error || data.message || `Ошибка сценария Make (${response.status})`
+        "Не удалось связаться с Make. Проверьте интернет и что сценарий в Make.com включён (ON)."
       );
     }
-
-    const image = normalizeImagePayload(
-      data.image ?? data.imageBase64 ?? data.b64_json
-    );
-    if (!image) {
-      throw new Error("Сценарий Make не вернул изображение (поле image)");
-    }
-    return image;
+    throw lastError || new Error("Не удалось сгенерировать изображение");
   }
 
   function revokePhoto() {
@@ -189,12 +345,16 @@
 
   function mapApiError(message) {
     const m = String(message || "");
-    if (/Failed to fetch|NetworkError|Load failed/i.test(m)) {
-      return "Нет связи с Make.com. Проверьте интернет и сценарий.";
+    if (/Failed to fetch|NetworkError|Load failed|связаться с Make/i.test(m)) {
+      return "Нет связи с Make. Проверьте интернет и что сценарий включён (ON).";
     }
-    if (/JSON|Unexpected token/i.test(m)) {
-      return "Некорректный ответ от Make. Проверьте модуль «Webhook response».";
+    if (/HTTP 404|410/i.test(m)) {
+      return "Webhook Make не найден или сценарий выключен. Включите сценарий в Make.com.";
     }
+    if (/HTTP 500|502|503/i.test(m)) {
+      return "Ошибка внутри сценария Make. Откройте History → последний запуск → детали.";
+    }
+    if (/не JSON|поле "image"/i.test(m)) return m;
     return m || "Не удалось создать образ. Попробуйте ещё раз.";
   }
 

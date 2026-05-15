@@ -4,6 +4,10 @@
     "api/generate-image.js": {
       "maxDuration": 60,
       "memory": 1024
+    },
+    "api/make-webhook.js": {
+      "maxDuration": 120,
+      "memory": 1024
     }
   }
 }

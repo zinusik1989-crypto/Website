@@ -88,9 +88,47 @@ data-webhook-url="https://hook.eu1.make.com/umyhmpvq9z22p2o8o8r2xvki7w4othfs"
 
 Логика на сайте: `arctic-identity.js` → `generateArcticImage(prompt)` → показ `data:image/png;base64,…` в блоке результата.
 
-### Опционально: Vercel API
+### GitHub Pages — Vercel не нужен
 
-В репозитории остаётся `api/generate-image.js` (альтернатива без Make). Сейчас фронтенд использует **только Make webhook**.
+На `github.io` сайт **сам** обходит CORS через встроенный прокси (`corsproxy.io` → Make).  
+Атрибут `data-cors-mode="auto"` уже стоит на `#arcticIdentity`.
+
+Если не хотите сторонний прокси — задеплойте сайт на **[Netlify](https://netlify.com)** из того же GitHub (бесплатно, без Vercel):
+
+1. Netlify → **Add new site** → Import from GitHub.
+2. Build command: пусто, Publish directory: `.` (корень).
+3. Функция `netlify/functions/make-webhook.mjs` подключится автоматически.
+
+Опционально свой прокси (Netlify/Vercel URL):
+
+```html
+data-proxy-url="https://ваш-сайт.netlify.app"
+```
+
+### Как исправить «Ошибка сценария Make»
+
+| Симптом | Что сделать |
+|--------|-------------|
+| CORS / `data-proxy-url` | Задеплойте Vercel, заполните `data-proxy-url` |
+| HTTP 404 / 410 | В Make включите сценарий (переключатель **ON**) |
+| HTTP 500 | Make → **History** → красный запуск → исправьте модуль OpenAI (ключ, лимит) |
+| «не вернул поле image» | Последний модуль — **Webhook response**, тело: `{"image":"{{base64}}"} ` |
+| Долго грузится | В сценарии увеличьте таймаут; на Vercel уже 120 с |
+
+**Проверка webhook в Make:** модуль Webhook → **Run once** → в браузере или Postman:
+
+```http
+POST https://hook.eu1.make.com/umyhmpvq9z22p2o8o8r2xvki7w4othfs
+Content-Type: application/json
+
+{"prompt":"test arctic portrait"}
+```
+
+Ответ должен быть JSON с полем `image` (строка base64).
+
+### Опционально: прямой OpenAI
+
+`api/generate-image.js` — альтернатива без Make (нужен `OPENAI_API_KEY` на Vercel).
 
 ## Запуск
 
