@@ -653,7 +653,7 @@ img{max-width:100%; display:block}
 }
 
 .header .nav.nav--site{
-  flex: 1 1 280px;
+  flex: 1 1 auto;
   min-width: 0;
   justify-content: center;
 }
@@ -2775,14 +2775,38 @@ body:is(.theme-dark, .theme-day) #testimonials .sectionHead .h2{
   .heroScreenNav__list > li:nth-child(6) .nav__link::before{animation-delay: 2.25s}
 }
 
-/* ПК: компактная шапка, чтобы CTA «Консультация» не уезжала за экран */
-@media (min-width: 721px) and (max-width: 1319px){
+/* ПК / планшет: двухрядная шапка — без наслоения меню и кнопок */
+@media (min-width: 721px) and (max-width: 1499px){
   .header__inner{
-    gap: 10px 12px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "brand cta"
+      "nav nav";
+    align-items: center;
+    column-gap: 12px;
+    row-gap: 10px;
   }
 
   .brand{
+    grid-area: brand;
+    justify-self: start;
     min-width: 0;
+  }
+
+  .header .nav.nav--site{
+    grid-area: nav;
+    flex: none;
+    width: 100%;
+    min-width: 0;
+    justify-content: center;
+  }
+
+  .header__cta{
+    grid-area: cta;
+    margin-left: 0;
+    justify-self: end;
+    gap: 8px;
   }
 
   .header .brand__text.brand__nameLink{
@@ -2794,29 +2818,42 @@ body:is(.theme-dark, .theme-day) #testimonials .sectionHead .h2{
     flex-wrap: wrap;
     justify-content: center;
     gap: 6px;
+    width: 100%;
   }
 
   .nav__list--chips .nav__link{
     padding: 8px 10px;
     font-size: 11px;
-    letter-spacing: 0.06em;
-    gap: 4px;
+    letter-spacing: 0.05em;
+    gap: 0;
   }
 
-  .header__cta{
-    gap: 8px;
+  .nav__list--chips .nav__link::before{
+    display: none;
   }
 
   .header__cta .btn--sm{
-    padding: 8px 11px;
-    font-size: 12px;
+    padding: 8px 12px;
+    font-size: 13px;
     white-space: nowrap;
   }
 }
 
-@media (min-width: 1320px){
+@media (min-width: 1500px){
   .header__inner{
+    display: flex;
     flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header .nav.nav--site{
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .header__cta{
+    margin-left: auto;
   }
 
   .nav__list--chips{
