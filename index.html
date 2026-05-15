@@ -501,7 +501,7 @@
           <div class="sectionHead reveal">
             <h2 class="h2">Arctic AI Identity</h2>
             <p class="muted">
-              Загрузите фото, выберите северный стиль — и за пару секунд получите cinematic-карточку для соцсетей.
+              5 провокационных вопросов — и Север назовёт ваш archetype. Без фото, без ожидания, за минуту.
             </p>
           </div>
           <div
@@ -515,56 +515,63 @@
                 <header class="ai-id__head">
                   <p class="ai-id__kicker">Luxury Arctic AI</p>
                   <h3 class="ai-id__title">Ваш северный образ</h3>
-                  <p class="ai-id__sub">Интерактивный подбор стиля нейрофотосессии</p>
+                  <p class="ai-id__sub">Кто вы на Севере? Узнайте за 60 секунд</p>
                 </header>
                 <div class="ai-id__body">
-                  <div class="ai-id__step ai-id__step--upload is-active" data-step="upload">
-                    <label class="ai-id__drop" id="aiIdDrop">
-                      <span class="ai-id__drop-icon" aria-hidden="true">❄</span>
-                      <p class="ai-id__drop-text">Перетащите фото сюда<br />или нажмите для выбора</p>
-                    </label>
-                    <input class="ai-id__file" id="aiIdFile" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Загрузить фото" />
-                    <button type="button" class="ai-id__btn ai-id__btn--primary ai-id__btn-pick">Загрузить фото</button>
+                  <div class="ai-id__step ai-id__step--intro is-active" data-step="intro">
+                    <p class="ai-id__intro-hook">Север не спрашивает дважды.<br />Он <em>называет</em> ваш archetype.</p>
+                    <ul class="ai-id__intro-list">
+                      <li>5 вопросов — без фото и регистрации</li>
+                      <li>Честные формулировки, не «психотест из журнала»</li>
+                      <li>Результат, которым хочется поделиться</li>
+                    </ul>
+                    <button type="button" class="ai-id__btn ai-id__btn--primary ai-id__btn-intro-start">Раскрыть мой archetype</button>
+                    <p class="ai-id__intro-note">~1 мин · только в браузере</p>
                   </div>
-                  <div class="ai-id__step ai-id__step--scan" data-step="scan">
-                    <div class="ai-id__preview-wrap">
-                      <img class="ai-id__preview" alt="" decoding="async" />
-                      <div class="ai-id__scan-overlay" aria-hidden="true"></div>
-                      <div class="ai-id__scan-line" aria-hidden="true"></div>
+                  <div class="ai-id__step ai-id__step--quiz" data-step="quiz">
+                    <div class="ai-id__quiz-bar" aria-hidden="true">
+                      <div class="ai-id__quiz-bar-fill"></div>
                     </div>
-                    <p class="ai-id__stage">AI сканирует ваш образ…</p>
-                    <div class="ai-id__progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                      <div class="ai-id__progress-bar"></div>
+                    <p class="ai-id__quiz-bar-label ai-id__quiz-progress">Старт</p>
+                    <p class="ai-id__quiz-tag">Интрига</p>
+                    <h4 class="ai-id__quiz-question"></h4>
+                    <div class="ai-id__quiz-options"></div>
+                    <button type="button" class="ai-id__btn ai-id__btn-quiz-back" hidden>← Назад</button>
+                  </div>
+                  <div class="ai-id__step ai-id__step--decode" data-step="decode" aria-busy="true">
+                    <p class="ai-id__decode-kicker">Раскрываем код</p>
+                    <p class="ai-id__decode-line is-pulse">Считываем ваш полярный код…</p>
+                    <div class="ai-id__decode-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                      <div class="ai-id__decode-bar-fill"></div>
                     </div>
+                    <p class="ai-id__decode-hint">Не закрывайте — archetype почти готов</p>
                   </div>
-                  <div class="ai-id__step" data-step="styles">
-                    <p class="ai-id__sub" style="text-align: center; margin: 0">Выберите стиль образа</p>
-                    <div class="ai-id__styles" role="listbox" aria-label="Стили нейрофотосессии"></div>
-                  </div>
-                  <div class="ai-id__step" data-step="result">
-                    <div class="ai-id__result-card" id="aiIdResultCard">
-                      <div class="ai-id__result-photo">
-                        <img alt="" decoding="async" />
+                  <div class="ai-id__step ai-id__step--reveal" data-step="reveal">
+                    <div class="ai-id__reveal-card">
+                      <div class="ai-id__reveal-hero">
+                        <span class="ai-id__reveal-emoji" aria-hidden="true">👑</span>
+                        <p class="ai-id__reveal-match-wrap">Совпадение <strong class="ai-id__reveal-match">94%</strong></p>
                       </div>
-                      <div class="ai-id__result-meta">
-                        <p class="ai-id__result-style">Arctic AI Identity</p>
-                        <h4 class="ai-id__result-name"></h4>
-                        <p class="ai-id__result-desc"></p>
-                        <p class="ai-id__result-tagline"></p>
+                      <div class="ai-id__reveal-body">
+                        <p class="ai-id__reveal-kicker">Ваш северный archetype</p>
+                        <h4 class="ai-id__reveal-archetype">Ледяная королева</h4>
+                        <p class="ai-id__reveal-name">Arctic Queen</p>
+                        <p class="ai-id__reveal-code">ARCTIC · QUEEN</p>
+                        <p class="ai-id__reveal-hook"></p>
+                        <p class="ai-id__reveal-desc"></p>
+                        <p class="ai-id__reveal-tagline"></p>
                       </div>
                     </div>
-                    <p class="ai-id__result-note ai-id__sub">Карточка на вашем фото — готова к скачиванию и публикации.</p>
+                    <p class="ai-id__reveal-cta-line">Хотите увидеть этот образ на <strong>себе</strong> — не в описании?</p>
                     <div class="ai-id__actions ai-id__actions--preview">
-                      <button type="button" class="ai-id__btn ai-id__btn--primary ai-id__btn-download">Скачать карточку</button>
-                      <button type="button" class="ai-id__btn ai-id__btn-share">Поделиться</button>
-                      <button type="button" class="ai-id__btn ai-id__btn-back-style">Другой стиль</button>
-                      <button type="button" class="ai-id__btn ai-id__btn-retry">Новое фото</button>
                       <a class="ai-id__btn ai-id__btn--gold" href="#contacts">Заказать нейрофотосессию</a>
+                      <button type="button" class="ai-id__btn ai-id__btn--primary ai-id__btn-share">Поделиться результатом</button>
+                      <button type="button" class="ai-id__btn ai-id__btn-retry">Пройти квиз снова</button>
                     </div>
                   </div>
                 </div>
                 <p class="ai-id__privacy">
-                  Фото обрабатывается только в вашем браузере и никуда не отправляется.
+                  Квиз работает в браузере. Ответы никуда не отправляются.
                 </p>
               </div>
               <div class="ai-id__toast" role="status" aria-live="polite"></div>
