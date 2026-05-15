@@ -19,11 +19,11 @@
     og_description:
       "Нейрофотосессии из Заполярного — AI-визуал в северной эстетике для экспертов, брендов и бизнеса.",
     og_url: "./",
-    og_image: "./arctic-aurora.png",
+    og_image: "./arctic-aurora.webp",
     twitter_title: "Нейрофотосессии в Заполярном | Зинаида",
     twitter_description:
       "Нейрофотосессии из Заполярного — AI-визуал в северной эстетике для экспертов, брендов и бизнеса.",
-    twitter_image: "./arctic-aurora.png",
+    twitter_image: "./arctic-aurora.webp",
 
     brand_name: "Зинаида",
     nav_home: "Главная",
@@ -50,7 +50,7 @@
     meta3_text: "Нейросъёмка за дни — без холода, команд и поездок к фотографу",
 
     portrait_alt: "Нейропортрет Зинаиды на фоне северного сияния, Заполярный",
-    portrait_img: "./arctic-aurora.png",
+    portrait_img: "./arctic-aurora.webp",
     caption_title: "Северное сияние",
     caption_text: "Заполярный • полярная ночь • глянец",
 
@@ -120,7 +120,7 @@
       "Северная нейрофотосессия из Заполярного, женский и семейный портрет, детские образы — откройте альбом целиком.",
     work_btn: "Скоро",
 
-    work_arctic_img: "./arctic-glass.png",
+    work_arctic_img: "./arctic-glass.webp",
     work_arctic_alt: "Северная нейрофотосессия у панорамного окна, северное сияние, Заполярный",
     work_arctic_title: "Север / Арктика",
     work_arctic_tag: "Заполярный • альбом • 3 фото",
@@ -128,7 +128,7 @@
     work_arctic_aria: "Открыть альбом: Север / Арктика",
 
     work_women_img:
-      "./Фото/__N5af5iDWD4U3AowFNzss_-HpvxMB37l3V39rlOlHKrUrYkYzooxnkDO5zFDgr4rx2HENq95vEHH-gzW48VxEH8.jpg",
+      "./Фото/__N5af5iDWD4U3AowFNzss_-HpvxMB37l3V39rlOlHKrUrYkYzooxnkDO5zFDgr4rx2HENq95vEHH-gzW48VxEH8.webp",
     work_women_alt: "Женский нейропортрет с букетом тюльпанов, редакционная съёмка",
     work_women_title: "Женский портрет",
     work_women_tag: "альбом • 23 фото",
@@ -140,7 +140,7 @@
     work_men_aria: "Открыть альбом: Мужской портрет",
 
     work_kids_img:
-      "./Фото/kGGtl1PM7Oehm48cT_5n8ilkOtJlMwBHakeW2Sn0wonW3ZSQFozu51vjX8OAljVT1ccHAeKr8WjeRl67BWKGa6JB.jpg",
+      "./Фото/kGGtl1PM7Oehm48cT_5n8ilkOtJlMwBHakeW2Sn0wonW3ZSQFozu51vjX8OAljVT1ccHAeKr8WjeRl67BWKGa6JB.webp",
     work_kids_alt: "Детский нейропортрет в нежных тонах, фотосессия для ребёнка",
     work_kids_title: "Дети",
     work_kids_tag: "альбом • 5 фото",
@@ -148,7 +148,7 @@
     work_kids_aria: "Открыть альбом: Дети",
 
     work_family_img:
-      "./Фото/P0vCw76IjUNjwRdrx-6ihROi7crNXqCFzcgjxEywlpGKLOLzisFGX6pPi4G6GnUTiJX5dUp9-AgIojlyS9qCVBGK.jpg",
+      "./Фото/P0vCw76IjUNjwRdrx-6ihROi7crNXqCFzcgjxEywlpGKLOLzisFGX6pPi4G6GnUTiJX5dUp9-AgIojlyS9qCVBGK.webp",
     work_family_alt: "Семейная нейрофотосессия на природе, золотой час",
     work_family_title: "Семейная",
     work_family_tag: "альбом • 4 фото",
@@ -539,6 +539,19 @@
           } catch (_) {}
         }
       }
+      [
+        "portrait_img",
+        "og_image",
+        "twitter_image",
+        "work_arctic_img",
+        "work_women_img",
+        "work_kids_img",
+        "work_family_img",
+      ].forEach((k) => {
+        if (out[k] && /\.(png|jpe?g)$/i.test(String(out[k]))) {
+          out[k] = String(out[k]).replace(/\.(png|jpe?g)$/i, ".webp");
+        }
+      });
       return out;
     } catch {
       return { ...defaults };
@@ -558,6 +571,16 @@
     if (!v) return null;
     if (/^\s*(javascript|vbscript|file):/i.test(v)) return null;
     return v;
+  }
+
+  /** WebP рядом с PNG/JPG (см. scripts/optimize-images.ps1). */
+  function displaySrc(val) {
+    const u = safeSrc(val);
+    if (!u) return null;
+    if (window.SiteImg && typeof window.SiteImg.toWebp === "function") {
+      return window.SiteImg.toWebp(u);
+    }
+    return u.replace(/\.(png|jpe?g)(\?.*)?$/i, ".webp$2");
   }
 
   function getSiteBase(data) {
@@ -640,7 +663,7 @@
         const u = safeUrl(val);
         if (u) el.setAttribute("href", u);
       } else if (bind === "src") {
-        const u = safeSrc(val);
+        const u = displaySrc(val);
         if (u) el.setAttribute("src", u);
       } else if (bind === "content") el.setAttribute("content", val);
       else if (bind === "aria-label") el.setAttribute("aria-label", val);
@@ -658,7 +681,7 @@
     document.querySelectorAll("[data-cms-src]").forEach((el) => {
       const key = el.getAttribute("data-cms-src");
       if (!key || !data[key]) return;
-      const u = safeSrc(data[key]);
+      const u = displaySrc(data[key]);
       if (u) el.setAttribute("src", u);
     });
 

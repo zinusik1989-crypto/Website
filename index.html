@@ -23,7 +23,7 @@
       data-cms-bind="content"
     />
     <meta property="og:url" content="./" data-cms="og_url" data-cms-bind="content" />
-    <meta property="og:image" content="./arctic-aurora.png" data-cms="og_image" data-cms-bind="content" />
+    <meta property="og:image" content="./arctic-aurora.webp" data-cms="og_image" data-cms-bind="content" />
     <meta property="og:image:alt" content="Нейропортрет на фоне северного сияния, Заполярный" />
 
     <meta name="twitter:card" content="summary_large_image" />
@@ -34,11 +34,12 @@
       data-cms="twitter_description"
       data-cms-bind="content"
     />
-    <meta name="twitter:image" content="./arctic-aurora.png" data-cms="twitter_image" data-cms-bind="content" />
+    <meta name="twitter:image" content="./arctic-aurora.webp" data-cms="twitter_image" data-cms-bind="content" />
 
     <meta name="theme-color" content="#081228" />
-    <link rel="icon" href="./arctic-glass.png" type="image/png" />
-    <link rel="apple-touch-icon" href="./arctic-glass.png" />
+    <link rel="icon" href="./arctic-icon-192.webp" type="image/webp" />
+    <link rel="apple-touch-icon" href="./arctic-icon-192.webp" />
+    <link rel="preload" as="image" href="./arctic-aurora.webp" type="image/webp" fetchpriority="high" />
 
     <script src="./seo-head.js"></script>
     <script type="application/ld+json" id="schemaOrg"></script>
@@ -163,9 +164,12 @@
             <div class="portrait" role="group" aria-label="Главный визуал: портрет Зинаиды">
               <img
                 class="portrait__img"
-                src="./arctic-aurora.png"
+                src="./arctic-aurora.webp"
                 alt="Нейропортрет Зинаиды на фоне северного сияния, Заполярный"
+                width="960"
+                height="1200"
                 loading="eager"
+                fetchpriority="high"
                 decoding="async"
                 data-cms-src="portrait_img"
                 data-cms="portrait_alt"
@@ -458,10 +462,10 @@
                 Полярная ночь, снег, сияние и ледяной свет — то, что я вижу каждый день, превращаю в атмосферу ваших нейрофотосессий. Без поездок на съёмку и без мороза — только вы и образ, который хочется сохранить.
               </p>
               <div class="about__gallery" role="group" aria-label="Примеры северной нейрофотосессии">
-                <figure class="about__shot"><img src="./arctic-aurora.png" alt="Портрет на фоне северного сияния" loading="lazy" decoding="async" /></figure>
-                <figure class="about__shot"><img src="./arctic-snow.png" alt="Портрет в снегопаде, арктическая зима" loading="lazy" decoding="async" /></figure>
-                <figure class="about__shot"><img src="./arctic-glass.png" alt="Портрет у панорамного окна с сиянием" loading="lazy" decoding="async" /></figure>
-                <figure class="about__shot"><img src="./arctic-ice.png" alt="Образ ледяной королевы, северная фантазия" loading="lazy" decoding="async" /></figure>
+                <figure class="about__shot"><img src="./arctic-aurora.webp" alt="Портрет на фоне северного сияния" loading="lazy" decoding="async" /></figure>
+                <figure class="about__shot"><img src="./arctic-snow.webp" alt="Портрет в снегопаде, арктическая зима" loading="lazy" decoding="async" /></figure>
+                <figure class="about__shot"><img src="./arctic-glass.webp" alt="Портрет у панорамного окна с сиянием" loading="lazy" decoding="async" /></figure>
+                <figure class="about__shot"><img src="./arctic-ice.webp" alt="Образ ледяной королевы, северная фантазия" loading="lazy" decoding="async" /></figure>
               </div>
             </aside>
           </div>
@@ -614,7 +618,7 @@
               <div class="work__img" aria-hidden="true">
                 <img
                   class="work__imgPhoto"
-                  src="./arctic-glass.png"
+                  src="./arctic-glass.webp"
                   alt="Северная нейрофотосессия у панорамного окна, северное сияние, Заполярный"
                   loading="lazy"
                   decoding="async"
@@ -643,7 +647,7 @@
               <div class="work__img" aria-hidden="true">
                 <img
                   class="work__imgPhoto"
-                  src="./Фото/__N5af5iDWD4U3AowFNzss_-HpvxMB37l3V39rlOlHKrUrYkYzooxnkDO5zFDgr4rx2HENq95vEHH-gzW48VxEH8.jpg"
+                  src="./Фото/__N5af5iDWD4U3AowFNzss_-HpvxMB37l3V39rlOlHKrUrYkYzooxnkDO5zFDgr4rx2HENq95vEHH-gzW48VxEH8.webp"
                   alt="Женский нейропортрет с букетом тюльпанов, редакционная съёмка"
                   loading="lazy"
                   decoding="async"
@@ -690,7 +694,7 @@
               <div class="work__img" aria-hidden="true">
                 <img
                   class="work__imgPhoto"
-                  src="./Фото/kGGtl1PM7Oehm48cT_5n8ilkOtJlMwBHakeW2Sn0wonW3ZSQFozu51vjX8OAljVT1ccHAeKr8WjeRl67BWKGa6JB.jpg"
+                  src="./Фото/kGGtl1PM7Oehm48cT_5n8ilkOtJlMwBHakeW2Sn0wonW3ZSQFozu51vjX8OAljVT1ccHAeKr8WjeRl67BWKGa6JB.webp"
                   alt="Детский нейропортрет в нежных тонах, фотосессия для ребёнка"
                   loading="lazy"
                   decoding="async"
@@ -719,7 +723,7 @@
               <div class="work__img" aria-hidden="true">
                 <img
                   class="work__imgPhoto"
-                  src="./Фото/P0vCw76IjUNjwRdrx-6ihROi7crNXqCFzcgjxEywlpGKLOLzisFGX6pPi4G6GnUTiJX5dUp9-AgIojlyS9qCVBGK.jpg"
+                  src="./Фото/P0vCw76IjUNjwRdrx-6ihROi7crNXqCFzcgjxEywlpGKLOLzisFGX6pPi4G6GnUTiJX5dUp9-AgIojlyS9qCVBGK.webp"
                   alt="Семейная нейрофотосессия на природе, золотой час"
                   loading="lazy"
                   decoding="async"
@@ -1224,6 +1228,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+    <script src="./img-opt.js" defer></script>
     <script src="./cms.js" defer></script>
     <script src="./script.js" defer></script>
     <script src="./arctic-wheel.js" defer></script>

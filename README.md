@@ -24,6 +24,9 @@
 | `admin.css` | Стили админки (импортирует `styles.css`) |
 | `script.js` | Reveal, мобильное меню, scroll-spy, лайтбокс, переключатель моб. версии |
 | `cms.js` | Дефолты текстов + `apply()` подставляет их в `[data-cms]` |
+| `img-opt.js` | Хелпер `SiteImg.toWebp()` для путей к изображениям |
+| `scripts/optimize-images.ps1` | WebP из PNG + cwebp |
+| `scripts/compress-jpegs.ps1` | Сжатие JPG в `Фото/` |
 | `admin.js` | Логика формы админки: сборка из `cms.schema`, save/reset/export/import |
 | `.github/workflows/github-pages.yml` | CI: автоматическая публикация на **GitHub Pages** при push в `main` |
 | `.nojekyll` | Отключает Jekyll на GitHub Pages, чтобы статические файлы отдавались как есть |
@@ -105,10 +108,30 @@ npx serve .
 
 PIN-код виден всем в исходниках страницы — это **не серверная защита**, а лишь барьер от случайных правок. Перед публикацией смените PIN или вовсе удалите `admin.html` из продакшена.
 
+## Оптимизация изображений
+
+Сайт отдаёт **WebP** (лёгкие копии рядом с PNG/JPG). Скрипты в `scripts/`:
+
+```powershell
+# WebP для arctic-*.png + сжатие JPG в папке Фото/
+powershell -ExecutionPolicy Bypass -File scripts/optimize-images.ps1
+powershell -ExecutionPolicy Bypass -File scripts/compress-jpegs.ps1
+```
+
+После добавления новых фото в `Фото/` снова запустите оба скрипта. В браузере подставляется `.webp` через `img-opt.js` и `cms.js` (`displaySrc`).
+
+| Было (пример) | Стало |
+|---|---|
+| Hero `arctic-aurora.png` ~2,1 МБ | `arctic-aurora.webp` ~120 КБ |
+| Альбом JPG ~26 МБ | JPG ~7 МБ + WebP для лайтбокса |
+| Favicon | `arctic-icon-192.webp` ~11 КБ |
+
+PNG-оригиналы в репозитории можно оставить как резерв; на странице используются WebP.
+
 ## Что менять под себя
 
-- **Фото портрета и превью карточек** — атрибуты `src`/`data-cms-src` в `index.html`, плюс ключи `portrait_img`, `work_*_img` в `cms.js`.
-- **Файлы лайтбокса** — массив `ALL_FILES` и распределение `ALBUM_FILES` в `script.js` (CMS этот список не редактирует).
+- **Фото портрета и превью карточек** — `src`/`data-cms-src` в `index.html`, ключи `portrait_img`, `work_*_img` в `cms.js` (формат `.webp`).
+- **Файлы лайтбокса** — списки `ARCTIC_FILES`, `WOMEN_FILES` и `ALBUM_FILES` в `script.js` (в лайтбоксе подгружается WebP).
 - **Контакты** — блок `#contacts` в `index.html` или ключи `contact_*` / `cta_*_href` в админке.
 - **Тексты / услуги / тарифы** — `index.html` или соответствующие разделы в админке.
 - **Цвета / типографика / эффекты** — `styles.css` (CSS-переменные в `:root` и `--polar-*-rgb`).

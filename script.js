@@ -157,10 +157,13 @@ function setupAlbumLightbox() {
   const prevBtn = $('[data-lb-prev="true"]', lb);
   const nextBtn = $('[data-lb-next="true"]', lb);
 
+  const webpFile = (name) =>
+    (window.SiteImg?.toWebp ? window.SiteImg.toWebp(name) : name.replace(/\.(png|jpe?g)$/i, ".webp"));
+
   const ARCTIC_FILES = [
-    "arctic-glass.png",
-    "arctic-ice.png",
-    "arctic-snow.png",
+    "arctic-glass.webp",
+    "arctic-ice.webp",
+    "arctic-snow.webp",
   ];
 
   const WOMEN_FILES = [
@@ -254,7 +257,7 @@ function setupAlbumLightbox() {
     const key = trigger?.getAttribute("data-album");
     const files = key && ALBUM_FILES[key] ? ALBUM_FILES[key] : [];
     if (!files.length) return;
-    images = files.map((name) => ({ src: encodeURI(`./${name}`) }));
+    images = files.map((name) => ({ src: encodeURI(`./${webpFile(name)}`) }));
     currentAlbumTitle =
       trigger?.querySelector(".work__title")?.textContent?.trim() || "Альбом";
     if (titleEl) titleEl.textContent = currentAlbumTitle;

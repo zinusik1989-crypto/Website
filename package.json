@@ -2,6 +2,10 @@
   "name": "zinaida-website",
   "private": true,
   "description": "Лендинг Зинаида + serverless API для Arctic AI Identity",
+  "scripts": {
+    "optimize:images": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/optimize-images.ps1",
+    "optimize:photos": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/compress-jpegs.ps1"
+  },
   "dependencies": {
     "formidable": "^3.5.4"
   }
