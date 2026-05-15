@@ -3625,21 +3625,32 @@ body:is(.theme-dark, .theme-day) .priceCard--featured:hover{
     radial-gradient(ellipse 75% 55% at 92% 100%, rgba(var(--polar-cyan-rgb), 0.1), transparent 56%);
 }
 .lightbox__stage,
-.lightbox__bottom,
-.lightbox__close,
-.lightbox__nav{
+.lightbox__bottom{
   position:relative;
   z-index: 1;
 }
-.lightbox__close,
-.lightbox__nav{
+.lightbox__close{
+  position:absolute;
+  z-index: 4;
   border-color: rgba(var(--polar-cyan-rgb), 0.22);
   background: rgba(var(--polar-ice-rgb), 0.08);
   color: rgba(var(--polar-ice-rgb), 0.92);
 }
-.lightbox__close:hover,
+.lightbox__nav{
+  position:absolute;
+  top: 50%;
+  z-index: 4;
+  transform: translateY(-50%);
+  border-color: rgba(var(--polar-cyan-rgb), 0.22);
+  background: rgba(var(--polar-ice-rgb), 0.08);
+  color: rgba(var(--polar-ice-rgb), 0.92);
+}
+.lightbox__close:hover{
+  background: rgba(var(--polar-mint-rgb), 0.12);
+}
 .lightbox__nav:hover{
   background: rgba(var(--polar-mint-rgb), 0.12);
+  transform: translateY(-50%);
 }
 .lightbox__bottom{
   border-top-color: rgba(var(--polar-cyan-rgb), 0.12);
