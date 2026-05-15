@@ -81,8 +81,14 @@
   max-width: 520px;
 }
 
+.arctic-wheel-section__app.reveal {
+  opacity: 1;
+  transform: none;
+}
+
 .arctic-wheel-section__app {
   position: relative;
+  z-index: 1;
   margin-inline: auto;
   border-radius: calc(var(--aw-radius) + 6px);
   border: 1px solid var(--aw-border);

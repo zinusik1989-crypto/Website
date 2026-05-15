@@ -219,11 +219,16 @@
     window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
   }
 
-  function showStep(name) {
+  let gameStarted = false;
+
+  function showStep(name, opts = {}) {
+    if (!root) return;
     root.querySelectorAll(".arctic-story-game__screen").forEach((el) => {
       el.classList.toggle("is-active", el.dataset.step === name);
     });
-    requestAnimationFrame(scrollIntoGameView);
+    if (opts.scroll && gameStarted) {
+      requestAnimationFrame(scrollIntoGameView);
+    }
   }
 
   function showToast(msg, ms = 3200) {
@@ -259,7 +264,11 @@
   }
 
   function setPhoto(file) {
-    if (!file || !file.type.startsWith("image/")) {
+    if (!file) return;
+    const isImage =
+      (file.type && file.type.startsWith("image/")) ||
+      /\.(jpe?g|png|webp|gif|heic|heif|bmp)$/i.test(file.name || "");
+    if (!isImage) {
       showToast("Выберите изображение (JPG, PNG, WebP)");
       return;
     }
@@ -277,7 +286,7 @@
   }
 
   function runScan() {
-    showStep("scan");
+    showStep("scan", { scroll: true });
     const textEl = $("#asgScanText");
     const line = $(".arctic-story-game__scan-line");
     line?.classList.add("is-active");
@@ -290,7 +299,7 @@
     setTimeout(() => {
       line?.classList.remove("is-active");
       renderHeroScreen(0);
-      showStep("hero1");
+      showStep("hero1", { scroll: true });
     }, SCAN_MS);
   }
 
@@ -323,21 +332,21 @@
     addScores(opt.scores);
     if (index < HERO_SCREENS.length - 1) {
       renderHeroScreen(index + 1);
-      showStep(HERO_SCREENS[index + 1].step);
+      showStep(HERO_SCREENS[index + 1].step, { scroll: true });
     } else {
       runRitual();
     }
   }
 
   function runRitual() {
-    showStep("ritual");
+    showStep("ritual", { scroll: true });
     const ring = $(".arctic-story-game__ritual .arctic-story-game__scan-ring");
     ring?.classList.add("is-pulse");
     setTimeout(() => {
       ring?.classList.remove("is-pulse");
       finalStyle = resolveWinner();
       renderResult(finalStyle);
-      showStep("result");
+      showStep("result", { scroll: true });
     }, RITUAL_MS);
   }
 
@@ -421,16 +430,24 @@
     if (input) input.value = "";
     const btn = $("#asgActivatePortal");
     if (btn) btn.disabled = true;
-    showStep("portal");
+    showStep("portal", { scroll: false });
   }
 
   function bindEvents() {
-    $(".arctic-story-game__btn-portal")?.addEventListener("click", () => showStep("upload"));
+    root.querySelector(".arctic-story-game__btn-portal")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      gameStarted = true;
+      showStep("upload", { scroll: true });
+    });
 
     const zone = $("#asgUploadZone");
     const input = $("#asgPhotoInput");
 
-    zone?.addEventListener("click", () => input?.click());
+    zone?.addEventListener("click", (e) => {
+      if (e.target.closest("button")) return;
+      e.preventDefault();
+      input?.click();
+    });
     zone?.addEventListener("dragover", (e) => {
       e.preventDefault();
       zone.classList.add("is-dragover");
@@ -447,11 +464,14 @@
       if (file) setPhoto(file);
     });
 
-    $("#asgActivatePortal")?.addEventListener("click", () => {
+    $("#asgActivatePortal")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       if (!photoObjectUrl) {
         showToast("Сначала загрузите фото");
         return;
       }
+      gameStarted = true;
       runScan();
     });
 
@@ -465,10 +485,14 @@
   function init() {
     root = document.querySelector(".arctic-story-game");
     if (!root) return;
+    const app = root.querySelector(".arctic-story-game__app");
+    app?.classList.add("is-visible");
+    app?.classList.remove("reveal");
     initScores();
     spawnSnow($("#asgSnow"));
+    HERO_SCREENS.forEach((_, i) => renderHeroScreen(i));
     bindEvents();
-    showStep("portal");
+    showStep("portal", { scroll: false });
   }
 
   if (document.readyState === "loading") {

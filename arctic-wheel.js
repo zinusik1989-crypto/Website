@@ -258,11 +258,16 @@
     window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
   }
 
-  function showStep(name) {
+  let wheelStarted = false;
+
+  function showStep(name, opts = {}) {
+    if (!root) return;
     root.querySelectorAll(".arctic-wheel-section__screen").forEach((el) => {
       el.classList.toggle("is-active", el.dataset.step === name);
     });
-    requestAnimationFrame(scrollIntoGameView);
+    if (opts.scroll !== false && wheelStarted) {
+      requestAnimationFrame(scrollIntoGameView);
+    }
   }
 
   function showToast(msg, ms = 3200) {
@@ -538,6 +543,7 @@
 
   function restart() {
     if (spinning) return;
+    wheelStarted = false;
     quizIndex = 0;
     finalStyle = null;
     resetQuizScores();
@@ -545,7 +551,7 @@
       wheel.style.transition = "none";
       wheel.style.transform = "rotate(0deg)";
     }
-    showStep("hero");
+    showStep("hero", { scroll: false });
   }
 
   function startRitual() {
@@ -559,7 +565,10 @@
     root.querySelectorAll(".arctic-wheel-section__gender-opt").forEach((btn) => {
       btn.addEventListener("click", () => setGender(btn.dataset.gender));
     });
-    $(".arctic-wheel-section__btn-start")?.addEventListener("click", startRitual);
+    $(".arctic-wheel-section__btn-start")?.addEventListener("click", () => {
+      wheelStarted = true;
+      startRitual();
+    });
     $(".arctic-wheel-section__btn-quiz-back")?.addEventListener("click", () => {
       if (quizIndex > 0) {
         quizIndex -= 1;
@@ -579,13 +588,16 @@
   function init() {
     root = document.querySelector(".arctic-wheel-section");
     if (!root) return;
+    const app = root.querySelector(".arctic-wheel-section__app");
+    app?.classList.add("is-visible");
+    app?.classList.remove("reveal");
     wheel = $("#arcticWheelDisk");
     if (wheel) wheel.style.background = buildWheelGradient();
     setGender("f");
     spawnSnow($("#arcticWheelSnow"));
     resetQuizScores();
     bindEvents();
-    showStep("hero");
+    showStep("hero", { scroll: false });
 
     let resizeTid;
     window.addEventListener("resize", () => {
