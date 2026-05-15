@@ -76,6 +76,12 @@ git push -u origin main
 
 Файлы: `arctic-wheel.js`, `arctic-wheel.css` (префикс `.arctic-wheel-section`).
 
+## Север выбирает твою судьбу
+
+Секция `#arctic-story-game`: cinematic story game — портал → загрузка фото (только в браузере) → AI-скан → 3 героя с выборами → ритуал → результат с prompt и кнопками.
+
+Файлы: `arctic-story-game.js`, `arctic-story-game.css` (префикс `.arctic-story-game`).
+
 ## Запуск
 
 - **Самый простой способ**: откройте `index.html` в браузере двойным кликом.

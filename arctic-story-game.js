@@ -359,9 +359,9 @@
         row.innerHTML = `
           <p class="arctic-story-game__stat-name">${stat.label}</p>
           <p class="arctic-story-game__stat-val">${stat.value}%</p>
-          <motion.div class="arctic-story-game__stat-bar">
+          <div class="arctic-story-game__stat-bar">
             <div class="arctic-story-game__stat-fill" style="--asg-pct: ${stat.value}%"></div>
-          </motion.div>`;
+          </div>`;
         statsEl.appendChild(row);
       });
       requestAnimationFrame(() => {

@@ -120,6 +120,7 @@
               <li><a class="nav__link" href="#services" data-cms="nav_services">Услуги</a></li>
               <li><a class="nav__link" href="#portfolio" data-cms="nav_portfolio">Портфолио</a></li>
               <li><a class="nav__link" href="#arctic-wheel">Судьба</a></li>
+              <li><a class="nav__link" href="#arctic-story-game">Север</a></li>
               <li><a class="nav__link" href="#pricing" data-cms="nav_pricing">Тарифы</a></li>
               <li><a class="nav__link" href="#contacts" data-cms="nav_contacts">Контакты</a></li>
               <li class="heroScreenNav__cta">
@@ -287,6 +288,132 @@
             </div>
 
             <div class="arctic-wheel-section__toast" id="arcticWheelToast" role="status" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ARCTIC STORY — Север выбирает твою судьбу -->
+      <section
+        class="section section--soft arctic-story-game"
+        id="arctic-story-game"
+        aria-label="Север выбирает твою судьбу"
+      >
+        <div class="container">
+          <div class="arctic-story-game__app reveal">
+            <div class="arctic-story-game__aurora" aria-hidden="true"></div>
+            <div class="arctic-story-game__snow" id="asgSnow" aria-hidden="true"></div>
+
+            <div class="arctic-story-game__screen is-active" data-step="portal">
+              <h2 class="arctic-story-game__title">Север выбирает твою судьбу</h2>
+              <p class="arctic-story-game__sub">
+                Войди в ледяную вселенную и узнай, какой cinematic AI-образ создан для тебя.
+              </p>
+              <button type="button" class="arctic-story-game__btn arctic-story-game__btn--primary arctic-story-game__btn-portal">
+                ✨ Войти в ледяную вселенную
+              </button>
+            </div>
+
+            <div class="arctic-story-game__screen" data-step="upload">
+              <h2 class="arctic-story-game__title">Покажи своё лицо северному свету</h2>
+              <label class="arctic-story-game__upload-zone" id="asgUploadZone">
+                <input
+                  type="file"
+                  id="asgPhotoInput"
+                  class="arctic-story-game__upload-input"
+                  accept="image/jpeg,image/png,image/webp,image/heic"
+                  aria-label="Загрузить фото"
+                />
+                <div class="arctic-story-game__upload-placeholder">
+                  <p class="arctic-story-game__upload-hint">Нажмите или перетащите фото</p>
+                </div>
+                <img class="arctic-story-game__preview" id="asgPreview" alt="" width="220" height="293" />
+              </label>
+              <p class="arctic-story-game__privacy">Фото остаётся только в вашем браузере.</p>
+              <button type="button" class="arctic-story-game__btn arctic-story-game__btn--primary" id="asgActivatePortal" disabled>
+                ❄️ Активировать портал
+              </button>
+            </div>
+
+            <div class="arctic-story-game__screen" data-step="scan" aria-busy="true">
+              <div class="arctic-story-game__scan">
+                <div class="arctic-story-game__scan-ring" aria-hidden="true"></div>
+                <p class="arctic-story-game__scan-text" id="asgScanText">Сканируем cinematic энергию…</p>
+                <div class="arctic-story-game__scan-line" aria-hidden="true"></div>
+              </div>
+            </div>
+
+            <div class="arctic-story-game__screen" data-step="hero1">
+              <p class="arctic-story-game__hero-badge"></p>
+              <p class="arctic-story-game__hero-quote"></p>
+              <p class="arctic-story-game__question"></p>
+              <div class="arctic-story-game__options"></div>
+            </div>
+
+            <div class="arctic-story-game__screen" data-step="hero2">
+              <p class="arctic-story-game__hero-badge"></p>
+              <p class="arctic-story-game__hero-quote"></p>
+              <p class="arctic-story-game__question"></p>
+              <div class="arctic-story-game__options"></div>
+            </div>
+
+            <div class="arctic-story-game__screen" data-step="hero3">
+              <p class="arctic-story-game__hero-badge"></p>
+              <p class="arctic-story-game__hero-quote"></p>
+              <p class="arctic-story-game__question"></p>
+              <div class="arctic-story-game__options"></div>
+            </div>
+
+            <div class="arctic-story-game__screen" data-step="ritual" aria-busy="true">
+              <div class="arctic-story-game__ritual">
+                <div class="arctic-story-game__scan-ring" aria-hidden="true"></div>
+                <p class="arctic-story-game__scan-text">Север собирает твой cinematic archetype…</p>
+              </div>
+            </div>
+
+            <div class="arctic-story-game__screen" data-step="result">
+              <div class="arctic-story-game__result-scroll">
+                <div class="arctic-story-game__result-card">
+                  <div class="arctic-story-game__result-hero">
+                    <p class="arctic-story-game__result-kicker">Твой северный стиль</p>
+                    <h3 class="arctic-story-game__result-title"></h3>
+                  </div>
+                  <div class="arctic-story-game__result-body">
+                    <p class="arctic-story-game__result-desc"></p>
+                    <div>
+                      <p class="arctic-story-game__block-title">Цвета</p>
+                      <p class="arctic-story-game__block-text arctic-story-game__result-colors"></p>
+                    </div>
+                    <div>
+                      <p class="arctic-story-game__block-title">Стиль одежды</p>
+                      <p class="arctic-story-game__block-text arctic-story-game__result-outfit"></p>
+                    </div>
+                    <div>
+                      <p class="arctic-story-game__block-title">Локации</p>
+                      <p class="arctic-story-game__block-text arctic-story-game__result-locations"></p>
+                    </div>
+                    <div class="arctic-story-game__stats"></div>
+                    <div class="arctic-story-game__prompt-wrap">
+                      <p class="arctic-story-game__block-title">Prompt для генерации</p>
+                      <p class="arctic-story-game__prompt"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="arctic-story-game__actions">
+                <button type="button" class="arctic-story-game__btn arctic-story-game__btn--gold" id="asgCreateAi">
+                  ✨ Создать AI-образ
+                </button>
+                <button type="button" class="arctic-story-game__btn arctic-story-game__btn--primary arctic-story-game__btn-share">
+                  📲 Поделиться результатом
+                </button>
+                <button type="button" class="arctic-story-game__btn arctic-story-game__btn--ghost arctic-story-game__btn-restart">
+                  🔁 Пройти снова
+                </button>
+              </div>
+            </div>
+
+            <div class="arctic-story-game__toast" id="asgToast" role="status" aria-live="polite"></div>
           </div>
         </div>
       </section>
@@ -1095,6 +1222,7 @@
     <script src="./cms.js" defer></script>
     <script src="./script.js" defer></script>
     <script src="./arctic-wheel.js" defer></script>
+    <script src="./arctic-story-game.js" defer></script>
     <script src="./splash-cursor.js" defer></script>
     <script type="module" src="./soft-aurora.js"></script>
   </body>
