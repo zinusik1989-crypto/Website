@@ -1882,9 +1882,12 @@ img{max-width:100%; display:block}
 /* Авторские песни — примеры на заказ */
 .songs__grid{
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: clamp(16px, 2.4vw, 24px);
   margin-top: clamp(22px, 3vw, 32px);
+}
+@media (min-width: 1100px){
+  .songs__grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 .songCard{
   display: flex;
