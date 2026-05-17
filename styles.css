@@ -2579,6 +2579,22 @@ body:is(.theme-dark, .theme-day) #testimonials .sectionHead .h2{
   .hero__actions{gap: 10px}
   .hero__actions .btn{flex: 1 1 100%}
 
+  .hero__game-cta-wrap{
+    margin-top: 18px;
+    max-width: none;
+    width: 100%;
+  }
+  .btn--game-cta{
+    width: 100%;
+    min-height: 48px;
+    font-size: 15px;
+  }
+
+  body.has-cookie-consent .backToTop,
+  body.has-cookie-consent .mobileToggle{
+    bottom: max(118px, calc(14px + env(safe-area-inset-bottom, 0px) + 96px));
+  }
+
   .split{gap: 18px}
   .callout__text{font-size: 16px}
 
@@ -3786,6 +3802,20 @@ body.force-mobile .hero__grid{grid-template-columns: 1fr; align-items:start; gap
 body.force-mobile .hero__visual{justify-content:flex-start}
 body.force-mobile .hero__meta{grid-template-columns: 1fr; gap:10px}
 body.force-mobile .hero__actions .btn{flex: 1 1 100%}
+body.force-mobile .hero__game-cta-wrap{
+  margin-top: 18px;
+  max-width: none;
+  width: 100%;
+}
+body.force-mobile .btn--game-cta{
+  width: 100%;
+  min-height: 48px;
+  font-size: 15px;
+}
+body.force-mobile.has-cookie-consent .backToTop,
+body.force-mobile.has-cookie-consent .mobileToggle{
+  bottom: max(118px, calc(14px + env(safe-area-inset-bottom, 0px) + 96px));
+}
 body.force-mobile .hero .h1{font-size: clamp(26px, 6.6vw, 36px)}
 body.force-mobile .hero .lead{font-size: clamp(15px, 3.6vw, 18px); line-height: 1.74}
 body.force-mobile .richP{font-size: 16px; line-height: 1.74}
@@ -4150,6 +4180,27 @@ body.has-cookie-consent .backToTop{
 }
 body.has-cookie-consent .mobileToggle{
   bottom: max(108px, calc(12px + env(safe-area-inset-bottom, 0px) + 88px));
+}
+@media (max-width: 720px){
+  .cookieConsent{
+    padding:
+      10px
+      max(10px, env(safe-area-inset-right, 0px))
+      max(10px, env(safe-area-inset-bottom, 0px))
+      max(10px, env(safe-area-inset-left, 0px));
+  }
+  .cookieConsent__panel{
+    max-height: min(70vh, 480px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .cookieConsent__text{
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .cookieConsent__check{
+    font-size: 12px;
+  }
 }
 @media (max-width: 520px){
   .cookieConsent__panel{ padding: 16px 14px 14px; }
