@@ -1772,13 +1772,17 @@ img{max-width:100%; display:block}
 .work__imgPhoto{
   position:absolute;
   inset:0;
+  z-index: 1;
   width:100%;
   height:100%;
   object-fit: cover;
   object-position: 50% 35%;
-  transform: scale(1.02);
+  transform: translateZ(0) scale(1.02);
   transition: transform .7s var(--ease), filter .7s var(--ease);
   filter: saturate(1.08) contrast(1.03);
+}
+.work__img:has(.work__imgPhoto){
+  background: rgba(5, 10, 24, 0.2);
 }
 .work__img--empty{
   background:
@@ -1875,7 +1879,7 @@ img{max-width:100%; display:block}
   /* keep wrapper stable */
 }
 .work:hover .work__imgPhoto{
-  transform: scale(1.08);
+  transform: translateZ(0) scale(1.08);
   filter: saturate(1.16) contrast(1.06);
 }
 
@@ -3380,7 +3384,6 @@ body:is(.theme-dark, .theme-day) .step,
 body:is(.theme-dark, .theme-day) .priceCard,
 body:is(.theme-dark, .theme-day) .quote,
 body:is(.theme-dark, .theme-day) .cta__card,
-body:is(.theme-dark, .theme-day) .work,
 body:is(.theme-dark, .theme-day) .faq details,
 body:is(.theme-dark, .theme-day) .priceGroup,
 body:is(.theme-dark, .theme-day) .about__origin,
@@ -3396,6 +3399,16 @@ body:is(.theme-dark, .theme-day) .portrait__caption{
   background: var(--ice-bg);
   backdrop-filter: blur(var(--ice-blur));
   -webkit-backdrop-filter: blur(var(--ice-blur));
+  box-shadow: var(--ice-shadow);
+}
+
+/* Альбомы: без backdrop-filter на всей карточке — иначе превью (transform у img) пропадает в Chrome на ПК */
+body:is(.theme-dark, .theme-day) .work {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid var(--ice-border);
+  background: var(--ice-bg);
   box-shadow: var(--ice-shadow);
 }
 
@@ -3497,6 +3510,10 @@ body:is(.theme-dark, .theme-day) .richBlock:hover{
 
 body:is(.theme-dark, .theme-day) .work{
   background: rgba(6, 12, 28, 0.45);
+}
+body:is(.theme-dark, .theme-day) .work__cap{
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 body:is(.theme-dark, .theme-day) .work:hover{
   border-color: var(--ice-border-hover);

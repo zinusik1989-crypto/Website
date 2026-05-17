@@ -5,8 +5,14 @@ from __future__ import annotations
 import io
 import math
 import random
-import shutil
+import subprocess
+import sys
 from pathlib import Path
+
+try:
+    import imageio_ffmpeg
+except ImportError:
+    imageio_ffmpeg = None  # type: ignore
 
 from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont, ImageOps
 from mutagen import File as MutagenFile
@@ -344,6 +350,32 @@ def render_selling_cover(track: dict, embedded: Image.Image | None) -> Image.Ima
     return final.resize((800, 500), Image.Resampling.LANCZOS)
 
 
+def encode_audio_mp3(src: Path, dest: Path, bitrate: str = "128k") -> None:
+    if imageio_ffmpeg is None:
+        raise SystemExit("Установите: pip install imageio-ffmpeg")
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    cmd = [
+        imageio_ffmpeg.get_ffmpeg_exe(),
+        "-y",
+        "-hide_banner",
+        "-loglevel",
+        "error",
+        "-i",
+        str(src),
+        "-vn",
+        "-ac",
+        "2",
+        "-ar",
+        "44100",
+        "-c:a",
+        "libmp3lame",
+        "-b:a",
+        bitrate,
+        str(dest),
+    ]
+    subprocess.run(cmd, check=True)
+
+
 def add_grain(img: Image.Image, amount: int = 8) -> Image.Image:
     rng = random.Random(99)
     noise = Image.new("RGB", img.size)
@@ -374,13 +406,20 @@ def main() -> None:
             src = next(p for p in audio_files if p not in used)
         used.add(src)
 
-        ext = src.suffix.lower()
-        shutil.copy2(src, OUT_DIR / f"{track['slug']}{ext}")
+        dest_mp3 = OUT_DIR / f"{track['slug']}.mp3"
+        before = src.stat().st_size
+        if dest_mp3.exists():
+            dest_mp3.unlink()
+        encode_audio_mp3(src, dest_mp3)
+        after = dest_mp3.stat().st_size
+        legacy_wav = OUT_DIR / f"{track['slug']}.wav"
+        if legacy_wav.exists():
+            legacy_wav.unlink()
         embedded = extract_embedded_cover(src)
         cover = render_selling_cover(track, embedded)
         out = COVERS / f"{track['slug']}.webp"
-        cover.save(out, "WEBP", quality=92, method=6)
-        print(f"OK {track['slug']}")
+        cover.save(out, "WEBP", quality=84, method=6)
+        print(f"OK {track['slug']} audio {before // 1024}KB -> {after // 1024}KB")
 
 
 if __name__ == "__main__":

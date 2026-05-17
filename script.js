@@ -545,10 +545,18 @@ setupAlbumLightbox();
 setupHeroTitleSplit();
 setupScrollTriggerRefreshOnResize();
 
+function resolveLazyAudioSrc(audio) {
+  const lazy = (audio.getAttribute("data-lazy-src") || "").trim();
+  if (lazy && !(audio.getAttribute("src") || "").trim()) {
+    audio.src = lazy;
+  }
+}
+
 function initSongPlayers() {
   document.querySelectorAll(".songCard__audio").forEach((audio) => {
-    const src = (audio.getAttribute("src") || "").trim();
+    const src = (audio.getAttribute("src") || audio.getAttribute("data-lazy-src") || "").trim();
     const note = audio.closest(".songCard")?.querySelector(".songCard__demoNote");
+    audio.preload = "none";
     if (src) {
       audio.hidden = false;
       note?.classList.add("is-hidden");
@@ -556,9 +564,40 @@ function initSongPlayers() {
   });
 }
 
+function setupLazySongAudio() {
+  const audios = document.querySelectorAll(".songCard__audio");
+  audios.forEach((audio) => {
+    audio.addEventListener("play", () => resolveLazyAudioSrc(audio), { once: true });
+  });
+
+  if (!("IntersectionObserver" in window)) return;
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        resolveLazyAudioSrc(entry.target);
+        io.unobserve(entry.target);
+      });
+    },
+    { rootMargin: "160px 0px", threshold: 0.01 }
+  );
+
+  audios.forEach((audio) => {
+    if ((audio.getAttribute("data-lazy-src") || "").trim()) {
+      io.observe(audio);
+    }
+  });
+}
+
+function bootSongSection() {
+  initSongPlayers();
+  setupLazySongAudio();
+}
+
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", () => setTimeout(initSongPlayers, 0), { once: true });
+  document.addEventListener("DOMContentLoaded", () => setTimeout(bootSongSection, 0), { once: true });
 } else {
-  setTimeout(initSongPlayers, 0);
+  setTimeout(bootSongSection, 0);
 }
 

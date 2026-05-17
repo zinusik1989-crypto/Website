@@ -221,7 +221,7 @@
     song7_tag: "Любовь • звонок • прощение",
     song7_desc:
       "Эмоциональная лирика о том, что важно успеть сказать и услышать друг друга — для пары, семьи или признания, которое откладывали.",
-    song7_audio: "./songs/pozvoni-poka-ne-pozdno.wav",
+    song7_audio: "./songs/pozvoni-poka-ne-pozdno.mp3",
     song7_demo: "Слушать на сайте",
     songs_cta_text:
       "Нужна песня под ваш повод — свадьба, день рождения, благодарность коллегам или саунд для контента? Обсудим сюжет, настроение и срок; в прайсе — от 1000 ₽ за индивидуальную композицию.",
@@ -823,10 +823,14 @@
       if (!raw) return;
       const u = displaySrc(raw);
       if (!u) return;
-      el.setAttribute("src", u);
       if (el.tagName === "AUDIO") {
+        el.setAttribute("data-lazy-src", u);
+        el.removeAttribute("src");
+        el.preload = "none";
         el.hidden = false;
         el.closest(".songCard")?.querySelector(".songCard__demoNote")?.classList.add("is-hidden");
+      } else {
+        el.setAttribute("src", u);
       }
     });
 
