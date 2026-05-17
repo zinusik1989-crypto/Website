@@ -20,44 +20,6 @@ function hashIdFromHref(href) {
   }
 }
 
-/** Превью альбомов: дублируем src в background (обход бага слоёв в Chrome на ПК). */
-function setupWorkCoverPhotos() {
-  const photos = $$(".work--album .work__imgPhoto");
-  if (!photos.length) return;
-
-  const applyBg = (img, wrap) => {
-    const src = (img.currentSrc || img.getAttribute("src") || "").trim();
-    if (!src) return;
-    const safe = src.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
-    wrap.style.backgroundImage = `url("${safe}")`;
-    wrap.style.backgroundSize = "cover";
-    wrap.style.backgroundPosition = "50% 35%";
-    wrap.style.backgroundRepeat = "no-repeat";
-    img.classList.add("work__imgPhoto--bg");
-  };
-
-  photos.forEach((img) => {
-    const wrap = img.closest(".work__img");
-    if (!wrap || wrap.classList.contains("work__img--empty")) return;
-
-    const sync = () => {
-      if (img.naturalWidth > 0) applyBg(img, wrap);
-    };
-
-    if (img.complete) sync();
-    else img.addEventListener("load", sync, { once: true });
-
-    img.addEventListener(
-      "error",
-      () => {
-        const src = (img.getAttribute("src") || "").trim();
-        if (src) applyBg(img, wrap);
-      },
-      { once: true }
-    );
-  });
-}
-
 function setupReveal() {
   const nodes = $$(".reveal");
   if (!("IntersectionObserver" in window)) {
@@ -573,7 +535,6 @@ function setupPolarThemeToggle() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", setupWorkCoverPhotos);
 setupReveal();
 setupPolarThemeToggle();
 setupMobileViewToggle();

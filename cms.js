@@ -121,15 +121,14 @@
       "Северная нейрофотосессия из Заполярного, женский и семейный портрет, детские образы — откройте альбом целиком.",
     work_btn: "Скоро",
 
-    work_arctic_img: "./arctic-glass.webp",
+    work_arctic_img: "./portfolio/arctic.webp",
     work_arctic_alt: "Северная нейрофотосессия у панорамного окна, северное сияние, Заполярный",
     work_arctic_title: "Север / Арктика",
     work_arctic_tag: "Заполярный • альбом • 3 фото",
     work_arctic_btn: "Смотреть альбом",
     work_arctic_aria: "Открыть альбом: Север / Арктика",
 
-    work_women_img:
-      "./Фото/__N5af5iDWD4U3AowFNzss_-HpvxMB37l3V39rlOlHKrUrYkYzooxnkDO5zFDgr4rx2HENq95vEHH-gzW48VxEH8.webp",
+    work_women_img: "./portfolio/women.webp",
     work_women_alt: "Женский нейропортрет с букетом тюльпанов, редакционная съёмка",
     work_women_title: "Женский портрет",
     work_women_tag: "альбом • 23 фото",
@@ -140,16 +139,14 @@
     work_men_tag: "альбом",
     work_men_aria: "Открыть альбом: Мужской портрет",
 
-    work_kids_img:
-      "./Фото/kGGtl1PM7Oehm48cT_5n8ilkOtJlMwBHakeW2Sn0wonW3ZSQFozu51vjX8OAljVT1ccHAeKr8WjeRl67BWKGa6JB.webp",
+    work_kids_img: "./portfolio/kids.webp",
     work_kids_alt: "Детский нейропортрет в нежных тонах, фотосессия для ребёнка",
     work_kids_title: "Дети",
     work_kids_tag: "альбом • 5 фото",
     work_kids_btn: "Смотреть альбом",
     work_kids_aria: "Открыть альбом: Дети",
 
-    work_family_img:
-      "./Фото/P0vCw76IjUNjwRdrx-6ihROi7crNXqCFzcgjxEywlpGKLOLzisFGX6pPi4G6GnUTiJX5dUp9-AgIojlyS9qCVBGK.webp",
+    work_family_img: "./portfolio/family.webp",
     work_family_alt: "Семейная нейрофотосессия на природе, золотой час",
     work_family_title: "Семейная",
     work_family_tag: "альбом • 4 фото",
@@ -690,6 +687,25 @@
           out[k] = String(out[k]).replace(/\.(png|jpe?g)$/i, ".webp");
         }
       });
+      let portfolioMigrated = false;
+      [
+        ["work_arctic_img", /arctic-glass|arctic-aurora/i],
+        ["work_women_img", /__N5af5iDWD4U3AowFNzss/i],
+        ["work_kids_img", /kGGtl1PM7Oehm48cT_5n8ilkOtJlMwBHakeW2Sn0wonW3ZSQFozu51vjX8OAljVT1ccHAeKr8WjeRl67BWKGa6JB/i],
+        ["work_family_img", /P0vCw76IjUNjwRdrx-6ihROi7crNXqCFzcgjxEywlpGKLOLzisFGX6pPi4G6GnUTiJX5dUp9-AgIojlyS9qCVBGK/i],
+      ].forEach(([key, pattern]) => {
+        const v = String(out[key] || "");
+        if (!v || v.includes("/portfolio/")) return;
+        if (v.includes("Фото/") || v.includes("Фото\\") || pattern.test(v)) {
+          out[key] = defaults[key];
+          portfolioMigrated = true;
+        }
+      });
+      if (portfolioMigrated) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(out));
+        } catch (_) {}
+      }
       return out;
     } catch {
       return { ...defaults };
