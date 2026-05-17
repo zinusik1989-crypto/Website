@@ -382,17 +382,31 @@ function setupHeroTitleSplit() {
     h1.setAttribute("aria-label", plain);
     h1.textContent = "";
     const frag = document.createDocumentFragment();
-    for (let i = 0; i < plain.length; i++) {
-      const ch = plain[i];
-      const wrap = document.createElement("span");
-      wrap.className = "split-charWrap";
-      wrap.setAttribute("aria-hidden", "true");
-      const inner = document.createElement("span");
-      inner.className = "split-char";
-      inner.textContent = ch === " " ? "\u00a0" : ch;
-      wrap.appendChild(inner);
-      frag.appendChild(wrap);
-    }
+    plain.split(/(\s+)/).forEach((part) => {
+      if (!part) return;
+      if (/^\s+$/.test(part)) {
+        const space = document.createElement("span");
+        space.className = "split-space";
+        space.setAttribute("aria-hidden", "true");
+        space.textContent = part;
+        frag.appendChild(space);
+        return;
+      }
+
+      const word = document.createElement("span");
+      word.className = "split-word";
+      word.setAttribute("aria-hidden", "true");
+      Array.from(part).forEach((ch) => {
+        const wrap = document.createElement("span");
+        wrap.className = "split-charWrap";
+        const inner = document.createElement("span");
+        inner.className = "split-char";
+        inner.textContent = ch;
+        wrap.appendChild(inner);
+        word.appendChild(wrap);
+      });
+      frag.appendChild(word);
+    });
     h1.appendChild(frag);
 
     gsap.registerPlugin(ScrollTrigger);
