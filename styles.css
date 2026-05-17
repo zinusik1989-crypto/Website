@@ -1764,27 +1764,12 @@ img{max-width:100%; display:block}
   position:absolute;
   inset:0;
   z-index:1;
-  background:
-    radial-gradient(240px 180px at 30% 30%, rgba(var(--glass-opal),.18), transparent 64%),
-    radial-gradient(240px 180px at 70% 60%, rgba(217,168,181,.18), transparent 66%),
-    linear-gradient(135deg, rgba(38,26,34,.92), rgba(28,20,24,.86));
 }
-.work__imgPhoto{
-  position:absolute;
-  inset:0;
-  z-index:2;
-  width:100%;
-  height:100%;
-  max-width:none;
-  object-fit:cover;
-  object-position:50% 35%;
-  transform:scale(1.02);
-  transition:transform .7s var(--ease), filter .7s var(--ease);
-  filter:saturate(1.08) contrast(1.03);
-}
-.work__img:has(.work__imgPhoto){
-  background:none;
+.work__img--photo{
   background-color:#0a1020;
+  background-size:cover;
+  background-position:50% 35%;
+  background-repeat:no-repeat;
 }
 .work__img:not(.work__img--empty)::after{
   content:"";
@@ -1893,9 +1878,8 @@ img{max-width:100%; display:block}
 .work:hover .work__img{
   /* keep wrapper stable */
 }
-.work:hover .work__imgPhoto{
-  transform:scale(1.08);
-  filter:saturate(1.16) contrast(1.06);
+.work:hover .work__img--photo{
+  filter:saturate(1.12) contrast(1.05);
 }
 /* Авторские песни — примеры на заказ */
 .songs__grid{

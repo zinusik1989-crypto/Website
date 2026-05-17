@@ -688,15 +688,9 @@
         }
       });
       let portfolioMigrated = false;
-      [
-        ["work_arctic_img", /arctic-glass|arctic-aurora/i],
-        ["work_women_img", /__N5af5iDWD4U3AowFNzss/i],
-        ["work_kids_img", /kGGtl1PM7Oehm48cT_5n8ilkOtJlMwBHakeW2Sn0wonW3ZSQFozu51vjX8OAljVT1ccHAeKr8WjeRl67BWKGa6JB/i],
-        ["work_family_img", /P0vCw76IjUNjwRdrx-6ihROi7crNXqCFzcgjxEywlpGKLOLzisFGX6pPi4G6GnUTiJX5dUp9-AgIojlyS9qCVBGK/i],
-      ].forEach(([key, pattern]) => {
+      ["work_arctic_img", "work_women_img", "work_kids_img", "work_family_img"].forEach((key) => {
         const v = String(out[key] || "");
-        if (!v || v.includes("/portfolio/")) return;
-        if (v.includes("Фото/") || v.includes("Фото\\") || pattern.test(v)) {
+        if (!v || !v.includes("/portfolio/")) {
           out[key] = defaults[key];
           portfolioMigrated = true;
         }
@@ -735,6 +729,15 @@
       return window.SiteImg.toWebp(u);
     }
     return u.replace(/\.(png|jpe?g)(\?.*)?$/i, ".webp$2");
+  }
+
+  function applyWorkCover(el, url) {
+    if (!url) return;
+    el.setAttribute("data-cover", url);
+    el.style.backgroundImage = `url("${String(url).replace(/\\/g, "/").replace(/"/g, "%22")}")`;
+    el.style.backgroundSize = "cover";
+    el.style.backgroundPosition = "50% 35%";
+    el.style.backgroundRepeat = "no-repeat";
   }
 
   function getSiteBase(data) {
@@ -848,6 +851,15 @@
       } else {
         el.setAttribute("src", u);
       }
+    });
+
+    document.querySelectorAll("[data-cms-cover]").forEach((el) => {
+      const key = el.getAttribute("data-cms-cover");
+      if (!key || !data[key]) return;
+      const raw = String(data[key]).trim();
+      if (!raw) return;
+      const u = displaySrc(raw);
+      if (u) applyWorkCover(el, u);
     });
 
     const meta = document.getElementById("metaDescription");

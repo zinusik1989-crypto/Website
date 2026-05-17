@@ -20,6 +20,19 @@ function hashIdFromHref(href) {
   }
 }
 
+/** Превью альбомов: фон из data-cover (работает и при file://). */
+function applyPortfolioCoverBackgrounds() {
+  $$(".work__img--photo").forEach((el) => {
+    const src = (el.getAttribute("data-cover") || "").trim();
+    if (!src) return;
+    const safe = src.replace(/\\/g, "/").replace(/"/g, "%22");
+    el.style.backgroundImage = `url("${safe}")`;
+    el.style.backgroundSize = "cover";
+    el.style.backgroundPosition = "50% 35%";
+    el.style.backgroundRepeat = "no-repeat";
+  });
+}
+
 function setupReveal() {
   const nodes = $$(".reveal");
   if (!("IntersectionObserver" in window)) {
@@ -535,6 +548,7 @@ function setupPolarThemeToggle() {
   });
 }
 
+document.addEventListener("DOMContentLoaded", applyPortfolioCoverBackgrounds);
 setupReveal();
 setupPolarThemeToggle();
 setupMobileViewToggle();
