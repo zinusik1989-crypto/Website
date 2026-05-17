@@ -4,7 +4,7 @@
  */
 (function (global) {
   const STORAGE_KEY = "zin_consent_v1";
-  const VERSION = 1;
+  const VERSION = 2;
 
   function privacyHref() {
     const path = (location.pathname || "").replace(/\\/g, "/");
