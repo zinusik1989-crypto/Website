@@ -1763,7 +1763,7 @@ img{max-width:100%; display:block}
 .work__img{
   position:absolute;
   inset:0;
-  z-index:0;
+  z-index:1;
   background:
     radial-gradient(240px 180px at 30% 30%, rgba(var(--glass-opal),.18), transparent 64%),
     radial-gradient(240px 180px at 70% 60%, rgba(217,168,181,.18), transparent 66%),
@@ -1772,17 +1772,31 @@ img{max-width:100%; display:block}
 .work__imgPhoto{
   position:absolute;
   inset:0;
-  z-index: 1;
+  z-index:1;
   width:100%;
   height:100%;
-  object-fit: cover;
-  object-position: 50% 35%;
-  transform: translateZ(0) scale(1.02);
-  transition: transform .7s var(--ease), filter .7s var(--ease);
-  filter: saturate(1.08) contrast(1.03);
+  max-width:none;
+  object-fit:cover;
+  object-position:50% 35%;
+  transform:scale(1.02);
+  transition:transform .7s var(--ease), filter .7s var(--ease);
+  filter:saturate(1.08) contrast(1.03);
 }
 .work__img:has(.work__imgPhoto){
-  background: rgba(5, 10, 24, 0.2);
+  background:#0a1020;
+}
+.work__img:not(.work__img--empty)::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  background:
+    radial-gradient(380px 220px at 30% 20%, rgba(var(--glass-opal),.06), transparent 58%),
+    linear-gradient(180deg, rgba(28,20,24,0) 58%, rgba(28,20,24,.28));
+}
+.work--album::after{
+  display:none;
 }
 .work__img--empty{
   background:
@@ -1830,7 +1844,7 @@ img{max-width:100%; display:block}
   align-items:flex-end;
   justify-content:space-between;
   gap:10px;
-  z-index:2;
+  z-index:3;
 }
 .work__title{
   font-family: var(--font-display);
@@ -1879,8 +1893,12 @@ img{max-width:100%; display:block}
   /* keep wrapper stable */
 }
 .work:hover .work__imgPhoto{
-  transform: translateZ(0) scale(1.08);
-  filter: saturate(1.16) contrast(1.06);
+  transform:scale(1.08);
+  filter:saturate(1.16) contrast(1.06);
+}
+.work__imgPhoto--bg{
+  opacity:0;
+  pointer-events:none;
 }
 
 /* Авторские песни — примеры на заказ */
@@ -3402,13 +3420,13 @@ body:is(.theme-dark, .theme-day) .portrait__caption{
   box-shadow: var(--ice-shadow);
 }
 
-/* Альбомы: без backdrop-filter на всей карточке — иначе превью (transform у img) пропадает в Chrome на ПК */
+/* Альбомы: без backdrop-filter и без непрозрачного льда поверх фото */
 body:is(.theme-dark, .theme-day) .work {
   position: relative;
   overflow: hidden;
-  isolation: isolate;
+  isolation: auto;
   border: 1px solid var(--ice-border);
-  background: var(--ice-bg);
+  background: transparent;
   box-shadow: var(--ice-shadow);
 }
 
@@ -3699,7 +3717,7 @@ body.theme-day .metaCard__text{
 body.theme-day .work{
   background: rgba(255, 255, 255, 0.35);
 }
-body.theme-day .work::after{
+body.theme-day .work__img:not(.work__img--empty)::after{
   background: linear-gradient(
     180deg,
     transparent 35%,
