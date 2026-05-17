@@ -282,6 +282,10 @@
 
   function setPhoto(file) {
     if (!file) return;
+    if (window.SiteConsent && !window.SiteConsent.hasPersonalData()) {
+      showToast("Для загрузки фото отметьте согласие на обработку персональных данных внизу страницы");
+      return;
+    }
     const isImage =
       (file.type && file.type.startsWith("image/")) ||
       /\.(jpe?g|png|webp|gif|heic|heif|bmp)$/i.test(file.name || "");
@@ -381,6 +385,7 @@
 
   function recordGameResult(style) {
     if (!style || !window.SiteGameResults || resultRecorded) return;
+    if (window.SiteConsent && !window.SiteConsent.hasPersonalData()) return;
     resultRecorded = true;
     const summary = picksSummary();
     window.SiteGameResults.submit({

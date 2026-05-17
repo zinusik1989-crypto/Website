@@ -4024,3 +4024,153 @@ body:is(.theme-dark, .theme-day) .priceCard--featured:hover{
 .lightbox__count{
   color: rgba(var(--polar-ice-rgb), 0.62);
 }
+
+/* Cookie / PD consent banner */
+.cookieConsent{
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 2550;
+  padding: 12px max(12px, env(safe-area-inset-right, 0px)) max(12px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+.cookieConsent.is-visible{
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.cookieConsent--shake .cookieConsent__panel{
+  animation: cookieConsentShake 0.42s ease;
+}
+@keyframes cookieConsentShake{
+  0%, 100%{ transform: translateX(0); }
+  20%{ transform: translateX(-6px); }
+  40%{ transform: translateX(6px); }
+  60%{ transform: translateX(-4px); }
+  80%{ transform: translateX(4px); }
+}
+.cookieConsent__panel{
+  max-width: min(720px, 100%);
+  margin: 0 auto;
+  padding: 18px 20px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(var(--polar-cyan-rgb), 0.22);
+  background: rgba(5, 12, 28, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 16px 48px rgba(0, 6, 22, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+}
+.cookieConsent__kicker{
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: clamp(17px, 2.2vw, 20px);
+  font-weight: 600;
+  color: rgba(var(--polar-ice-rgb), 0.96);
+  letter-spacing: -0.01em;
+}
+.cookieConsent__text{
+  margin: 0 0 14px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(var(--polar-ice-rgb), 0.82);
+}
+.cookieConsent__nowrap{ white-space: nowrap; }
+.cookieConsent__link{
+  color: rgba(var(--polar-mint-rgb), 0.95);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.cookieConsent__link:hover{
+  color: rgba(var(--polar-cyan-rgb), 1);
+}
+.cookieConsent__check{
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 0 0 16px;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(var(--polar-ice-rgb), 0.88);
+}
+.cookieConsent__check-input{
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: rgba(var(--polar-mint-rgb), 1);
+}
+.cookieConsent__check-input[aria-invalid="true"]{
+  outline: 2px solid #e85d7a;
+  outline-offset: 2px;
+}
+.cookieConsent__actions{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.cookieConsent__btn{
+  flex: 1 1 140px;
+  min-height: 44px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+.cookieConsent__btn--primary{
+  color: #030a1a;
+  background: linear-gradient(135deg, #22d3ee 0%, #34d399 55%, #67e8f9 100%);
+  border-color: rgba(52, 211, 153, 0.45);
+}
+.cookieConsent__btn--primary:hover{
+  transform: translateY(-1px);
+}
+.cookieConsent__btn--ghost{
+  color: rgba(var(--polar-ice-rgb), 0.9);
+  background: rgba(var(--polar-ice-rgb), 0.06);
+  border-color: rgba(var(--polar-cyan-rgb), 0.22);
+}
+.cookieConsent__btn--ghost:hover{
+  background: rgba(var(--polar-ice-rgb), 0.1);
+}
+.cookieConsent__btn:focus-visible{
+  outline: 2px solid rgba(var(--polar-mint-rgb), 0.9);
+  outline-offset: 2px;
+}
+body.has-cookie-consent .backToTop{
+  bottom: max(108px, calc(12px + env(safe-area-inset-bottom, 0px) + 88px));
+}
+body.has-cookie-consent .mobileToggle{
+  bottom: max(108px, calc(12px + env(safe-area-inset-bottom, 0px) + 88px));
+}
+@media (max-width: 520px){
+  .cookieConsent__panel{ padding: 16px 14px 14px; }
+  .cookieConsent__btn{ flex: 1 1 100%; }
+}
+body.theme-day .cookieConsent__panel{
+  background: rgba(248, 252, 255, 0.96);
+  border-color: rgba(28, 20, 24, 0.1);
+  box-shadow: 0 14px 40px rgba(28, 20, 24, 0.12);
+}
+body.theme-day .cookieConsent__kicker,
+body.theme-day .cookieConsent__text,
+body.theme-day .cookieConsent__check{
+  color: rgba(28, 20, 24, 0.88);
+}
+body.theme-day .cookieConsent__btn--ghost{
+  color: rgba(28, 20, 24, 0.85);
+  background: rgba(28, 20, 24, 0.05);
+  border-color: rgba(28, 20, 24, 0.12);
+}
+@media (prefers-reduced-motion: reduce){
+  .cookieConsent{ transition: none; }
+  .cookieConsent--shake .cookieConsent__panel{ animation: none; }
+}
