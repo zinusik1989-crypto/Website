@@ -1364,6 +1364,68 @@ img{max-width:100%; display:block}
 .hero .metaCard{
   background: rgba(5, 12, 28, 0.58);
 }
+/* Hero → мини-игра */
+.hero__game-cta-wrap {
+  margin-top: 22px;
+  width: 100%;
+}
+
+.btn--game-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  padding: 14px 22px;
+  border: 1px solid rgba(52, 211, 153, 0.55);
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: #030a1a;
+  cursor: pointer;
+  background: linear-gradient(135deg, #22d3ee 0%, #34d399 50%, #67e8f9 100%);
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.35),
+    0 10px 36px rgba(34, 211, 238, 0.35),
+    0 0 48px rgba(52, 211, 153, 0.2);
+  animation: heroGameCtaPulse 2.8s ease-in-out infinite;
+  transition: transform 0.2s cubic-bezier(0.22, 0.8, 0.2, 1), box-shadow 0.2s;
+}
+
+.btn--game-cta:hover {
+  transform: translateY(-2px) scale(1.01);
+}
+
+.btn--game-cta:focus-visible {
+  outline: 2px solid #34d399;
+  outline-offset: 3px;
+}
+
+@keyframes heroGameCtaPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(34, 211, 238, 0.35),
+      0 10px 36px rgba(34, 211, 238, 0.35);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(52, 211, 153, 0.55),
+      0 12px 40px rgba(52, 211, 153, 0.4),
+      0 0 64px rgba(34, 211, 238, 0.35);
+  }
+}
+
+@media (min-width: 720px) {
+  .hero__game-cta-wrap {
+    max-width: 320px;
+  }
+}
+
 .hero__actions{display:flex; gap:12px; flex-wrap:wrap; margin-top: 22px}
 .hero__meta{
   display:grid;
