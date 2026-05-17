@@ -92,6 +92,7 @@
             <li><a class="nav__link" href="#about" data-cms="nav_about">Обо мне</a></li>
             <li><a class="nav__link" href="#services" data-cms="nav_services">Услуги</a></li>
             <li><a class="nav__link" href="#portfolio" data-cms="nav_portfolio">Портфолио</a></li>
+            <li><a class="nav__link" href="#songs" data-cms="nav_songs">Песни</a></li>
             <li><a class="nav__link" href="#arctic-story-game">Игра</a></li>
             <li><a class="nav__link" href="#pricing" data-cms="nav_pricing">Тарифы</a></li>
             <li><a class="nav__link" href="#contacts" data-cms="nav_contacts">Контакты</a></li>
@@ -118,6 +119,7 @@
               <li><a class="nav__link" href="#about" data-cms="nav_about">Обо мне</a></li>
               <li><a class="nav__link" href="#services" data-cms="nav_services">Услуги</a></li>
               <li><a class="nav__link" href="#portfolio" data-cms="nav_portfolio">Портфолио</a></li>
+              <li><a class="nav__link" href="#songs" data-cms="nav_songs">Песни</a></li>
               <li><a class="nav__link" href="#arctic-story-game">Игра</a></li>
               <li><a class="nav__link" href="#pricing" data-cms="nav_pricing">Тарифы</a></li>
               <li><a class="nav__link" href="#contacts" data-cms="nav_contacts">Контакты</a></li>
@@ -634,6 +636,109 @@
         </div>
       </section>
 
+      <!-- AUTHOR SONGS — примеры на заказ -->
+      <section class="section songs" id="songs" aria-label="Авторские песни на заказ">
+        <div class="container">
+          <div class="sectionHead reveal">
+            <p class="kicker" data-cms="songs_kicker">авторские песни</p>
+            <h2 class="h2" data-cms="songs_h2">Примеры работ на заказ</h2>
+            <p class="muted" data-cms="songs_intro">
+              Персональные тексты и мелодии — для поздравлений, семьи, экспертов и бренда. Ниже — примеры
+              реальных заказов: послушайте атмосферу и напишите, если нужна своя история в песне.
+            </p>
+          </div>
+
+          <div class="songs__grid">
+            <article class="songCard reveal">
+              <div class="songCard__cover" aria-hidden="true">
+                <img
+                  class="songCard__coverImg"
+                  src="./arctic-aurora.webp"
+                  alt="Обложка авторской песни Северный свет"
+                  loading="lazy"
+                  decoding="async"
+                  data-cms-src="song1_cover"
+                  data-cms="song1_cover_alt"
+                  data-cms-bind="alt"
+                />
+                <span class="songCard__badge" data-cms="song1_badge">на заказ</span>
+              </div>
+              <div class="songCard__body">
+                <h3 class="songCard__title" data-cms="song1_title">Северный свет</h3>
+                <p class="songCard__tag" data-cms="song1_tag">Юбилей • баллада • Заполярный</p>
+                <p class="songCard__desc" data-cms="song1_desc">
+                  Песня-открытка для мамы: тёплый текст про север, семью и свет в окне — без банальностей,
+                  с узнаваемыми деталями из жизни заказчицы.
+                </p>
+                <div class="songCard__player">
+                  <audio class="songCard__audio" controls preload="none" hidden data-cms-src="song1_audio"></audio>
+                  <p class="songCard__demoNote" data-cms="song1_demo">Фрагмент демо — полная версия по запросу</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="songCard reveal">
+              <div class="songCard__cover" aria-hidden="true">
+                <img
+                  class="songCard__coverImg"
+                  src="./arctic-glass.webp"
+                  alt="Обложка песни Выпускной взгляд"
+                  loading="lazy"
+                  decoding="async"
+                  data-cms-src="song2_cover"
+                  data-cms="song2_cover_alt"
+                  data-cms-bind="alt"
+                />
+                <span class="songCard__badge" data-cms="song2_badge">на заказ</span>
+              </div>
+              <div class="songCard__body">
+                <h3 class="songCard__title" data-cms="song2_title">Выпускной взгляд</h3>
+                <p class="songCard__tag" data-cms="song2_tag">Для дочери • поп-баллада</p>
+                <p class="songCard__desc" data-cms="song2_desc">
+                  Личная песня от родителей: про смелость, первый шаг во взрослую жизнь и поддержку — чтобы
+                  включить на вечере и сохранить на память.
+                </p>
+                <div class="songCard__player">
+                  <audio class="songCard__audio" controls preload="none" hidden data-cms-src="song2_audio"></audio>
+                  <p class="songCard__demoNote" data-cms="song2_demo">Фрагмент демо — полная версия по запросу</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="songCard reveal">
+              <div class="songCard__cover" aria-hidden="true">
+                <div class="songCard__coverFallback" aria-hidden="true">
+                  <span class="songCard__noteIcon" aria-hidden="true">♪</span>
+                </div>
+                <span class="songCard__badge" data-cms="song3_badge">на заказ</span>
+              </div>
+              <div class="songCard__body">
+                <h3 class="songCard__title" data-cms="song3_title">Голос эксперта</h3>
+                <p class="songCard__tag" data-cms="song3_tag">Имидж • intro для Reels</p>
+                <p class="songCard__desc" data-cms="song3_desc">
+                  Короткий авторский трек под личный бренд психолога: узнаваемый мотив, спокойный тон,
+                  удобно для заставки и начала эфиров.
+                </p>
+                <div class="songCard__player">
+                  <audio class="songCard__audio" controls preload="none" hidden data-cms-src="song3_audio"></audio>
+                  <p class="songCard__demoNote" data-cms="song3_demo">Фрагмент демо — полная версия по запросу</p>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="songs__cta reveal">
+            <p class="richP" data-cms="songs_cta_text">
+              Нужна песня под ваш повод — свадьба, день рождения, благодарность коллегам или саунд для контента?
+              Обсудим сюжет, настроение и срок; в прайсе — от 1000 ₽ за индивидуальную композицию.
+            </p>
+            <div class="songs__ctaActions">
+              <a class="btn btn--gold" href="#contacts" data-cms="songs_cta_btn">Заказать песню</a>
+              <a class="btn btn--ghost" href="#pricing" data-cms="songs_cta_price">Смотреть цену</a>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- AUDIENCE -->
       <section class="section" id="audience" aria-label="Для кого">

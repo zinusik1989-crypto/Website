@@ -30,6 +30,7 @@
     nav_about: "Обо мне",
     nav_services: "Услуги",
     nav_portfolio: "Портфолио",
+    nav_songs: "Песни",
     nav_pricing: "Тарифы",
     nav_contacts: "Контакты",
     header_portfolio_btn: "Портфолио",
@@ -154,6 +155,40 @@
     work_family_tag: "альбом • 4 фото",
     work_family_btn: "Смотреть альбом",
     work_family_aria: "Открыть альбом: Семейная съёмка",
+
+    songs_kicker: "авторские песни",
+    songs_h2: "Примеры работ на заказ",
+    songs_intro:
+      "Персональные тексты и мелодии — для поздравлений, семьи, экспертов и бренда. Ниже — примеры реальных заказов: послушайте атмосферу и напишите, если нужна своя история в песне.",
+    song1_cover: "./arctic-aurora.webp",
+    song1_cover_alt: "Обложка авторской песни Северный свет",
+    song1_badge: "на заказ",
+    song1_title: "Северный свет",
+    song1_tag: "Юбилей • баллада • Заполярный",
+    song1_desc:
+      "Песня-открытка для мамы: тёплый текст про север, семью и свет в окне — без банальностей, с узнаваемыми деталями из жизни заказчицы.",
+    song1_audio: "",
+    song1_demo: "Фрагмент демо — полная версия по запросу",
+    song2_cover: "./arctic-glass.webp",
+    song2_cover_alt: "Обложка песни Выпускной взгляд",
+    song2_badge: "на заказ",
+    song2_title: "Выпускной взгляд",
+    song2_tag: "Для дочери • поп-баллада",
+    song2_desc:
+      "Личная песня от родителей: про смелость, первый шаг во взрослую жизнь и поддержку — чтобы включить на вечере и сохранить на память.",
+    song2_audio: "",
+    song2_demo: "Фрагмент демо — полная версия по запросу",
+    song3_badge: "на заказ",
+    song3_title: "Голос эксперта",
+    song3_tag: "Имидж • intro для Reels",
+    song3_desc:
+      "Короткий авторский трек под личный бренд психолога: узнаваемый мотив, спокойный тон, удобно для заставки и начала эфиров.",
+    song3_audio: "",
+    song3_demo: "Фрагмент демо — полная версия по запросу",
+    songs_cta_text:
+      "Нужна песня под ваш повод — свадьба, день рождения, благодарность коллегам или саунд для контента? Обсудим сюжет, настроение и срок; в прайсе — от 1000 ₽ за индивидуальную композицию.",
+    songs_cta_btn: "Заказать песню",
+    songs_cta_price: "Смотреть цену",
 
     audience_h2: "Для кого",
     audience_intro:
@@ -308,6 +343,7 @@
       { key: "nav_about", label: "Пункт: Обо мне", type: "text" },
       { key: "nav_services", label: "Пункт: Услуги", type: "text" },
       { key: "nav_portfolio", label: "Пункт: Портфолио", type: "text" },
+      { key: "nav_songs", label: "Пункт: Песни", type: "text" },
       { key: "nav_pricing", label: "Пункт: Тарифы", type: "text" },
       { key: "nav_contacts", label: "Пункт: Контакты", type: "text" },
       { key: "header_portfolio_btn", label: "Кнопка Портфолио", type: "text" },
@@ -412,6 +448,36 @@
       { key: "lb_dialog_aria", label: "Лайтбокс — запасной aria-label диалога", type: "text" },
       { key: "lb_title", label: "Лайтбокс — запасной заголовок", type: "text" },
       { key: "lb_img_alt", label: "Лайтбокс — запасной alt (до открытия альбома)", type: "text" },
+    ]},
+    { section: "Авторские песни (3 примера)", fields: [
+      { key: "songs_kicker", label: "Kicker", type: "text" },
+      { key: "songs_h2", label: "Заголовок", type: "text" },
+      { key: "songs_intro", label: "Вводный текст", type: "textarea", rows: 3, wide: true },
+      { key: "song1_cover", label: "1 — обложка (путь)", type: "text" },
+      { key: "song1_cover_alt", label: "1 — alt обложки", type: "text" },
+      { key: "song1_badge", label: "1 — бейдж", type: "text" },
+      { key: "song1_title", label: "1 — название", type: "text" },
+      { key: "song1_tag", label: "1 — подпись", type: "text" },
+      { key: "song1_desc", label: "1 — описание", type: "textarea", rows: 3, wide: true },
+      { key: "song1_audio", label: "1 — аудио (путь .mp3, пусто = без плеера)", type: "text", wide: true },
+      { key: "song1_demo", label: "1 — подпись под плеером", type: "text", wide: true },
+      { key: "song2_cover", label: "2 — обложка (путь)", type: "text" },
+      { key: "song2_cover_alt", label: "2 — alt обложки", type: "text" },
+      { key: "song2_badge", label: "2 — бейдж", type: "text" },
+      { key: "song2_title", label: "2 — название", type: "text" },
+      { key: "song2_tag", label: "2 — подпись", type: "text" },
+      { key: "song2_desc", label: "2 — описание", type: "textarea", rows: 3, wide: true },
+      { key: "song2_audio", label: "2 — аудио (путь)", type: "text", wide: true },
+      { key: "song2_demo", label: "2 — подпись под плеером", type: "text", wide: true },
+      { key: "song3_badge", label: "3 — бейдж", type: "text" },
+      { key: "song3_title", label: "3 — название", type: "text" },
+      { key: "song3_tag", label: "3 — подпись", type: "text" },
+      { key: "song3_desc", label: "3 — описание", type: "textarea", rows: 3, wide: true },
+      { key: "song3_audio", label: "3 — аудио (путь)", type: "text", wide: true },
+      { key: "song3_demo", label: "3 — подпись под плеером", type: "text", wide: true },
+      { key: "songs_cta_text", label: "CTA — текст", type: "textarea", rows: 3, wide: true },
+      { key: "songs_cta_btn", label: "CTA — кнопка заказа", type: "text" },
+      { key: "songs_cta_price", label: "CTA — кнопка прайса", type: "text" },
     ]},
     { section: "Аудитория (чипы + список)", fields: [
       { key: "audience_h2", label: "Заголовок", type: "text" },
@@ -681,8 +747,15 @@
     document.querySelectorAll("[data-cms-src]").forEach((el) => {
       const key = el.getAttribute("data-cms-src");
       if (!key || !data[key]) return;
-      const u = displaySrc(data[key]);
-      if (u) el.setAttribute("src", u);
+      const raw = String(data[key]).trim();
+      if (!raw) return;
+      const u = displaySrc(raw);
+      if (!u) return;
+      el.setAttribute("src", u);
+      if (el.tagName === "AUDIO") {
+        el.hidden = false;
+        el.closest(".songCard")?.querySelector(".songCard__demoNote")?.classList.add("is-hidden");
+      }
     });
 
     const meta = document.getElementById("metaDescription");

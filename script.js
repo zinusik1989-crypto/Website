@@ -545,3 +545,20 @@ setupAlbumLightbox();
 setupHeroTitleSplit();
 setupScrollTriggerRefreshOnResize();
 
+function initSongPlayers() {
+  document.querySelectorAll(".songCard__audio").forEach((audio) => {
+    const src = (audio.getAttribute("src") || "").trim();
+    const note = audio.closest(".songCard")?.querySelector(".songCard__demoNote");
+    if (src) {
+      audio.hidden = false;
+      note?.classList.add("is-hidden");
+    }
+  });
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => setTimeout(initSongPlayers, 0), { once: true });
+} else {
+  setTimeout(initSongPlayers, 0);
+}
+
