@@ -9,7 +9,7 @@ import shutil
 from pathlib import Path
 
 from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont, ImageOps
-from mutagen.mp3 import MP3
+from mutagen import File as MutagenFile
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC_DIR = ROOT / "Песни"
@@ -85,6 +85,32 @@ TRACKS = [
         "accent2": (96, 165, 250),
         "badge": "Сильный сюжет",
     },
+    {
+        "match": "Мурманск",
+        "slug": "murmansk-zapominaet",
+        "title": "Мурманск запоминает",
+        "hook": "Город за Полярным кругом — в песне и в сердце",
+        "cta": "Слушать",
+        "bg": ROOT / "arctic-aurora.webp",
+        "crop": (0.48, 0.2),
+        "tint": (14, 38, 72),
+        "accent": (96, 165, 250),
+        "accent2": (52, 211, 153),
+        "badge": "Заполярный",
+    },
+    {
+        "match": "Позвони",
+        "slug": "pozvoni-poka-ne-pozdno",
+        "title": "Позвони, пока не поздно",
+        "hook": "Про любовь, звонок и последний шанс сказать главное",
+        "cta": "Послушать",
+        "bg": ROOT / "arctic-glass.webp",
+        "crop": (0.42, 0.32),
+        "tint": (48, 16, 42),
+        "accent": (244, 114, 182),
+        "accent2": (251, 191, 36),
+        "badge": "Лирика",
+    },
 ]
 
 
@@ -101,9 +127,9 @@ def load_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont | ImageFo
     return ImageFont.load_default()
 
 
-def extract_embedded_cover(mp3_path: Path) -> Image.Image | None:
-    audio = MP3(mp3_path)
-    if not audio.tags:
+def extract_embedded_cover(audio_path: Path) -> Image.Image | None:
+    audio = MutagenFile(audio_path)
+    if audio is None or not audio.tags:
         return None
     for key, frame in audio.tags.items():
         if not str(key).startswith("APIC"):
@@ -334,21 +360,22 @@ def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     COVERS.mkdir(parents=True, exist_ok=True)
 
-    mp3_files = sorted(SRC_DIR.glob("*.mp3"), key=lambda p: p.name.lower())
-    if len(mp3_files) < len(TRACKS):
-        raise SystemExit(f"Need {len(TRACKS)} mp3 in {SRC_DIR}, found {len(mp3_files)}")
+    audio_files = sorted([*SRC_DIR.glob("*.mp3"), *SRC_DIR.glob("*.wav")], key=lambda p: p.name.lower())
+    if len(audio_files) < len(TRACKS):
+        raise SystemExit(f"Need {len(TRACKS)} audio files in {SRC_DIR}, found {len(audio_files)}")
 
     used: set[Path] = set()
     for track in TRACKS:
         src = next(
-            (p for p in mp3_files if p not in used and track["match"].lower() in p.stem.lower()),
+            (p for p in audio_files if p not in used and track["match"].lower() in p.stem.lower()),
             None,
         )
         if src is None:
-            src = next(p for p in mp3_files if p not in used)
+            src = next(p for p in audio_files if p not in used)
         used.add(src)
 
-        shutil.copy2(src, OUT_DIR / f"{track['slug']}.mp3")
+        ext = src.suffix.lower()
+        shutil.copy2(src, OUT_DIR / f"{track['slug']}{ext}")
         embedded = extract_embedded_cover(src)
         cover = render_selling_cover(track, embedded)
         out = COVERS / f"{track['slug']}.webp"
