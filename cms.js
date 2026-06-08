@@ -310,22 +310,20 @@
 
     test_h2: "Отзывы",
     test_intro:
-      "Премиальный визуал — это ощущение уверенности, которое видно сразу.",
+      "Реальные сообщения клиентов из VK и Telegram — после нейрофотосессий и заказов.",
 
-    q1_text:
-      "«После обновления визуала мне начали писать “выглядите как бренд”. Конверсия в консультации выросла — и я наконец стала уверенно поднимать чек».",
-    q1_name: "Алина, эксперт",
-    q1_role: "нейрофотосессия + упаковка",
-
-    q2_text:
-      "«Очень точное попадание в стиль. Никакой “пластмассы” — всё выглядит дорого, мягко и по-настоящему. Сняла головную боль с контентом на месяц».",
-    q2_name: "Мария, психолог",
-    q2_role: "визуальный пакет",
-
-    q3_text:
-      "«Сделали клипы и карточки для рекламы. Визуал стал “дороже”, бренд начал выглядеть цельно — и люди стали задерживаться на странице».",
-    q3_name: "Илья, предприниматель",
-    q3_role: "AI-видео + креативы",
+    test_shot1_img: "./testimonials/review-01.webp",
+    test_shot1_alt: "Отзывы клиентов во ВКонтакте — Зинаида, нейрофотосессии",
+    test_shot2_img: "./testimonials/review-02.webp",
+    test_shot2_alt: "Отзыв в Telegram — «Вау», «Круто» после семейной нейрофотосессии",
+    test_shot3_img: "./testimonials/review-03.webp",
+    test_shot3_alt: "Отзыв в Telegram — про нейрофотосессию без студии",
+    test_shot4_img: "./testimonials/review-04.webp",
+    test_shot4_alt: "Отзыв в Telegram — «Вам спасибо, такие милые»",
+    test_shot5_img: "./testimonials/review-05.webp",
+    test_shot5_alt: "Отзыв в Telegram — «Спасибо большое»",
+    test_shot6_img: "./testimonials/review-06.webp",
+    test_shot6_alt: "Отзыв — «Спасибочки большое», Галина",
 
     cta_h2: "Готовы выглядеть дороже уже сегодня?",
     cta_body:
@@ -615,11 +613,10 @@
     ]},
     { section: "Отзывы", fields: [
       { key: "test_h2", label: "Заголовок", type: "text" },
-      { key: "test_intro", label: "Вводный текст", type: "text" },
-      ...[1, 2, 3].flatMap((n) => [
-        { key: `q${n}_text`, label: `Отзыв ${n}`, type: "textarea" },
-        { key: `q${n}_name`, label: `Отзыв ${n} — имя`, type: "text" },
-        { key: `q${n}_role`, label: `Отзыв ${n} — роль`, type: "text" },
+      { key: "test_intro", label: "Вводный текст", type: "text", wide: true },
+      ...[1, 2, 3, 4, 5, 6].flatMap((n) => [
+        { key: `test_shot${n}_img`, label: `Скрин ${n} — путь`, type: "text" },
+        { key: `test_shot${n}_alt`, label: `Скрин ${n} — alt`, type: "text", wide: true },
       ]),
     ]},
     { section: "Контакты", fields: [

@@ -2449,6 +2449,33 @@ body:is(.theme-dark, .theme-day) .priceGroup:hover{
   grid-template-columns: repeat(3, minmax(0,1fr));
   gap: 14px;
 }
+.testimonials--shots{
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.testimonialShot{
+  margin: 0;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(var(--polar-cyan-rgb), 0.16);
+  background: rgba(5, 12, 28, 0.55);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+.testimonialShot--wide{
+  grid-column: 1 / -1;
+  max-width: 720px;
+  justify-self: center;
+  width: 100%;
+}
+.testimonialShot__img{
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+body.theme-day .testimonialShot{
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(2, 132, 199, 0.22);
+}
 .quote{
   margin:0;
   border-radius: var(--radius-lg);
@@ -2619,6 +2646,7 @@ body:is(.theme-dark, .theme-day) #testimonials .sectionHead .h2{
   .priceRow{grid-template-columns: minmax(0, 1fr) auto; gap: 12px}
   .priceRow__dots{display:none}
   .testimonials{grid-template-columns: 1fr}
+  .testimonialShot--wide{max-width: none}
   .cta{grid-template-columns: 1fr}
 }
 
@@ -3045,8 +3073,11 @@ body:is(.theme-dark, .theme-day) #testimonials .sectionHead .h2{
   .priceList .priceGroup.reveal:nth-child(4){ --reveal-d: 0.21s }
   .priceList .priceGroup.reveal:nth-child(5){ --reveal-d: 0.28s }
 
-  .testimonials .quote.reveal:nth-child(2){ --reveal-d: 0.1s }
-  .testimonials .quote.reveal:nth-child(3){ --reveal-d: 0.2s }
+  .testimonials .testimonialShot.reveal:nth-child(2){ --reveal-d: 0.06s }
+  .testimonials .testimonialShot.reveal:nth-child(3){ --reveal-d: 0.12s }
+  .testimonials .testimonialShot.reveal:nth-child(4){ --reveal-d: 0.18s }
+  .testimonials .testimonialShot.reveal:nth-child(5){ --reveal-d: 0.24s }
+  .testimonials .testimonialShot.reveal:nth-child(6){ --reveal-d: 0.3s }
 
   .nav__list--chips .nav__link::before,
   .heroScreenNav__list .nav__link::before{
