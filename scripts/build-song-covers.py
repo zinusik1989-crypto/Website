@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import io
+import itertools
 import math
 import random
 import subprocess
@@ -29,6 +30,7 @@ TRACKS = [
     {
         "match": "Королева",
         "slug": "koroleva-arktiki",
+        "cover_png": "048be8e2-9f5f-4401-91cc-bb66123c1ebb.png",
         "title": "Королева Арктики",
         "hook": "Песня-корона для особенной женщины",
         "cta": "Слушать демо",
@@ -42,6 +44,7 @@ TRACKS = [
     {
         "match": "рождения",
         "slug": "den-rozhdeniya-irina",
+        "cover_png": "d18f7cc8-4487-4cf1-8b74-5896817edec0.png",
         "title": "С днём рождения, Ирина",
         "hook": "Имя в припеве — подарок, который плачут от радости",
         "cta": "Подарить песню",
@@ -55,6 +58,7 @@ TRACKS = [
     {
         "match": "шаман",
         "slug": "severnaya-shamanka",
+        "cover_png": "7b5ce861-cf45-4f76-a93a-33b4211dedf6.png",
         "title": "Северная шаманка",
         "hook": "Этно и мистика — сила севера в звуке",
         "cta": "Погрузиться",
@@ -68,6 +72,7 @@ TRACKS = [
     {
         "match": "Говорили",
         "slug": "govorili-tishe",
+        "cover_png": "0906a888-04e0-4b67-932a-830ccedb9575.png",
         "title": "Говорили: тише…",
         "hook": "Лирика, от которой замирает зал",
         "cta": "Послушать",
@@ -81,6 +86,7 @@ TRACKS = [
     {
         "match": "Дембель",
         "slug": "demebelskiy-vokzal",
+        "cover_png": "b4783963-47e5-423c-9c91-0d125d132cd1.png",
         "title": "Дембельский вокзал",
         "hook": "Про службу, встречу и дорогу домой",
         "cta": "Включить",
@@ -94,6 +100,7 @@ TRACKS = [
     {
         "match": "Мурманск",
         "slug": "murmansk-zapominaet",
+        "cover_png": "9caec103-bc9b-4ea5-9d4c-ad112d9c5250.png",
         "title": "Мурманск запоминает",
         "hook": "Город за Полярным кругом — в песне и в сердце",
         "cta": "Слушать",
@@ -107,6 +114,7 @@ TRACKS = [
     {
         "match": "Позвони",
         "slug": "pozvoni-poka-ne-pozdno",
+        "cover_png": "41b12c27-2d33-4c68-a1c2-53f848582bff.png",
         "title": "Позвони, пока не поздно",
         "hook": "Про любовь, звонок и последний шанс сказать главное",
         "cta": "Послушать",
@@ -388,23 +396,107 @@ def add_grain(img: Image.Image, amount: int = 8) -> Image.Image:
     return ImageChops.add(img, noise)
 
 
+def thumb_diff_rgb(a: Image.Image, b: Image.Image) -> float:
+    a = a.resize((64, 64), Image.Resampling.LANCZOS)
+    b = b.resize((64, 64), Image.Resampling.LANCZOS)
+    pa, pb = list(a.getdata()), list(b.getdata())
+    total = 0.0
+    for ca, cb in zip(pa, pb):
+        total += abs(ca[0] - cb[0]) + abs(ca[1] - cb[1]) + abs(ca[2] - cb[2])
+    return total / (64 * 64 * 3)
+
+
+def assign_png_covers(audio_paths: list[Path], png_files: list[Path]) -> dict[Path, Path]:
+    """Оптимальное сопоставление PNG ↔ MP3 (6×6 перебор)."""
+    pairs: list[tuple[Path, Image.Image]] = []
+    for audio in audio_paths:
+        emb = extract_embedded_cover(audio)
+        if emb is not None:
+            pairs.append((audio, emb.convert("RGB")))
+
+    if not pairs or not png_files:
+        return {}
+
+    png_imgs = [(p, Image.open(p).convert("RGB")) for p in png_files]
+    n = min(len(pairs), len(png_imgs))
+    pairs = pairs[:n]
+    png_imgs = png_imgs[:n]
+
+    matrix: list[list[float]] = []
+    for _, emb in pairs:
+        matrix.append([thumb_diff_rgb(emb, img) for _, img in png_imgs])
+
+    best_perm: tuple[int, ...] | None = None
+    best_score = math.inf
+    for perm in itertools.permutations(range(n)):
+        score = sum(matrix[i][perm[i]] for i in range(n))
+        if score < best_score:
+            best_score = score
+            best_perm = perm
+
+    mapping: dict[Path, Path] = {}
+    if best_perm:
+        for i, j in enumerate(best_perm):
+            mapping[pairs[i][0]] = png_imgs[j][0]
+    return mapping
+
+
+def png_to_cover_webp(png_path: Path, out_path: Path, size: int = 800) -> None:
+    """Обложка из PNG Suno: полное изображение в квадрате → WebP."""
+    img = Image.open(png_path).convert("RGB")
+    iw, ih = img.size
+    scale = size / max(iw, ih)
+    nw, nh = max(1, int(iw * scale)), max(1, int(ih * scale))
+    img = img.resize((nw, nh), Image.Resampling.LANCZOS)
+    canvas = Image.new("RGB", (size, size), (3, 10, 26))
+    canvas.paste(img, ((size - nw) // 2, (size - nh) // 2))
+    canvas.save(out_path, "WEBP", quality=86, method=6)
+
+
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     COVERS.mkdir(parents=True, exist_ok=True)
 
     audio_files = sorted([*SRC_DIR.glob("*.mp3"), *SRC_DIR.glob("*.wav")], key=lambda p: p.name.lower())
+    png_files = sorted(SRC_DIR.glob("*.png"), key=lambda p: p.name.lower())
     if len(audio_files) < len(TRACKS):
         raise SystemExit(f"Need {len(TRACKS)} audio files in {SRC_DIR}, found {len(audio_files)}")
 
-    used: set[Path] = set()
+    used_audio: set[Path] = set()
+    png_assignments: dict[Path, Path] = {}
+    resolved_sources: list[Path] = []
+    used_png: set[Path] = set()
+
     for track in TRACKS:
         src = next(
-            (p for p in audio_files if p not in used and track["match"].lower() in p.stem.lower()),
+            (p for p in audio_files if p not in used_audio and track["match"].lower() in p.stem.lower()),
             None,
         )
         if src is None:
-            src = next(p for p in audio_files if p not in used)
-        used.add(src)
+            src = next(p for p in audio_files if p not in used_audio)
+        used_audio.add(src)
+        resolved_sources.append(src)
+
+        explicit = track.get("cover_png")
+        if explicit:
+            png_path = SRC_DIR / str(explicit)
+            if png_path.exists():
+                png_assignments[src] = png_path
+                used_png.add(png_path)
+
+    auto_audio = [s for s in resolved_sources if s not in png_assignments]
+    auto_pngs = [p for p in png_files if p not in used_png]
+    png_assignments.update(assign_png_covers(auto_audio, auto_pngs))
+
+    used_audio.clear()
+    for track in TRACKS:
+        src = next(
+            (p for p in audio_files if p not in used_audio and track["match"].lower() in p.stem.lower()),
+            None,
+        )
+        if src is None:
+            src = next(p for p in audio_files if p not in used_audio)
+        used_audio.add(src)
 
         dest_mp3 = OUT_DIR / f"{track['slug']}.mp3"
         before = src.stat().st_size
@@ -416,10 +508,16 @@ def main() -> None:
         if legacy_wav.exists():
             legacy_wav.unlink()
         embedded = extract_embedded_cover(src)
-        cover = render_selling_cover(track, embedded)
         out = COVERS / f"{track['slug']}.webp"
-        cover.save(out, "WEBP", quality=84, method=6)
-        print(f"OK {track['slug']} audio {before // 1024}KB -> {after // 1024}KB")
+        external_png = png_assignments.get(src)
+        if external_png is not None:
+            png_to_cover_webp(external_png, out)
+            print(f"OK {track['slug']} cover from {external_png.name}")
+        else:
+            cover = render_selling_cover(track, embedded)
+            cover.save(out, "WEBP", quality=84, method=6)
+            print(f"OK {track['slug']} cover generated (no PNG in Песни)")
+        print(f"   audio {before // 1024}KB -> {after // 1024}KB")
 
 
 if __name__ == "__main__":
