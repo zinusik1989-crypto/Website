@@ -157,6 +157,58 @@ function setupBackToTop() {
   });
 }
 
+function buildTelegramOrderUrl(baseHref, text) {
+  const base = String(baseHref || "https://t.me/zinaida_ai").split("?")[0].trim();
+  const msg = String(text || "").trim();
+  if (!msg) return base;
+  return `${base}?text=${encodeURIComponent(msg)}`;
+}
+
+/** Кнопки с data-tg-order → t.me с готовым текстом заявки из CMS. */
+function setupTelegramOrderLinks() {
+  const data = window.SiteCMS?.mergeData?.() || {};
+  const base = data.contact_tg_href || "https://t.me/zinaida_ai";
+  const messages = {
+    default: data.order_tg_msg,
+    photo: data.order_tg_msg_photo,
+    song: data.order_tg_msg_song,
+  };
+
+  $$("[data-tg-order]").forEach((el) => {
+    const kind = el.getAttribute("data-tg-order") || "default";
+    const msg = messages[kind] ?? messages.default;
+    el.setAttribute("href", buildTelegramOrderUrl(base, msg));
+  });
+}
+
+/** Липкая кнопка «Написать» на мобильных — скрывается у блока контактов. */
+function setupStickyContact() {
+  const sticky = $("#stickyContact");
+  if (!sticky) return;
+
+  const contacts = $("#contacts");
+  const mq = window.matchMedia("(max-width: 720px)");
+
+  const update = () => {
+    if (!mq.matches) {
+      sticky.classList.remove("stickyContact--visible");
+      return;
+    }
+    const y = window.scrollY || document.documentElement.scrollTop;
+    let hideNearContacts = false;
+    if (contacts) {
+      hideNearContacts = contacts.getBoundingClientRect().top < window.innerHeight * 0.55;
+    }
+    sticky.classList.toggle("stickyContact--visible", y > 360 && !hideNearContacts);
+  };
+
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update, { passive: true });
+  if (mq.addEventListener) mq.addEventListener("change", update);
+  else mq.addListener(update);
+}
+
 function setupAlbumLightbox() {
   const triggers = $$("[data-album]");
   const lb = $("#lightbox");
@@ -548,6 +600,14 @@ function setupPolarThemeToggle() {
 }
 
 document.addEventListener("DOMContentLoaded", applyPortfolioCoverBackgrounds);
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+    setupTelegramOrderLinks();
+    setupStickyContact();
+  },
+  { once: true }
+);
 setupReveal();
 setupPolarThemeToggle();
 setupMobileViewToggle();

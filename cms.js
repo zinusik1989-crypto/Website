@@ -31,17 +31,25 @@
     nav_services: "Услуги",
     nav_portfolio: "Портфолио",
     nav_songs: "Песни",
+    nav_testimonials: "Отзывы",
     nav_pricing: "Тарифы",
     nav_contacts: "Контакты",
     header_portfolio_btn: "Портфолио",
-    header_consult_btn: "Консультация",
+    header_consult_btn: "Написать",
 
     kicker: "Заполярный • нейрофотосессии • AI-visual",
     hero_h1: "Фото мечты без камеры",
     hero_lead:
       "Создаю нейрофотосессии и AI-визуал из Заполярного — за Полярным кругом, где ночь длинная, а свет в кадре особенный",
-    hero_btn_primary: "Записаться на фотосессию",
+    hero_price_hook: "Первое фото — от 150 ₽, без пакетов и обязательств",
+    hero_btn_primary: "Написать в Telegram",
     hero_btn_secondary: "Смотреть портфолио",
+    order_tg_msg:
+      "Здравствуйте! Хочу нейрофотосессию. Подскажите, как начать.",
+    order_tg_msg_photo:
+      "Здравствуйте! Хочу заказать 1 нейрофото (150 ₽).",
+    order_tg_msg_song:
+      "Здравствуйте! Хочу заказать авторскую песню. Расскажите, как это проходит.",
 
     meta1_title: "Север",
     meta1_text: "Полярная ночь, сияние и ледяной свет — атмосфера Заполярного в кадре",
@@ -275,12 +283,18 @@
     faq_privacy_href: "./privacy.html",
     faq5_a_after:
       ". Если нужен отдельный режим (NDA, удаление промежуточных файлов после сдачи) — обсудим до старта.",
+    faq6_q: "Можно заказать песню на день рождения или праздник?",
+    faq6_a:
+      "Да. Авторская песня — отдельная услуга от 1000 ₽: персональный текст и атмосфера под ваш повод. Примеры — в блоке «Песни» на сайте; напишите в Telegram — обсудим сюжет и сроки.",
 
     pricing_kicker: "прайс-лист",
     pricing_h2: "Услуги и цены",
     pricing_intro:
       "Стартовые позиции от 150 ₽. Можно начать с одного фото — без обязательств и пакетов.",
-    pricing_cta: "Записаться",
+    order_step1: "Напишите в Telegram — опишите задачу или приложите референс",
+    order_step2: "Согласуем образ, стиль и срок (обычно 1–3 дня)",
+    order_step3: "Получите готовые файлы — можно сразу публиковать",
+    pricing_cta: "Написать в Telegram",
     pricing_note:
       "Финальная стоимость зависит от объёма и сроков — обсудим в переписке.",
 
@@ -305,7 +319,12 @@
     test_h2: "Отзывы",
     test_intro:
       "Реальные сообщения клиентов из VK и Telegram — после нейрофотосессий и заказов.",
-
+    test_shot1_src: "ВКонтакте",
+    test_shot2_src: "Telegram",
+    test_shot3_src: "Telegram",
+    test_shot4_src: "Telegram",
+    test_shot5_src: "Telegram",
+    test_shot6_src: "Отзыв клиента",
     test_shot1_img: "./testimonials/review-01.webp",
     test_shot1_alt: "Отзывы клиентов во ВКонтакте — Зинаида, нейрофотосессии",
     test_shot2_img: "./testimonials/review-02.webp",
@@ -322,10 +341,10 @@
     cta_h2: "Готовы выглядеть дороже уже сегодня?",
     cta_body:
       "Напишите мне — и я покажу, каким может быть ваш визуал с помощью AI.",
-    cta_btn_primary: "Связаться",
+    cta_btn_primary: "Написать в Telegram",
     cta_btn_secondary: "На главную",
     cta_note:
-      "Замените контакты на ваши: email / Telegram / WhatsApp. Кнопки можно связать с формой или мессенджером.",
+      "Ответ в Telegram обычно в течение 24 часов. Можем начать с мини-аудита профиля и идеи для образа.",
 
     cta_mail_href: "https://t.me/zinaida_ai",
     contact_tg_label: "Telegram",
@@ -371,6 +390,7 @@
       { key: "nav_services", label: "Пункт: Услуги", type: "text" },
       { key: "nav_portfolio", label: "Пункт: Портфолио", type: "text" },
       { key: "nav_songs", label: "Пункт: Песни", type: "text" },
+      { key: "nav_testimonials", label: "Пункт: Отзывы", type: "text" },
       { key: "nav_pricing", label: "Пункт: Тарифы", type: "text" },
       { key: "nav_contacts", label: "Пункт: Контакты", type: "text" },
       { key: "header_portfolio_btn", label: "Кнопка Портфолио", type: "text" },
@@ -380,7 +400,11 @@
       { key: "kicker", label: "Подзаголовок (kicker)", type: "text" },
       { key: "hero_h1", label: "Заголовок H1", type: "text" },
       { key: "hero_lead", label: "Лид-абзац", type: "textarea" },
+      { key: "hero_price_hook", label: "Строка «от 150 ₽»", type: "text", wide: true },
       { key: "hero_btn_primary", label: "Кнопка 1", type: "text" },
+      { key: "order_tg_msg", label: "Текст заявки в Telegram (общий)", type: "textarea", wide: true },
+      { key: "order_tg_msg_photo", label: "Текст заявки — 1 фото", type: "textarea", wide: true },
+      { key: "order_tg_msg_song", label: "Текст заявки — песня", type: "textarea", wide: true },
       { key: "hero_btn_secondary", label: "Кнопка 2", type: "text" },
       { key: "meta1_title", label: "Карточка 1 — заголовок", type: "text" },
       { key: "meta1_text", label: "Карточка 1 — текст", type: "textarea" },
@@ -573,12 +597,17 @@
       { key: "faq_privacy_label", label: "Ответ 5 — текст ссылки", type: "text" },
       { key: "faq_privacy_href", label: "Ответ 5 — URL ссылки (privacy)", type: "text" },
       { key: "faq5_a_after", label: "Ответ 5 — текст после ссылки", type: "textarea", rows: 2, wide: true },
+      { key: "faq6_q", label: "Вопрос 6 — песни", type: "text", wide: true },
+      { key: "faq6_a", label: "Ответ 6 — песни", type: "textarea", rows: 4, wide: true },
     ]},
     { section: "Прайс-лист", fields: [
       { key: "pricing_kicker", label: "Надзаголовок", type: "text" },
       { key: "pricing_h2", label: "Заголовок секции", type: "text" },
       { key: "pricing_intro", label: "Вводный текст", type: "textarea" },
-      { key: "pricing_cta", label: "Кнопка «Записаться»", type: "text" },
+      { key: "order_step1", label: "Как заказать — шаг 1", type: "text", wide: true },
+      { key: "order_step2", label: "Как заказать — шаг 2", type: "text", wide: true },
+      { key: "order_step3", label: "Как заказать — шаг 3", type: "text", wide: true },
+      { key: "pricing_cta", label: "Кнопка заказа", type: "text" },
       { key: "pricing_note", label: "Подпись под кнопкой", type: "textarea" },
 
       { key: "svc1_name", label: "Услуга 1 — название", type: "text" },
@@ -605,6 +634,7 @@
       ...[1, 2, 3, 4, 5, 6].flatMap((n) => [
         { key: `test_shot${n}_img`, label: `Скрин ${n} — путь`, type: "text" },
         { key: `test_shot${n}_alt`, label: `Скрин ${n} — alt`, type: "text", wide: true },
+        { key: `test_shot${n}_src`, label: `Скрин ${n} — подпись (VK/TG)`, type: "text" },
       ]),
     ]},
     { section: "Контакты", fields: [

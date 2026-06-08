@@ -1126,6 +1126,53 @@ img{max-width:100%; display:block}
   font-family: var(--font-sans);
 }
 
+/* Липкая кнопка заказа — только мобильные */
+.stickyContact{
+  position: fixed;
+  left: 50%;
+  z-index: 2515;
+  bottom: max(16px, env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%) translateY(72px);
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(var(--polar-mint-rgb), 0.35);
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.92) 0%, rgba(52, 211, 153, 0.92) 100%);
+  color: #041018;
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+  box-shadow: 0 14px 40px rgba(0, 8, 26, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.28s var(--ease),
+    transform 0.28s var(--ease),
+    visibility 0.28s;
+}
+.stickyContact--visible{
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+.stickyContact__icon{font-size: 16px; line-height: 1}
+.stickyContact:focus-visible{
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(var(--polar-cyan-rgb), 0.45),
+    0 14px 40px rgba(0, 8, 26, 0.45);
+}
+@media (max-width: 720px){
+  .stickyContact{display: inline-flex}
+  body.has-cookie-consent .stickyContact{
+    bottom: max(108px, calc(12px + env(safe-area-inset-bottom, 0px) + 88px));
+  }
+}
+
 /* Фон героя: градиенты (нижний «полярный» слой); при желании можно добавить фото в background-image */
 .hero__bg{
   position:absolute;
@@ -1366,7 +1413,7 @@ img{max-width:100%; display:block}
 }
 /* Hero → мини-игра */
 .hero__game-cta-wrap {
-  margin-top: 22px;
+  margin-top: 16px;
   width: 100%;
 }
 
@@ -1427,6 +1474,14 @@ img{max-width:100%; display:block}
 }
 
 .hero__actions{display:flex; gap:12px; flex-wrap:wrap; margin-top: 22px}
+.hero__priceHook{
+  margin: 14px 0 0;
+  font-size: clamp(15px, 2.2vw, 17px);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: rgba(var(--polar-mint-rgb), 0.95);
+  text-shadow: 0 1px 12px rgba(var(--polar-cyan-rgb), 0.25);
+}
 .hero__meta{
   display:grid;
   grid-template-columns: repeat(3, minmax(0,1fr));
@@ -2382,6 +2437,47 @@ body:is(.theme-dark, .theme-day) .priceGroup:hover{
 }
 .priceList__cta .muted{max-width: 56ch}
 
+.orderSteps{
+  list-style: none;
+  margin: 0 0 28px;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+  counter-reset: orderStep;
+}
+.orderSteps__item{
+  counter-increment: orderStep;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(var(--polar-cyan-rgb), 0.16);
+  background: rgba(5, 12, 28, 0.48);
+  color: rgba(var(--polar-ice-rgb), 0.92);
+  line-height: 1.55;
+  font-size: 15.5px;
+}
+.orderSteps__item::before{
+  content: counter(orderStep);
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: rgba(var(--polar-mint-rgb), 1);
+  background: rgba(var(--polar-cyan-rgb), 0.14);
+  border: 1px solid rgba(var(--polar-cyan-rgb), 0.28);
+}
+body.theme-day .orderSteps__item{
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(2, 132, 199, 0.18);
+  color: rgba(15, 23, 42, 0.88);
+}
+
 /* Старая разметка тарифов (на случай других страниц) */
 .pricing{
   display:grid;
@@ -2472,6 +2568,15 @@ body:is(.theme-dark, .theme-day) .priceGroup:hover{
   display: block;
   object-fit: contain;
 }
+.testimonialShot__cap{
+  padding: 8px 12px 10px;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(var(--polar-ice-rgb), 0.55);
+}
+body.theme-day .testimonialShot__cap{color: rgba(15, 23, 42, 0.5)}
 body.theme-day .testimonialShot{
   background: rgba(255, 255, 255, 0.92);
   border-color: rgba(2, 132, 199, 0.22);
