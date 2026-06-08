@@ -224,7 +224,6 @@ function setupAlbumLightbox() {
   const ALBUM_FILES = {
     arctic: ARCTIC_FILES,
     women: WOMEN_FILES,
-    men: [],
     kids: KIDS_FILES,
     family: FAMILY_FILES,
   };

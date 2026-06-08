@@ -119,8 +119,6 @@
     portfolio_h2: "Примеры работ",
     portfolio_intro:
       "Северная нейрофотосессия из Заполярного, женский и семейный портрет, детские образы — откройте альбом целиком.",
-    work_btn: "Скоро",
-
     work_arctic_img: "./portfolio/arctic.webp",
     work_arctic_alt: "Северная нейрофотосессия у панорамного окна, северное сияние, Заполярный",
     work_arctic_title: "Север / Арктика",
@@ -134,10 +132,6 @@
     work_women_tag: "альбом • 23 фото",
     work_women_btn: "Смотреть альбом",
     work_women_aria: "Открыть альбом: Женский портрет",
-
-    work_men_title: "Мужской портрет",
-    work_men_tag: "альбом",
-    work_men_aria: "Открыть альбом: Мужской портрет",
 
     work_kids_img: "./portfolio/kids.webp",
     work_kids_alt: "Детский нейропортрет в нежных тонах, фотосессия для ребёнка",
@@ -440,10 +434,9 @@
       { key: "svc_detail_p1", label: "Под карточками — левая колонка", type: "textarea", rows: 4, wide: true },
       { key: "svc_detail_p2", label: "Под карточками — правая колонка", type: "textarea", rows: 4, wide: true },
     ]},
-    { section: "Портфолио (5 альбомов)", fields: [
+    { section: "Портфолио (4 альбома)", fields: [
       { key: "portfolio_h2", label: "Заголовок секции", type: "text" },
       { key: "portfolio_intro", label: "Вводный текст", type: "textarea" },
-      { key: "work_btn", label: "Текст на кнопке карточки", type: "text" },
 
       { key: "work_arctic_img", label: "Север — превью (путь)", type: "text" },
       { key: "work_arctic_alt", label: "Север — alt превью", type: "text", wide: true },
@@ -458,11 +451,6 @@
       { key: "work_women_tag", label: "Женский портрет — подпись (альбом • N фото)", type: "text" },
       { key: "work_women_btn", label: "Женский портрет — текст кнопки", type: "text" },
       { key: "work_women_aria", label: "Женский портрет — aria-label кнопки", type: "text" },
-
-      { key: "work_men_img", label: "Мужской портрет — превью (путь)", type: "text" },
-      { key: "work_men_title", label: "Мужской портрет — название", type: "text" },
-      { key: "work_men_tag", label: "Мужской портрет — подпись", type: "text" },
-      { key: "work_men_aria", label: "Мужской портрет — aria-label кнопки", type: "text" },
 
       { key: "work_kids_img", label: "Дети — превью (путь)", type: "text" },
       { key: "work_kids_alt", label: "Дети — alt превью", type: "text", wide: true },
