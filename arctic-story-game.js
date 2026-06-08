@@ -277,13 +277,55 @@
   }
 
   function openFilePicker() {
+    if (!hasGamePdConsent()) {
+      promptGamePdConsent();
+      return;
+    }
     $("#asgPhotoInput")?.click();
+  }
+
+  function hasGamePdConsent() {
+    const cb = $("#asgPdConsent");
+    if (cb?.checked) return true;
+    return Boolean(window.SiteConsent?.hasPersonalData?.());
+  }
+
+  function promptGamePdConsent() {
+    const cb = $("#asgPdConsent");
+    showToast("Отметьте согласие на обработку персональных данных для игры");
+    cb?.setAttribute("aria-invalid", "true");
+    cb?.focus();
+    $("#asgPdConsentLabel")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    window.setTimeout(() => cb?.removeAttribute("aria-invalid"), 2400);
+  }
+
+  function syncGameConsentCheckbox() {
+    const cb = $("#asgPdConsent");
+    if (!cb) return;
+    if (window.SiteConsent?.hasPersonalData?.()) cb.checked = true;
+    updateUploadLockState();
+  }
+
+  function updateUploadLockState() {
+    const zone = $("#asgUploadZone");
+    const allowed = hasGamePdConsent();
+    zone?.classList.toggle("is-locked", !allowed);
+    zone?.setAttribute("aria-disabled", allowed ? "false" : "true");
+  }
+
+  function onGameConsentChange() {
+    const cb = $("#asgPdConsent");
+    if (cb?.checked) {
+      cb.removeAttribute("aria-invalid");
+      window.SiteConsent?.grantPersonalData?.();
+    }
+    updateUploadLockState();
   }
 
   function setPhoto(file) {
     if (!file) return;
-    if (window.SiteConsent && !window.SiteConsent.hasPersonalData()) {
-      showToast("Для загрузки фото отметьте согласие на обработку персональных данных внизу страницы");
+    if (!hasGamePdConsent()) {
+      promptGamePdConsent();
       return;
     }
     const isImage =
@@ -491,6 +533,9 @@
     if (input) input.value = "";
     const btn = $("#asgActivatePortal");
     if (btn) btn.disabled = true;
+    const pd = $("#asgPdConsent");
+    if (pd && !window.SiteConsent?.hasPersonalData?.()) pd.checked = false;
+    updateUploadLockState();
     HERO_SCREENS.forEach((_, i) => renderHeroScreen(i));
     showStep("portal", { scroll: false });
   }
@@ -498,8 +543,12 @@
   function bindEvents() {
     root.querySelector(".arctic-story-game__btn-portal")?.addEventListener("click", () => {
       gameStarted = true;
+      syncGameConsentCheckbox();
       showStep("upload", { scroll: true });
     });
+
+    $("#asgPdConsent")?.addEventListener("change", onGameConsentChange);
+    window.addEventListener("zin:consent", syncGameConsentCheckbox);
 
     const zone = $("#asgUploadZone");
     const input = $("#asgPhotoInput");
@@ -567,6 +616,7 @@
     spawnSnow($("#asgSnow"));
     HERO_SCREENS.forEach((_, i) => renderHeroScreen(i));
     bindEvents();
+    syncGameConsentCheckbox();
     showStep("portal", { scroll: false });
     handleHash();
     window.addEventListener("hashchange", handleHash);

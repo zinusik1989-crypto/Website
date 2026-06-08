@@ -263,6 +263,12 @@ function setupAlbumLightbox() {
     "Фото/Koi-gHLQ_IlqPwNjL4MLRmtQTVz_Gfvczr5JhovyDsgMcabHCQwWA3IdDwG7Cc4gTLmXyjGYVs259X15JtzFxG_U.jpg",
     "Фото/tOX80igluWyLMdKEFIQj4ZZ1-j7VcDSDoJRzsw9dj5Qch9pX-zK-7r8KV_CjPAOfQqOCykT0BKdtVerda1ZkXhHQ.jpg",
     "Фото/xPN6XipEXbrFxejWa1B5i0jTtXYT9L4SNbcIZrqbENt0DKN9SXf2vmiiwQ4BVQfRa6jSsp7NNylvgF_KRKua3uf1.jpg",
+    "Фото/wHN8BC9XdAP4Jth3qPylQmHcGqRuAZOoC5lRGjgl9d4cVfPx9LI7nVzOtorhQB9ynl4-6AUZcms67DtTyd4QK8tc.jpg",
+    "Фото/W9j70THXo8inXweFt_QmmwQPXEzsvVxzbFZGCCRbzOfqrOxLzHheCps4e9-W8Cf20wgqM0gQhXOhem63oM7UC9Rz.jpg",
+    "Фото/vuvnxaa54OjCVbS8dOC1mmkjGv4v0vmprpS25PBNAx3RSp6Yfn3vC2Ik5DgFYtX31meC0gHR4elrctSvEO9w9kS8.jpg",
+    "Фото/ujmGAn8ffuxlViizenYxmoTkre9j2I8elyfPU88We5aEGeJhd4SllVt09yBrgnsJWeEIul_c36hhAmPp3-Girb2w.jpg",
+    "Фото/Ra9a0akeWy1_g5ZEny_qaTj3ILLnTKxzyzJseJsYtAnksXeoz0_A-uaV2RchiVniDPgWOQJbjkU6TdFp9vuRfQ9i.jpg",
+    "Фото/j4TNtd6dkmQKT01XHi601BwVTxxKIQNhLMlCM5x2CR885fIjSAmGGLd0gexUKoy_4Mv4gR0nVmqU0j9ifEReCafq.jpg",
   ];
 
   const FAMILY_FILES = [

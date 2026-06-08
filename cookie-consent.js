@@ -143,10 +143,21 @@
     }
   }
 
+  function grantPersonalData() {
+    const existing = read();
+    const data = write({
+      cookies: existing?.cookies === "essential" ? "all" : existing?.cookies || "all",
+      personalData: true,
+    });
+    dispatch(data);
+    return data;
+  }
+
   global.SiteConsent = {
     read,
     hasPersonalData,
     hasOptionalCookies,
+    grantPersonalData,
     VERSION,
   };
 

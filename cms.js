@@ -144,7 +144,7 @@
     work_kids_img: "./portfolio/kids.webp",
     work_kids_alt: "Детский нейропортрет в нежных тонах, фотосессия для ребёнка",
     work_kids_title: "Дети",
-    work_kids_tag: "альбом • 5 фото",
+    work_kids_tag: "альбом • 11 фото",
     work_kids_btn: "Смотреть альбом",
     work_kids_aria: "Открыть альбом: Дети",
 

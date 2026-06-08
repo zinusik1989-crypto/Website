@@ -257,7 +257,21 @@
                 </div>
                 <img class="arctic-story-game__preview" id="asgPreview" alt="" width="220" height="293" />
               </div>
-              <p class="arctic-story-game__privacy">Фото остаётся только в вашем браузере.</p>
+              <p class="arctic-story-game__privacy">Фото показывается только в вашем браузере и не сохраняется после закрытия вкладки.</p>
+              <label class="arctic-story-game__consent" id="asgPdConsentLabel">
+                <input
+                  type="checkbox"
+                  class="arctic-story-game__consent-input"
+                  id="asgPdConsent"
+                  name="asgPdConsent"
+                />
+                <span class="arctic-story-game__consent-text">
+                  Я соглашаюсь на обработку персональных данных (фото и результатов игры) в браузере в
+                  соответствии с
+                  <a class="arctic-story-game__consent-link" href="./privacy.html#game-pd">политикой конфиденциальности</a>.
+                  Файл фото на сервер не отправляется.
+                </span>
+              </label>
               <button type="button" class="arctic-story-game__btn arctic-story-game__btn--primary" id="asgActivatePortal" disabled>
                 ❄️ Активировать портал
               </button>
@@ -601,7 +615,7 @@
               <div class="work__cap">
                 <div>
                   <div class="work__title" data-cms="work_kids_title">Детский</div>
-                  <div class="work__tag" data-cms="work_kids_tag">альбом • 5 фото</div>
+                  <div class="work__tag" data-cms="work_kids_tag">альбом • 11 фото</div>
                 </div>
                 <span class="work__btn" aria-hidden="true" data-cms="work_kids_btn">Смотреть альбом</span>
               </div>
